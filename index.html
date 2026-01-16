@@ -2,31 +2,155 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="vewport" content="wdth=devce-wdth, ntal-scale=1.0" />
-  <ttle>Dashboard Fnancero</ttle>
-  <lnk rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Financiero</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- HERO -->
   <header class="hero-df">
-    <dv class="contaner">
-      <dv class="hero-df-content">
-        <h1>Ten claro tu dnero sn pelearte con Excel</h1>
-        <p class="hero-df-subttle">
-          Dashboard Fnancero reúne en un solo sto tus ngresos, gastos y ahorros, con gráfcos claros y automatzados,
-          para que veas en segundos a dónde se va tu dnero.
+    <div class="container">
+      <div class="hero-df-content">
+        <h1>Ten claro tu dinero sin pelearte con Excel</h1>
+        <p class="hero-df-subtitle">
+          Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros, con gráficos claros y automatizados,
+          para que veas en segundos a dónde se va tu dinero.
         </p>
-        <dv class="hero-df-actons">
-          <a href="https://www.dashboardfnancero.es/" class="btn-prmary-df">
-            Acceder a m dashboard
+        <div class="hero-df-actions">
+          <a href="https://www.dashboardfinanciero.es/" class="btn-primary-df">
+            Acceder a mi dashboard
           </a>
           <a href="#ejemplo-panel" class="btn-secondary-df">
             Ver ejemplo de panel
           </a>
-        </dv>
-      </dv>
-    </dv>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <!-- Aquí luego añadremos el resto de seccones -->
+  <main>
+    <!-- QUÉ HACE -->
+    <section class="section-df" id="que-es">
+      <div class="container">
+        <h2>Qué hace Dashboard Financiero</h2>
+        <p class="section-df-subtitle">
+          Una vista clara y centralizada de tus finanzas personales para saber en segundos cómo vas de ingresos, gastos y ahorro.
+        </p>
+
+        <div class="df-grid-3">
+          <div class="df-card">
+            <h3>Centraliza tus movimientos</h3>
+            <p>
+              Registra ingresos y gastos por categorías y olvídate de Excels dispersos. Todo queda guardado en un mismo panel.
+            </p>
+          </div>
+
+          <div class="df-card">
+            <h3>Gráficos listos para usar</h3>
+            <p>
+              Ve tus datos en gráficos claros: ingresos vs gastos, categorías principales y evolución mensual.
+            </p>
+          </div>
+
+          <div class="df-card">
+            <h3>Decisiones más rápidas</h3>
+            <p>
+              Identifica en qué se va el dinero y cuánto estás ahorrando cada mes para ajustar hábitos y objetivos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJEMPLO DE PANEL -->
+    <section class="section-df alt-df" id="ejemplo-panel">
+      <div class="container ejemplo-panel">
+        <div class="ejemplo-texto">
+          <h2>Un panel claro para ver todo de un vistazo</h2>
+          <p class="section-df-subtitle">
+            Dashboard Financiero agrupa tus métricas clave: ingresos, gastos, ahorro del mes e históricos,
+            con gráficos que puedes revisar en segundos desde cualquier dispositivo.
+          </p>
+          <ul class="ejemplo-lista">
+            <li>Resumen del mes con ingresos, gastos y ahorro.</li>
+            <li>Gráficos por categoría para ver dónde se va el dinero.</li>
+            <li>Histórico mensual para seguir tu evolución en el tiempo.</li>
+          </ul>
+          <a href="https://www.dashboardfinanciero.es/" class="btn-primary-df ejemplo-btn">
+            Empezar a usar mi dashboard
+          </a>
+        </div>
+
+        <div class="ejemplo-imagen">
+          <!-- Mockup CSS; puedes sustituirlo por una imagen real -->
+          <div class="mockup">
+            <span class="mockup-bar"></span>
+            <div class="mockup-body">
+              <div class="mockup-grafico grande"></div>
+              <div class="mockup-grafico fila">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARA QUIÉN ES -->
+    <section class="section-df" id="para-quien">
+      <div class="container">
+        <h2>¿Para quién es Dashboard Financiero?</h2>
+        <p class="section-df-subtitle">
+          Está pensado para personas que quieren tomar el control de sus finanzas sin complicarse con hojas de cálculo
+          infinitas ni fórmulas raras.
+        </p>
+
+        <div class="df-grid-3">
+          <div class="df-card">
+            <h3>Estudiantes y primeros sueldos</h3>
+            <p>
+              Si estás empezando a manejar tu propio dinero, tendrás una visión clara de en qué se te va el mes
+              y cuánto consigues ahorrar.
+            </p>
+          </div>
+
+          <div class="df-card">
+            <h3>Profesionales y freelances</h3>
+            <p>
+              Separa mejor gastos personales y profesionales, y entiende tus meses fuertes y flojos de un vistazo.
+            </p>
+          </div>
+
+          <div class="df-card">
+            <h3>Parejas que gestionan juntos</h3>
+            <p>
+              Un panel compartido para ver ingresos, gastos comunes y objetivos de ahorro sin discusiones por los números.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="section-df alt-df cta-final" id="cta">
+      <div class="container cta-final-inner">
+        <div>
+          <h2>Empieza hoy a tener claro tu dinero</h2>
+          <p class="section-df-subtitle">
+            En pocos minutos puedes tener tu dashboard creado, empezar a registrar movimientos y ver tus primeros
+            gráficos de ingresos, gastos y ahorro.
+          </p>
+        </div>
+        <div class="cta-final-actions">
+          <a href="https://www.dashboardfinanciero.es/" class="btn-primary-df">
+            Acceder a mi dashboard
+          </a>
+          <a href="#ejemplo-panel" class="btn-secondary-df">
+            Ver cómo se ve por dentro
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
