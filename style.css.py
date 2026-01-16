@@ -1,0 +1,277 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: #0f172a;
+  background: #f5f7fb;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* HERO Dashboard Financiero */
+.hero-df {
+  background: linear-gradient(135deg, #0f5eff 0%, #6366f1 50%, #4f46e5 100%);
+  color: #ffffff;
+  padding: 4rem 0 3.5rem;
+}
+
+.hero-df-content {
+  max-width: 720px;
+}
+
+.hero-df h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.hero-df-subtitle {
+  font-size: 1.05rem;
+  max-width: 640px;
+  margin-bottom: 1.8rem;
+  opacity: 0.95;
+}
+
+.hero-df-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Botones */
+.btn-primary-df,
+.btn-secondary-df {
+  display: inline-block;
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.98rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn-primary-df {
+  background: #ffffff;
+  color: #0f5eff;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+}
+
+.btn-primary-df:hover {
+  transform: translateY(-2px);
+  background: #e5edff;
+}
+
+.btn-secondary-df {
+  background: rgba(15, 23, 42, 0.2);
+  color: #e5e7eb;
+  border: 1px solid rgba(248, 250, 252, 0.4);
+}
+
+.btn-secondary-df:hover {
+  transform: translateY(-2px);
+  background: rgba(15, 23, 42, 0.35);
+}
+
+/* Secciones genéricas */
+.section-df {
+  padding: 3rem 0;
+  background: #f5f7fb;
+}
+
+.section-df.alt-df {
+  background: #ffffff;
+}
+
+.section-df h2 {
+  font-size: 1.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.section-df-subtitle {
+  max-width: 620px;
+  margin-bottom: 2rem;
+  color: #4b5563;
+}
+
+/* Tarjetas / grid */
+.df-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.df-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.df-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.df-card p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* Sección ejemplo de panel */
+.ejemplo-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.ejemplo-texto h2 {
+  font-size: 1.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.ejemplo-lista {
+  list-style: disc;
+  margin-left: 1.2rem;
+  margin-bottom: 1.8rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.ejemplo-lista li {
+  margin-bottom: 0.4rem;
+}
+
+.ejemplo-btn {
+  margin-top: 0.5rem;
+}
+
+/* Mockup sencillo */
+.ejemplo-imagen {
+  display: flex;
+  justify-content: center;
+}
+
+.mockup {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 18px;
+  background: #0f172a;
+  padding: 0.9rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
+}
+
+.mockup-bar {
+  display: block;
+  width: 56%;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.7);
+  margin: 0 auto 0.8rem;
+}
+
+.mockup-body {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+}
+
+.mockup-grafico.grande {
+  height: 150px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0f5eff 0%, #22c55e 100%);
+  margin-bottom: 0.9rem;
+}
+
+.mockup-grafico.fila {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.mockup-grafico.fila span {
+  height: 70px;
+  border-radius: 8px;
+  background: #e5e7eb;
+}
+
+/* CTA final */
+.cta-final {
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.cta-final h2 {
+  color: #f9fafb;
+}
+
+.cta-final .section-df-subtitle {
+  color: #cbd5f5;
+}
+
+.cta-final-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.cta-final-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.cta-final .btn-secondary-df {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-df {
+    padding: 3rem 0 2.8rem;
+  }
+
+  .hero-df h1 {
+    font-size: 1.9rem;
+  }
+
+  .hero-df-subtitle {
+    font-size: 0.98rem;
+  }
+
+  .hero-df-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ejemplo-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .ejemplo-imagen {
+    order: -1;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-final-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
