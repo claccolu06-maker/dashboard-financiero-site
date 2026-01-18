@@ -163,51 +163,37 @@ body {
 /* Mockup sencillo */
 .ejemplo-imagen {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-.mockup {
+.ejemplo-main-img,
+.ejemplo-thumbs img {
   width: 100%;
-  max-width: 420px;
-  border-radius: 18px;
-  background: #0f172a;
-  padding: 0.9rem;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
-}
-
-.mockup-bar {
+  height: auto;
   display: block;
-  width: 56%;
-  height: 7px;
-  border-radius: 999px;
-  background: rgba(148, 163, 184, 0.7);
-  margin: 0 auto 0.8rem;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
 }
 
-.mockup-body {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 1rem 1.1rem;
-}
-
-.mockup-grafico.grande {
-  height: 150px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #0f5eff 0%, #22c55e 100%);
-  margin-bottom: 0.9rem;
-}
-
-.mockup-grafico.fila {
+.ejemplo-thumbs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
 
-.mockup-grafico.fila span {
-  height: 70px;
-  border-radius: 8px;
-  background: #e5e7eb;
+.ejemplo-imagen img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;   /* quita esto si quieres ver el 100% sin recorte */
 }
+.ejemplo-imagen img {
+  height: 60px;
+  overflow: hidden;
+}
+
+
 
 /* CTA final */
 .section-df.cta-final {
@@ -333,6 +319,7 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
 
 
 
