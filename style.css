@@ -275,3 +275,44 @@ body {
     align-items: flex-start;
   }
 }
+.cta-final {
+  background: #0b1120;           /* más oscuro que antes */
+  color: #e5e7eb;
+}
+
+.cta-final h2 {
+  color: #f9fafb;
+}
+
+.cta-final .section-df-subtitle {
+  color: #d1d5db;
+}
+.section-df.cta-final {
+  padding: 3.5rem 0;            /* un poco más de alto */
+}
+
+.cta-final-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.8rem;
+  align-items: center;
+}
+
+/* Botones más marcados sobre fondo oscuro */
+.cta-final .btn-primary-df {
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.6);
+}
+
+.cta-final .btn-primary-df:hover {
+  background: #e0ebff;
+}
+
+.cta-final .btn-secondary-df {
+  background: transparent;
+  color: #e5e7eb;
+  border-color: rgba(148, 163, 184, 0.9);
+}
+
