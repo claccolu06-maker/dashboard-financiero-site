@@ -210,85 +210,18 @@ body {
 }
 
 /* CTA final */
-.cta-final {
-  background: #0f172a;
-  color: #e5e7eb;
-}
-
-.cta-final h2 {
-  color: #f9fafb;
-}
-
-.cta-final .section-df-subtitle {
-  color: #cbd5f5;
-}
-
-.cta-final-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.cta-final-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-}
-
-.cta-final .btn-secondary-df {
-  background: transparent;
-  border-color: rgba(148, 163, 184, 0.7);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-df {
-    padding: 3rem 0 2.8rem;
-  }
-
-  .hero-df h1 {
-    font-size: 1.9rem;
-  }
-
-  .hero-df-subtitle {
-    font-size: 0.98rem;
-  }
-
-  .hero-df-actions {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .ejemplo-panel {
-    grid-template-columns: 1fr;
-  }
-
-  .ejemplo-imagen {
-    order: -1;
-    margin-bottom: 1.5rem;
-  }
-
-  .cta-final-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-.cta-final {
-  background: #0b1120;           /* más oscuro que antes */
-  color: #e5e7eb;
-}
-
-.cta-final h2 {
-  color: #f9fafb;
-}
-
-.cta-final .section-df-subtitle {
-  color: #d1d5db;
-}
 .section-df.cta-final {
-  padding: 3.5rem 0;            /* un poco más de alto */
+  padding: 3.5rem 0;
+  background: #0b1120;
+  color: #e5e7eb;
+}
+
+.section-df.cta-final h2 {
+  color: #f9fafb;
+}
+
+.section-df.cta-final .section-df-subtitle {
+  color: #d1d5db;
 }
 
 .cta-final-inner {
@@ -299,18 +232,23 @@ body {
   align-items: center;
 }
 
-/* Botones más marcados sobre fondo oscuro */
-.cta-final .btn-primary-df {
+.cta-final-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.section-df.cta-final .btn-primary-df {
   background: #ffffff;
   color: #2563eb;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.6);
 }
 
-.cta-final .btn-primary-df:hover {
+.section-df.cta-final .btn-primary-df:hover {
   background: #e0ebff;
 }
 
-.cta-final .btn-secondary-df {
+.section-df.cta-final .btn-secondary-df {
   background: transparent;
   color: #e5e7eb;
   border-color: rgba(148, 163, 184, 0.9);
