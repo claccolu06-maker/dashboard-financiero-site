@@ -28,6 +28,7 @@ body {
     sans-serif;
   color: var(--text-main);
   background: var(--bg-body);
+  line-height: 1.5;
 }
 
 /* Contenedor genérico */
@@ -44,6 +45,21 @@ body {
   background: var(--bg-hero-gradient);
   color: var(--text-light);
   padding: 4.5rem 0 5rem;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Badge en el hero */
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.35);
+  font-size: 0.8rem;
+  margin-bottom: 0.9rem;
 }
 
 .hero-df-content h1 {
@@ -80,9 +96,9 @@ body {
 }
 
 .btn-primary-df {
-  background: var(--accent);
-  color: #1f2933;
-  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.4);
+  background: #facc15;
+  color: #111827;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
 }
 
 .btn-primary-df:hover {
@@ -107,12 +123,27 @@ body {
 
 .section-df.alt-df {
   background: #e5e7eb;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
 }
 
 .section-df h2 {
   font-size: 1.9rem;
   margin: 0 0 0.75rem;
   text-align: left;
+  position: relative;
+  display: inline-block;
+}
+
+.section-df h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.4rem;
+  width: 42px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #6366f1, #facc15);
 }
 
 .section-df-subtitle {
@@ -177,32 +208,37 @@ body {
 .ejemplo-imagen {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  padding: 1.5rem;
+  border-radius: 22px;
+  background: radial-gradient(circle at top left, #eef2ff, #e5e7eb);
 }
 
 /* Imagen principal grande */
-.ejemplo-imagen {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;   /* antes 1.5rem */
-}
 
-/* Imagen principal todavía más grande */
 .ejemplo-main-img {
   width: 100%;
-  max-width: 1100px;     /* subido de 960 a 1100 */
+  max-width: 1100px;
   height: auto;
   display: block;
-  border-radius: 18px;
+  border-radius: 22px;
   box-shadow: 0 28px 60px rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(148, 163, 184, 0.35);
 }
 
-/* Miniaturas: que ocupen más alto */
+/* Miniaturas */
+
+.ejemplo-thumbs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
 .ejemplo-thumbs img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 14px;
+  border-radius: 16px;
   box-shadow: 0 24px 55px rgba(15, 23, 42, 0.35);
 }
 
@@ -222,21 +258,12 @@ body {
   gap: 1rem;
 }
 
-/* Footer (si lo añades después) */
-/*
-.footer {
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-soft);
-}
-*/
-
 /* Responsive */
 
 @media (max-width: 900px) {
   .hero-df {
     padding: 3.5rem 0 4rem;
+    min-height: auto;
   }
 
   .df-grid-3 {
@@ -262,5 +289,8 @@ body {
     flex-direction: column;
     align-items: stretch;
   }
-}
 
+  .section-df {
+    padding: 3rem 0;
+  }
+}
