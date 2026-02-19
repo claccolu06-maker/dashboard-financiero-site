@@ -39,6 +39,71 @@ body {
   padding: 0 1.5rem;
 }
 
+/* NAVBAR */
+
+.nav-df {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.82);
+}
+
+.nav-df-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1.5rem;
+}
+
+.nav-df-brand {
+  font-weight: 700;
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.nav-df-links {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.nav-df-links a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 0.93rem;
+}
+
+.nav-df-links a:hover {
+  color: #ffffff;
+}
+
+.nav-df-cta {
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: #facc15;
+  color: #111827;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+}
+
+.nav-df-cta:hover {
+  filter: brightness(1.05);
+}
+
+/* Navbar responsive */
+
+@media (max-width: 720px) {
+  .nav-df-inner {
+    gap: 0.6rem;
+  }
+  .nav-df-links {
+    display: none;
+  }
+}
+
 /* HERO */
 
 .hero-df {
@@ -264,6 +329,38 @@ body {
   gap: 1rem;
 }
 
+/* FAQ */
+
+.faq-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.faq-item {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.3rem 1.4rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+.faq-item h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.faq-item p {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
 /* CONTACTO */
 
 .section-contacto {
@@ -338,6 +435,10 @@ body {
   .cta-final-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
   }
 }
 
