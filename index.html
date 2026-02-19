@@ -1,296 +1,185 @@
-:root {
-  --bg-body: #f3f4f6;
-  --bg-hero: #4f46e5;
-  --bg-hero-gradient: radial-gradient(circle at top left, #8b5cf6, #4f46e5);
-  --text-main: #0f172a;
-  --text-soft: #6b7280;
-  --text-light: #e5e7eb;
-  --primary: #4f46e5;
-  --primary-soft: #6366f1;
-  --accent: #facc15;
-  --card-bg: #ffffff;
-  --radius-lg: 18px;
-  --radius-md: 12px;
-  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.25);
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Financiero</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HERO -->
+  <header class="hero-df">
+    <div class="container">
+      <div class="hero-df-content">
+        <div class="hero-badge">Beta · Hecho para tus finanzas personales</div>
+        <h1>Ten claro tu dinero sin pelearte con Excel</h1>
+        <p class="hero-df-subtitle">
+          Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros, con gráficos claros y automatizados,
+          para que veas en segundos a dónde se va tu dinero.
+        </p>
+        <div class="hero-df-actions">
+          <a href="https://claudioaccorinti.pythonanywhere.com" class="btn-primary-df">
+            Acceder a mi dashboard
+          </a>
+          <a href="#ejemplo-panel" class="btn-secondary-df">
+            Ver ejemplo de panel
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-/* Reset básico */
+  <main>
+    <!-- QUÉ HACE -->
+    <section class="section-df" id="que-es">
+      <div class="container">
+        <h2>Qué hace Dashboard Financiero</h2>
+        <p class="section-df-subtitle">
+          Una vista clara y centralizada de tus finanzas personales para saber en segundos cómo vas de ingresos, gastos y ahorro.
+        </p>
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+        <div class="df-grid-3">
+          <div class="df-card">
+            <h3>Centraliza tus movimientos</h3>
+            <p>
+              Registra ingresos y gastos por categorías y olvídate de Excels dispersos. Todo queda guardado en un mismo panel.
+            </p>
+          </div>
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  color: var(--text-main);
-  background: var(--bg-body);
-  line-height: 1.5;
-}
+          <div class="df-card">
+            <h3>Gráficos listos para usar</h3>
+            <p>
+              Ve tus datos en gráficos claros: ingresos vs gastos, categorías principales y evolución mensual.
+            </p>
+          </div>
 
-/* Contenedor genérico */
+          <div class="df-card">
+            <h3>Decisiones más rápidas</h3>
+            <p>
+              Identifica en qué se va el dinero y cuánto estás ahorrando cada mes para ajustar hábitos y objetivos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
+    <!-- EJEMPLO DE PANEL -->
+    <section class="section-df alt-df" id="ejemplo-panel">
+      <div class="container ejemplo-panel">
+        <div class="ejemplo-texto">
+          <h2>Un panel claro para ver todo de un vistazo</h2>
+          <p class="section-df-subtitle">
+            Dashboard Financiero agrupa tus métricas clave: ingresos, gastos, ahorro del mes e históricos,
+            con gráficos que puedes revisar en segundos desde cualquier dispositivo.
+          </p>
+          <ul class="ejemplo-lista">
+            <li>Resumen del mes con ingresos, gastos y ahorro.</li>
+            <li>Gráficos por categoría para ver dónde se va el dinero.</li>
+            <li>Histórico mensual para seguir tu evolución en el tiempo.</li>
+          </ul>
+          <a href="https://claudioaccorinti.pythonanywhere.com" class="btn-primary-df ejemplo-btn">
+            Empezar a usar mi dashboard
+          </a>
+        </div>
 
-/* HERO */
+        <div class="ejemplo-imagen">
+          <img
+            src="imagenes dasboard/dashboard-resumen-mes.jpg"
+            alt="Resumen mensual del dashboard financiero"
+            class="ejemplo-main-img"
+          >
 
-.hero-df {
-  background: var(--bg-hero-gradient);
-  color: var(--text-light);
-  padding: 4.5rem 0 5rem;
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-}
+          <div class="ejemplo-thumbs">
+            <img
+              src="imagenes dasboard/dashboard-graficos-categorias.jpg"
+              alt="Gráficos de ingresos y gastos por categoría"
+            >
+            <img
+              src="imagenes dasboard/dashboard-ultimos-movimientos.jpg"
+              alt="Tabla de últimos movimientos"
+            >
+          </div>
+        </div>
+      </div>
+    </section>
 
-/* Badge en el hero */
+    <!-- PARA QUIÉN ES -->
+    <section class="section-df" id="para-quien">
+      <div class="container">
+        <h2>¿Para quién es Dashboard Financiero?</h2>
+        <p class="section-df-subtitle">
+          Está pensado para personas que quieren tomar el control de sus finanzas sin complicarse con hojas de cálculo
+          infinitas ni fórmulas raras.
+        </p>
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.35);
-  font-size: 0.8rem;
-  margin-bottom: 0.9rem;
-}
+        <div class="df-grid-3">
+          <div class="df-card">
+            <h3>Estudiantes y primeros sueldos</h3>
+            <p>
+              Si estás empezando a manejar tu propio dinero, tendrás una visión clara de en qué se te va el mes
+              y cuánto consigues ahorrar.
+            </p>
+          </div>
 
-.hero-df-content h1 {
-  font-size: clamp(2.4rem, 4vw, 3rem);
-  margin: 0 0 1rem;
-}
+          <div class="df-card">
+            <h3>Profesionales y freelances</h3>
+            <p>
+              Separa mejor gastos personales y profesionales, y entiende tus meses fuertes y flojos de un vistazo.
+            </p>
+          </div>
 
-.hero-df-subtitle {
-  max-width: 640px;
-  margin: 0 0 2rem;
-  line-height: 1.6;
-}
+          <div class="df-card">
+            <h3>Parejas que gestionan juntos</h3>
+            <p>
+              Un panel compartido para ver ingresos, gastos comunes y objetivos de ahorro sin discusiones por los números.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-.hero-df-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
+    <!-- CTA FINAL -->
+    <section class="section-df alt-df cta-final" id="cta">
+      <div class="container cta-final-inner">
+        <div>
+          <h2>Empieza hoy a tener claro tu dinero</h2>
+          <p class="section-df-subtitle">
+            En pocos minutos puedes tener tu dashboard creado, empezar a registrar movimientos y ver tus primeros
+            gráficos de ingresos, gastos y ahorro.
+          </p>
+        </div>
+        <div class="cta-final-actions">
+          <a href="https://claudioaccorinti.pythonanywhere.com" class="btn-primary-df">
+            Acceder a mi dashboard
+          </a>
+          <a href="#ejemplo-panel" class="btn-secondary-df">
+            Ver cómo se ve por dentro
+          </a>
+        </div>
+      </div>
+    </section>
 
-/* Botones */
+    <!-- CONTACTO -->
+    <section class="section-contacto">
+      <div class="contacto-inner">
+        <h2>¿Tienes dudas o sugerencias?</h2>
+        <p>
+          Si quieres saber más sobre Dashboard Financiero o tienes alguna pregunta, contáctame.
+        </p>
 
-.btn-primary-df,
-.btn-secondary-df {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  padding: 0.85rem 1.7rem;
-  font-weight: 600;
-  font-size: 0.98rem;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-}
+        <div class="contacto-items">
+          <a href="mailto:claccolu06@gmail.com" class="contacto-item">
+            <span class="contacto-icon">✉️</span>
+            <span>claccolu06@gmail.com</span>
+          </a>
 
-.btn-primary-df {
-  background: #facc15;
-  color: #111827;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
-}
-
-.btn-primary-df:hover {
-  filter: brightness(1.05);
-}
-
-.btn-secondary-df {
-  background: transparent;
-  color: var(--text-light);
-  border: 1px solid rgba(229, 231, 235, 0.6);
-}
-
-.btn-secondary-df:hover {
-  background: rgba(15, 23, 42, 0.15);
-}
-
-/* Secciones genéricas */
-
-.section-df {
-  padding: 4rem 0;
-}
-
-.section-df.alt-df {
-  background: #e5e7eb;
-  border-top: 1px solid rgba(148, 163, 184, 0.25);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-}
-
-.section-df h2 {
-  font-size: 1.9rem;
-  margin: 0 0 0.75rem;
-  text-align: left;
-  position: relative;
-  display: inline-block;
-}
-
-.section-df h2::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -0.4rem;
-  width: 42px;
-  height: 3px;
-  border-radius: 999px;
-  background: linear-gradient(to right, #6366f1, #facc15);
-}
-
-.section-df-subtitle {
-  margin: 0 0 2rem;
-  line-height: 1.6;
-  color: var(--text-soft);
-  max-width: 640px;
-}
-
-/* Grid de 3 tarjetas */
-
-.df-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.75rem;
-}
-
-.df-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  padding: 1.4rem 1.4rem 1.5rem;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
-}
-
-.df-card h3 {
-  margin: 0 0 0.7rem;
-  font-size: 1.1rem;
-}
-
-.df-card p {
-  margin: 0;
-  line-height: 1.5;
-  color: var(--text-soft);
-}
-
-/* === EJEMPLO DE PANEL (con capturas) === */
-
-.ejemplo-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
-  gap: 3rem;
-  align-items: center;
-}
-
-.ejemplo-texto .ejemplo-btn {
-  margin-top: 1.75rem;
-}
-
-.ejemplo-lista {
-  padding-left: 1.1rem;
-  margin: 1.5rem 0 0;
-  color: var(--text-main);
-}
-
-.ejemplo-lista li {
-  margin-bottom: 0.6rem;
-  line-height: 1.5;
-}
-
-/* Contenedor de imágenes */
-
-.ejemplo-imagen {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 1.5rem;
-  border-radius: 22px;
-  background: radial-gradient(circle at top left, #eef2ff, #e5e7eb);
-}
-
-/* Imagen principal grande */
-
-.ejemplo-main-img {
-  width: 100%;
-  max-width: 1100px;
-  height: auto;
-  display: block;
-  border-radius: 22px;
-  box-shadow: 0 28px 60px rgba(15, 23, 42, 0.35);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-}
-
-/* Miniaturas */
-
-.ejemplo-thumbs {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.ejemplo-thumbs img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.35);
-}
-
-/* CTA final */
-
-.cta-final-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.75rem;
-}
-
-.cta-final-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* Responsive */
-
-@media (max-width: 900px) {
-  .hero-df {
-    padding: 3.5rem 0 4rem;
-    min-height: auto;
-  }
-
-  .df-grid-3 {
-    grid-template-columns: 1fr;
-  }
-
-  .ejemplo-panel {
-    grid-template-columns: 1fr;
-  }
-
-  .cta-final-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero-df-content h1 {
-    font-size: 2.1rem;
-  }
-
-  .hero-df-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .section-df {
-    padding: 3rem 0;
-  }
-}
+          <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" class="contacto-item">
+            <span class="contacto-icon">in</span>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
