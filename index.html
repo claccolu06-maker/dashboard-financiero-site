@@ -1,276 +1,133 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Financiero</title>
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Google tag (gtag.js) - PANEL DE ANALÍTICAS -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RR6T65RYE"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-3RR6T65RYE');
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinDash - Ten claro tu dinero sin pelearte con Excel</title>
+    
+    <!-- Fuentes, Iconos y CSS externo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body id="top">
-  <!-- NAVBAR -->
-  <header class="nav-df">
-    <div class="container nav-df-inner">
-      <a href="#top" class="nav-df-brand">Dashboard Financiero</a>
-      <nav class="nav-df-links">
-        <a href="#que-es">Qué hace</a>
-        <a href="#para-quien">Para quién</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <a href="https://claudioaccorinti.pythonanywhere.com" class="nav-df-cta">
-        Acceder
-      </a>
-    </div>
-  </header>
+<body>
 
-  <!-- HERO -->
-  <header class="hero-df">
-    <div class="container">
-      <div class="hero-df-content">
-        <div class="hero-badge">Beta · Hecho para tus finanzas personales</div>
-        <h1>Ten claro tu dinero sin pelearte con Excel</h1>
-        <p class="hero-df-subtitle">
-          Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros, con gráficos claros y automatizados,
-          para que veas en segundos a dónde se va tu dinero.
-        </p>
-        <div class="hero-df-actions">
-          <a href="https://claudioaccorinti.pythonanywhere.com" class="btn-primary-df">
-            Acceder a mi dashboard
-          </a>
-          <a href="#ejemplo-panel" class="btn-secondary-df">
-            Ver ejemplo de panel
-          </a>
+    <!-- Navegación Superior -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="ph-fill ph-wallet"></i> FinDash
         </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- QUÉ HACE -->
-    <section class="section-df" id="que-es">
-      <div class="container">
-        <h2>Qué hace Dashboard Financiero</h2>
-        <p class="section-df-subtitle">
-          Una vista clara y centralizada de tus finanzas personales para saber en segundos cómo vas de ingresos, gastos y ahorro.
-        </p>
-
-        <div class="df-grid-3">
-          <div class="df-card">
-            <h3>Centraliza tus movimientos</h3>
-            <p>
-              Registra ingresos y gastos por categorías y olvídate de Excels dispersos. Todo queda guardado en un mismo panel.
-            </p>
-          </div>
-
-          <div class="df-card">
-            <h3>Gráficos listos para usar</h3>
-            <p>
-              Ve tus datos en gráficos claros: ingresos vs gastos, categorías principales y evolución mensual.
-            </p>
-          </div>
-
-          <div class="df-card">
-            <h3>Decisiones más rápidas</h3>
-            <p>
-              Identifica en qué se va el dinero y cuánto estás ahorrando cada mes para ajustar hábitos y objetivos.
-            </p>
-          </div>
+        <div class="nav-links">
+            <a href="#que-es">Qué hace</a>
+            <a href="#como-funciona">Cómo funciona</a>
+            <a href="#para-quien">Para quién</a>
         </div>
-      </div>
-    </section>
-
-    <!-- CÓMO FUNCIONA -->
-    <section class="section-df" id="como-funciona">
-      <div class="container">
-        <h2>Cómo funciona</h2>
-        <p class="section-df-subtitle">
-          En tres pasos tienes tus finanzas bajo control, sin fórmulas complicadas ni plantillas que se rompen.
-        </p>
-
-        <div class="df-grid-3">
-          <div class="df-card">
-            <h3>1. Crea tu dashboard</h3>
-            <p>
-              Entra con tu usuario, configura tus categorías básicas y deja preparado el panel para registrar movimientos.
-            </p>
-          </div>
-
-          <div class="df-card">
-            <h3>2. Registra ingresos y gastos</h3>
-            <p>
-              Apunta tus movimientos cuando quieras: el sistema se encarga de colocarlos en las tablas y gráficos.
-            </p>
-          </div>
-
-          <div class="df-card">
-            <h3>3. Revisa tus gráficos</h3>
-            <p>
-              Mira resúmenes mensuales, categorías principales y evolución para ajustar hábitos y objetivos de ahorro.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EJEMPLO DE PANEL -->
-    <section class="section-df alt-df" id="ejemplo-panel">
-      <div class="container ejemplo-panel">
-        <div class="ejemplo-texto">
-          <h2>Un panel claro para ver todo de un vistazo</h2>
-          <p class="section-df-subtitle">
-            Dashboard Financiero agrupa tus métricas clave: ingresos, gastos, ahorro del mes e históricos,
-            con gráficos que puedes revisar en segundos desde cualquier dispositivo.
-          </p>
-          <ul class="ejemplo-lista">
-            <li>Resumen del mes con ingresos, gastos y ahorro.</li>
-            <li>Gráficos por categoría para ver dónde se va el dinero.</li>
-            <li>Histórico mensual para seguir tu evolución en el tiempo.</li>
-          </ul>
-          <a href="https://claudioaccorinti.pythonanywhere.com" class="btn-primary-df ejemplo-btn">
-            Empezar a usar mi dashboard
-          </a>
-        </div>
-
-        <div class="ejemplo-imagen">
-          <img
-            src="imagenes dasboard/dashboard-resumen-mes.jpg"
-            alt="Resumen mensual del dashboard financiero"
-            class="ejemplo-main-img"
-          >
-
-          <div class="ejemplo-thumbs">
-            <img
-              src="imagenes dasboard/dashboard-graficos-categorias.jpg"
-              alt="Gráficos de ingresos y gastos por categoría"
-            >
-            <img
-              src="imagenes dasboard/dashboard-ultimos-movimientos.jpg"
-              alt="Tabla de últimos movimientos"
-            >
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PARA QUIÉN ES -->
-    <section class="section-df" id="para-quien">
-      <div class="container">
-        <h2>¿Para quién es Dashboard Financiero?</h2>
-        <p class="section-df-subtitle">
-          Está pensado para personas que quieren tomar el control de sus finanzas sin complicarse con hojas de cálculo
-          infinitas ni fórmulas raras.
-        </p>
-
-        <div class="df-grid-3">
-          <div class="df-card">
-            <h3>Estudiantes y primeros sueldos</h3>
-            <p>
-              Si estás empezando a manejar tu propio dinero, tendrás una visión clara de en qué se te va el mes
-              y cuánto consigues ahorrar.
-            </p>
-          </div>
-
-          <div class="df-card">
-            <h3>Profesionales y freelances</h3>
-            <p>
-              Separa mejor gastos personales y profesionales, y entiende tus meses fuertes y flojos de un vistazo.
-            </p>
-          </div>
-
-          <div class="df-card">
-            <h3>Parejas que gestionan juntos</h3>
-            <p>
-              Un panel compartido para ver ingresos, gastos comunes y objetivos de ahorro sin discusiones por los números.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section class="section-df alt-df cta-final" id="cta">
-      <div class="container cta-final-inner">
         <div>
-          <h2>Empieza hoy a tener claro tu dinero</h2>
-          <p class="section-df-subtitle">
-            En pocos minutos puedes tener tu dashboard creado, empezar a registrar movimientos y ver tus primeros
-            gráficos de ingresos, gastos y ahorro.
-          </p>
+            <!-- Enlaces directos a tu app en PythonAnywhere -->
+            <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn-login outline">Entrar</a>
+            <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn-login solid">Probar Beta</a>
         </div>
-        <div class="cta-final-actions">
-          <a href="https://claudioaccorinti.pythonanywhere.com" class="btn-primary-df">
-            Acceder a mi dashboard
-          </a>
-          <a href="#ejemplo-panel" class="btn-secondary-df">
-            Ver cómo se ve por dentro
-          </a>
+    </nav>
+
+    <!-- Sección Hero -->
+    <header class="hero">
+        <div class="hero-badge">BETA PRIVADA</div>
+        <h1>Ten claro tu dinero <br>sin pelearte con <span>Excel.</span></h1>
+        <p>Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros. Descubre exactamente a dónde se va tu dinero en segundos con gráficos interactivos y automatización bancaria.</p>
+        
+        <div class="hero-ctas">
+            <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn-login solid">Comenzar gratis</a>
+            <a href="#como-funciona" class="btn-login outline">Saber más</a>
         </div>
-      </div>
+
+        <!-- MOCKUP CSS (Sustituye a la captura antigua) -->
+        <div class="hero-mockup">
+            <div class="mockup-header">
+                <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+            </div>
+            <div class="mockup-body">
+                <div class="mockup-card">
+                    <div class="m-title">Patrimonio Neto Actual</div>
+                    <div class="m-value">4.230,90 €</div>
+                    <div class="m-chart"></div>
+                </div>
+                <div class="mockup-card">
+                    <div class="m-title">Tasa de Ahorro</div>
+                    <div class="m-value" style="color: var(--primary);">32.9%</div>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <div style="height: 8px; border-radius: 4px; background: var(--primary); width: 65%;"></div>
+                        <div style="height: 8px; border-radius: 4px; background: #3f3f46; width: 35%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Características (Bento Grid) -->
+    <section class="section" id="que-es">
+        <h2 class="section-title">El fin del desorden financiero</h2>
+        <p class="section-subtitle">Todo lo que necesitas para gestionar tu economía personal, reunido en un único panel de control inteligente.</p>
+
+        <div class="bento-grid">
+            <div class="bento-box span-2">
+                <div class="bento-icon"><i class="ph-bold ph-chart-pie-slice"></i></div>
+                <h3>Gráficos listos para usar</h3>
+                <p>Olvida las fórmulas de hojas de cálculo que siempre se rompen. Sube el CSV de tu banco y visualiza ingresos vs gastos, categorías principales y tu evolución mensual al instante.</p>
+            </div>
+            <div class="bento-box">
+                <div class="bento-icon"><i class="ph-bold ph-arrows-clockwise"></i></div>
+                <h3>Piloto Automático</h3>
+                <p>Configura tus pagos recurrentes (Netflix, alquiler, gimnasio) una sola vez. FinDash los registrará por ti cada mes.</p>
+            </div>
+            <div class="bento-box">
+                <div class="bento-icon"><i class="ph-bold ph-target"></i></div>
+                <h3>Metas Reales</h3>
+                <p>Fija objetivos como "Fondo de emergencia" o "Viaje" y observa cómo la barra de progreso se llena mes a mes con tu ahorro real.</p>
+            </div>
+            <div class="bento-box span-2">
+                <div class="bento-icon"><i class="ph-bold ph-shield-check"></i></div>
+                <h3>Tus datos son tuyos</h3>
+                <p>Soberanía absoluta. FinDash no vende tus datos. Puedes descargar un respaldo de todo tu libro mayor en formato estándar con un solo clic desde tu Centro de Mando.</p>
+            </div>
+        </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section-df" id="faq">
-      <div class="container faq-inner">
-        <h2>Preguntas frecuentes</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>¿Necesito saber de Excel o finanzas?</h3>
-            <p>
-              No. Solo tienes que registrar tus ingresos y gastos. El dashboard se encarga de organizar los datos y mostrarte los gráficos.
-            </p>
-          </div>
-          <div class="faq-item">
-            <h3>¿Tengo que pagar algo?</h3>
-            <p>
-              Esta versión es un proyecto personal en beta. Puedes usarla gratis mientras la voy mejorando y añadiendo funciones.
-            </p>
-          </div>
-          <div class="faq-item">
-            <h3>¿Qué datos tengo que meter?</h3>
-            <p>
-              Importe, fecha, categoría y una pequeña descripción si quieres. Con eso ya puedes ver resúmenes y tendencias.
-            </p>
-          </div>
-          <div class="faq-item">
-            <h3>¿Puedo verlo desde el móvil?</h3>
-            <p>
-              Sí, el dashboard está pensado para funcionar bien en móvil, tablet y ordenador, para que lo consultes cuando quieras.
-            </p>
-          </div>
+    <!-- Casos de Uso -->
+    <section class="section" id="para-quien">
+        <h2 class="section-title">Pensado para la vida real</h2>
+        <div class="bento-grid">
+            <div class="bento-box" style="background: transparent; border: 1px dashed var(--border-color);">
+                <i class="ph-fill ph-student" style="font-size: 2.5rem; color: var(--text-main); margin-bottom: 1rem; display: block;"></i>
+                <h3 style="font-size: 1.1rem;">Estudiantes y Jóvenes</h3>
+                <p style="font-size: 0.9rem;">Si estás empezando a manejar tu propio dinero, tendrás una visión clara de en qué se te va el mes y cuánto consigues ahorrar.</p>
+            </div>
+            <div class="bento-box" style="background: transparent; border: 1px dashed var(--border-color);">
+                <i class="ph-fill ph-briefcase" style="font-size: 2.5rem; color: var(--text-main); margin-bottom: 1rem; display: block;"></i>
+                <h3 style="font-size: 1.1rem;">Freelances</h3>
+                <p style="font-size: 0.9rem;">Separa mejor los gastos profesionales de los personales y entiende tus meses fuertes de un vistazo.</p>
+            </div>
+            <div class="bento-box" style="background: transparent; border: 1px dashed var(--border-color);">
+                <i class="ph-fill ph-users" style="font-size: 2.5rem; color: var(--text-main); margin-bottom: 1rem; display: block;"></i>
+                <h3 style="font-size: 1.1rem;">Parejas</h3>
+                <p style="font-size: 0.9rem;">Un panel para ver ingresos, gastos comunes y objetivos de ahorro sin discusiones por los números.</p>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- CONTACTO -->
-    <section class="section-contacto">
-      <div class="contacto-inner">
-        <h2>¿Tienes dudas o sugerencias?</h2>
-        <p>
-          Si quieres saber más sobre Dashboard Financiero o tienes alguna pregunta, contáctame.
-        </p>
-
-        <div class="contacto-items">
-          <a href="mailto:claccolu06@gmail.com" class="contacto-item">
-            <span class="contacto-icon">✉️</span>
-            <span>claccolu06@gmail.com</span>
-          </a>
-
-          <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" class="contacto-item">
-            <span class="contacto-icon">in</span>
-            <span>LinkedIn</span>
-          </a>
+    <!-- Footer -->
+    <footer class="footer" id="faq">
+        <div style="margin-bottom: 1rem;">
+            <i class="ph-fill ph-wallet" style="font-size: 2rem; color: var(--primary);"></i>
         </div>
-      </div>
-    </section>
-  </main>
+        <p>Una herramienta construida para darte tranquilidad financiera.</p>
+        <div style="margin-top: 1.5rem;">
+            <a href="mailto:claccolu06@gmail.com"><i class="ph-bold ph-envelope"></i> Soporte</a>
+            <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank"><i class="ph-bold ph-linkedin-logo"></i> Desarrollador</a>
+        </div>
+        <p style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.5;">&copy; 2026 Dashboard Financiero. Proyecto Beta.</p>
+    </footer>
+
 </body>
 </html>
