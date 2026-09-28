@@ -5,12 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinDash - Ten claro tu dinero sin pelearte con Excel</title>
     
-    <!-- Fuentes, Iconos y CSS externo -->
+    <!-- Fuentes e Iconos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
-    <link rel="stylesheet" href="style.css">
+
+    <!-- ESTILOS INCRUSTADOS (A PRUEBA DE FALLOS) -->
+    <style>
+        :root {
+            --bg-base: #050505;
+            --bg-card: #121212;
+            --bg-card-hover: #18181B;
+            --border-color: #27272A;
+            --text-main: #FAFAFA;
+            --text-muted: #A1A1AA;
+            --primary: #00E599;
+            --primary-glow: rgba(0, 229, 153, 0.15);
+            --radius-lg: 24px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; max-width: 1400px; margin: 0 auto; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .logo { font-size: 1.5rem; font-weight: 900; display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.5px; }
+        .logo i { color: var(--primary); }
+        
+        .nav-links { display: flex; gap: 2rem; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+        .nav-links a:hover { color: var(--text-main); }
+        
+        .btn-login { font-weight: 700; font-size: 0.9rem; padding: 0.6rem 1.2rem; border-radius: 10px; transition: 0.2s; display: inline-block; cursor: pointer; }
+        .btn-login.outline { border: 1px solid var(--border-color); color: var(--text-main); margin-right: 0.5rem; }
+        .btn-login.outline:hover { background: rgba(255,255,255,0.05); }
+        .btn-login.solid { background: var(--primary); color: #000; box-shadow: 0 4px 20px var(--primary-glow); }
+        .btn-login.solid:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0, 229, 153, 0.3); }
+
+        /* Hero */
+        .hero { padding: 6rem 5% 4rem; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; }
+        .hero-badge { display: inline-block; padding: 0.4rem 1rem; background: rgba(0, 229, 153, 0.1); color: var(--primary); border: 1px solid rgba(0, 229, 153, 0.2); border-radius: 50px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 0.5px; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem auto; }
+        
+        .hero-ctas { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .hero-ctas .btn-login { padding: 1rem 2rem; font-size: 1rem; }
+
+        /* Mockup Visual 3D */
+        .hero-mockup { margin: 4rem auto 0 auto; max-width: 800px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 80px var(--primary-glow); transform: perspective(1000px) rotateX(5deg); transition: transform 0.5s ease; }
+        .hero-mockup:hover { transform: perspective(1000px) rotateX(0deg); }
+        
+        .mockup-header { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .mockup-dot { width: 12px; height: 12px; border-radius: 50%; background: #3f3f46; }
+        .mockup-dot:nth-child(1) { background: #ef4444; }
+        .mockup-dot:nth-child(2) { background: #f59e0b; }
+        .mockup-dot:nth-child(3) { background: #10b981; }
+
+        .mockup-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: left; }
+        .mockup-card { background: var(--bg-base); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; }
+        .m-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; }
+        .m-value { font-size: 2rem; font-weight: 900; color: var(--text-main); }
+        .m-chart { height: 40px; border-bottom: 2px solid var(--primary); margin-top: 1rem; position: relative; }
+        .m-chart::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0, 229, 153, 0.2), transparent); }
+
+        /* Bento Grid */
+        .section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 1rem; text-align: center; }
+        .section-subtitle { color: var(--text-muted); text-align: center; max-width: 600px; margin: 0 auto 3rem auto; font-size: 1.1rem; }
+
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .bento-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; transition: 0.3s; }
+        .bento-box:hover { background: var(--bg-card-hover); border-color: rgba(0, 229, 153, 0.3); transform: translateY(-3px); }
+        .bento-box.span-2 { grid-column: span 2; }
+        
+        .bento-icon { width: 50px; height: 50px; background: rgba(0, 229, 153, 0.1); border: 1px solid rgba(0, 229, 153, 0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; }
+        .bento-box h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.75rem; }
+        .bento-box p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Footer */
+        .footer { border-top: 1px solid var(--border-color); padding: 3rem 5%; text-align: center; margin-top: 4rem; color: var(--text-muted); font-size: 0.9rem; }
+        .footer a { color: var(--text-main); font-weight: 600; margin: 0 0.5rem; transition: 0.2s; }
+        .footer a:hover { color: var(--primary); }
+
+        /* Responsive Móvil */
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-box.span-2 { grid-column: span 1; }
+            .nav-links { display: none; }
+            .mockup-body { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .hero { padding: 4rem 5% 2rem; }
+            .hero-ctas { flex-direction: column; width: 100%; }
+            .hero-ctas .btn-login { width: 100%; margin: 0 0 0.5rem 0; text-align: center; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -39,7 +140,7 @@
         
         <div class="hero-ctas">
             <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn-login solid">Comenzar gratis</a>
-            <a href="#como-funciona" class="btn-login outline">Saber más</a>
+            <a href="#que-es" class="btn-login outline">Saber más</a>
         </div>
 
         <!-- MOCKUP CSS (Sustituye a la captura antigua) -->
@@ -76,7 +177,7 @@
                 <h3>Gráficos listos para usar</h3>
                 <p>Olvida las fórmulas de hojas de cálculo que siempre se rompen. Sube el CSV de tu banco y visualiza ingresos vs gastos, categorías principales y tu evolución mensual al instante.</p>
             </div>
-            <div class="bento-box">
+            <div class="bento-box" id="como-funciona">
                 <div class="bento-icon"><i class="ph-bold ph-arrows-clockwise"></i></div>
                 <h3>Piloto Automático</h3>
                 <p>Configura tus pagos recurrentes (Netflix, alquiler, gimnasio) una sola vez. FinDash los registrará por ti cada mes.</p>
