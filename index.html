@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3RR6T65RYE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3RR6T65RYE');
-</script>
-
-  <meta charset="UTF-8">
-  <title>Dashboard Financiero</title>
-  ...
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinDash - Ten claro tu dinero sin pelearte con Excel</title>
+
+    <!-- Google tag (gtag.js) unificado: Analytics + Google Ads -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RR6T65RYE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Vinculación con Google Analytics 4
+      gtag('config', 'G-3RR6T65RYE');
+
+      // Vinculación con tu cuenta de Google Ads
+      gtag('config', 'AW-4080755768');
+
+      // Función para registrar la conversión y redirigir
+      function registrarConversionAds(urlDestino) {
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-4080755768',
+            'event_callback': function() {
+              window.location.href = urlDestino;
+            }
+          });
+          // Respaldo por si la llamada tarda más de 500ms
+          setTimeout(function() {
+            window.location.href = urlDestino;
+          }, 500);
+          return false;
+        }
+        return true;
+      }
+    </script>
     
     <!-- Fuentes e Iconos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -138,9 +158,13 @@
             <a href="#para-quien">Para quién</a>
         </div>
         <div>
-            <!-- Enlaces directos a tu app en PythonAnywhere -->
-            <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn-login outline">Entrar</a>
-            <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn-login solid">Probar Beta</a>
+            <!-- Enlaces directos a tu app con seguimiento de conversión -->
+            <a href="https://claudioaccorinti.pythonanywhere.com/login" 
+               onclick="return registrarConversionAds('https://claudioaccorinti.pythonanywhere.com/login');" 
+               class="btn-login outline">Entrar</a>
+            <a href="https://claudioaccorinti.pythonanywhere.com/registro" 
+               onclick="return registrarConversionAds('https://claudioaccorinti.pythonanywhere.com/registro');" 
+               class="btn-login solid">Probar Beta</a>
         </div>
     </nav>
 
@@ -151,11 +175,13 @@
         <p>Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros. Descubre exactamente a dónde se va tu dinero en segundos con gráficos interactivos y automatización bancaria.</p>
         
         <div class="hero-ctas">
-            <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn-login solid">Comenzar gratis</a>
+            <a href="https://claudioaccorinti.pythonanywhere.com/registro" 
+               onclick="return registrarConversionAds('https://claudioaccorinti.pythonanywhere.com/registro');" 
+               class="btn-login solid">Comenzar gratis</a>
             <a href="#que-es" class="btn-login outline">Saber más</a>
         </div>
 
-        <!-- MOCKUP CSS (Sustituye a la captura antigua) -->
+        <!-- MOCKUP CSS -->
         <div class="hero-mockup">
             <div class="mockup-header">
                 <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
