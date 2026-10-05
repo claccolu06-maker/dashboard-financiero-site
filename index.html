@@ -1,256 +1,587 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Financiero</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Financiero | Ten claro tu dinero</title>
+  <meta name="description" content="Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros con gráficos claros y automatizados.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-hover: #162035;
+      --border: #1f293d;
+      --text-main: #f9fafb;
+      --text-muted: #94a3b8;
+      --primary: #10b981;
+      --primary-hover: #059669;
+      --primary-glow: rgba(16, 185, 129, 0.15);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3RR6T65RYE"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3RR6T65RYE');
-    </script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <!-- Fuentes e Iconos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-    <style>
-        :root {
-            --bg-base: #050505;
-            --bg-card: #121212;
-            --bg-card-hover: #18181B;
-            --border-color: #27272A;
-            --text-main: #FAFAFA;
-            --text-muted: #A1A1AA;
-            --primary: #00E599;
-            --primary-glow: rgba(0, 229, 153, 0.15);
-            --radius-lg: 24px;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
 
-        a { text-decoration: none; color: inherit; }
-        
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; max-width: 1400px; margin: 0 auto; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .logo { font-size: 1.5rem; font-weight: 900; display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.5px; }
-        .logo i { color: var(--primary); }
-        
-        .nav-links { display: flex; gap: 2rem; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
-        .nav-links a:hover { color: var(--text-main); }
-        
-        .btn-login { font-weight: 700; font-size: 0.9rem; padding: 0.6rem 1.2rem; border-radius: 10px; transition: 0.2s; display: inline-block; cursor: pointer; }
-        .btn-login.outline { border: 1px solid var(--border-color); color: var(--text-main); margin-right: 0.5rem; }
-        .btn-login.outline:hover { background: rgba(255,255,255,0.05); }
-        .btn-login.solid { background: var(--primary); color: #000; box-shadow: 0 4px 20px var(--primary-glow); }
-        .btn-login.solid:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(0, 229, 153, 0.3); }
+    /* BARRA DE NAVEGACIÓN */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-        .hero { padding: 6rem 5% 4rem; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; }
-        .hero-badge { display: inline-block; padding: 0.4rem 1rem; background: rgba(0, 229, 153, 0.1); color: var(--primary); border: 1px solid rgba(0, 229, 153, 0.2); border-radius: 50px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 0.5px; }
-        .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
-        .hero h1 span { color: var(--primary); }
-        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem auto; }
-        
-        .hero-ctas { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .hero-ctas .btn-login { padding: 1rem 2rem; font-size: 1rem; }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
 
-        .section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 1rem; text-align: center; }
-        .section-subtitle { color: var(--text-muted); text-align: center; max-width: 600px; margin: 0 auto 3rem auto; font-size: 1.1rem; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
 
-        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-        .bento-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; transition: 0.3s; }
-        .bento-box:hover { background: var(--bg-card-hover); border-color: rgba(0, 229, 153, 0.3); transform: translateY(-3px); }
-        .bento-box.span-2 { grid-column: span 2; }
-        
-        .bento-icon { width: 50px; height: 50px; background: rgba(0, 229, 153, 0.1); border: 1px solid rgba(0, 229, 153, 0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; }
-        .bento-box h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.75rem; }
-        .bento-box p { color: var(--text-muted); font-size: 0.95rem; }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #10b981, #047857);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+    }
 
-        .footer { border-top: 1px solid var(--border-color); padding: 3rem 5%; text-align: center; margin-top: 4rem; color: var(--text-muted); font-size: 0.9rem; }
-        .footer a { color: var(--text-main); font-weight: 600; margin: 0 0.5rem; transition: 0.2s; }
-        .footer a:hover { color: var(--primary); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
 
-        @media (max-width: 900px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .bento-box.span-2 { grid-column: span 1; }
-            .nav-links { display: none; }
-        }
-    </style>
+    .nav-link {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    /* BOTONES */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-solid {
+      background: var(--primary);
+      color: #062b1e;
+      border: 1px solid var(--primary);
+    }
+
+    .btn-solid:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: #334155;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      background: var(--primary-glow);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      max-width: 850px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero p {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    /* PREVIEW DASHBOARD */
+    .dashboard-preview {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(16, 185, 129, 0.08);
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .preview-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #334155;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .metric-card {
+      background: #0b1120;
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      border-radius: 10px;
+    }
+
+    .metric-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-val {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .val-green { color: #10b981; }
+    .val-red { color: #ef4444; }
+
+    /* SECCIONES COMUNES */
+    section {
+      padding: 5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-title-wrap {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-title-wrap h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title-wrap p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      border-radius: 12px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #334155;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      background: var(--primary-glow);
+      color: var(--primary);
+      border-radius: 8px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    /* CTA BOX */
+    .cta-banner {
+      background: linear-gradient(180deg, #111827 0%, #0d1527 100%);
+      border: 1px solid var(--border);
+      padding: 3.5rem 2rem;
+      border-radius: 16px;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-banner h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-banner p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* FAQ */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      border-radius: 12px;
+    }
+
+    .faq-item h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: var(--text-main);
+    }
+
+    .faq-item p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .hero { padding: 3.5rem 0 2rem; }
+    }
+  </style>
 </head>
-<body>
+<body id="top">
 
-    <!-- Navegación Superior -->
-    <nav class="navbar">
-        <div class="logo">
-            <i class="ph-fill ph-wallet"></i> Dashboard Financiero
-        </div>
+  <!-- NAVBAR -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#top" class="brand">
+          <div class="brand-icon">F</div>
+          <span>FinDash</span>
+        </a>
         <div class="nav-links">
-            <a href="#top">Inicio</a>
-            <a href="#que-es">Qué hace</a>
-            <a href="#como-funciona">Cómo funciona</a>
-            <a href="#para-quien">Para quién</a>
-            <a href="#faq">FAQ</a>
+          <a href="#que-es" class="nav-link">Qué hace</a>
+          <a href="#para-quien" class="nav-link">Para quién</a>
+          <a href="#faq" class="nav-link">FAQ</a>
         </div>
+        <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn btn-outline">Acceder</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="border:none;">
+    <div class="container">
+      <div class="badge">Early Access · Finanzas Personales</div>
+      <h1>Ten claro tu dinero sin pelearte con Excel</h1>
+      <p>Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros con gráficos claros y automatizados para que veas en segundos a dónde va tu dinero.</p>
+      <div class="hero-actions">
+        <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn btn-solid" style="padding: 0.85rem 2rem; font-size: 1.05rem;">Acceder a mi dashboard</a>
+        <a href="#ejemplo-panel" class="btn btn-outline" style="padding: 0.85rem 1.8rem; font-size: 1.05rem;">Ver ejemplo de panel</a>
+      </div>
+
+      <!-- PREVIEW PANEL -->
+      <div class="dashboard-preview" id="ejemplo-panel">
+        <div class="preview-header">
+          <div class="preview-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Panel Financiero</span>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-title">Ingresos del Mes</div>
+            <div class="metric-val val-green">2.850,00 €</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Gastos del Mes</div>
+            <div class="metric-val val-red">1.420,50 €</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Ahorro Neto</div>
+            <div class="metric-val val-green">1.429,50 €</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Colchón Financiero</div>
+            <div class="metric-val">6.8 meses</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ HACE -->
+  <section id="que-es">
+    <div class="container">
+      <div class="section-title-wrap">
+        <h2>Qué hace Dashboard Financiero</h2>
+        <p>Una vista clara y centralizada de tus finanzas personales para saber en segundos cómo vas de ingresos, gastos y capacidad de ahorro.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Centraliza tus movimientos</h3>
+          <p>Registra ingresos y gastos organizados por categorías y olvídate de hojas de cálculo dispersas. Todo queda guardado y estructurado en un único panel.</p>
+        </div>
+        <div class="card">
+          <h3>Gráficos listos para usar</h3>
+          <p>Visualiza tus números en gráficos directos: comparación de ingresos vs gastos, desglose por categorías y tendencia de saldo a lo largo del tiempo.</p>
+        </div>
+        <div class="card">
+          <h3>Decisiones más rápidas</h3>
+          <p>Detecta de un vistazo dónde se concentra el gasto prescindible y ajusta tus hábitos para cumplir metas de ahorro sin fricción.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section>
+    <div class="container">
+      <div class="section-title-wrap">
+        <h2>Cómo funciona</h2>
+        <p>En tres pasos tomas el control de tus finanzas, sin fórmulas complicadas ni tablas que se desconfiguran.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="step-num">1</div>
+          <h3>Crea tu dashboard</h3>
+          <p>Accede con tu cuenta y deja preparado tu panel de control para registrar movimientos al instante.</p>
+        </div>
+        <div class="card">
+          <div class="step-num">2</div>
+          <h3>Registra ingresos y gastos</h3>
+          <p>Copia tus transacciones del banco o sube tu extracto: el motor se encarga de categorizarlas y guardarlas en tu base de datos.</p>
+        </div>
+        <div class="card">
+          <div class="step-num">3</div>
+          <h3>Revisa tus gráficos</h3>
+          <p>Consulta tus resúmenes del mes, vigila tu autonomía financiera y comprueba el avance de tus metas de ahorro.</p>
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <h2>Un panel claro para ver todo de un vistazo</h2>
+        <p>FinDash calcula tus métricas en tiempo real para que tomes decisiones con datos en lugar de intuiciones.</p>
+        <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn btn-solid" style="padding: 0.9rem 2.2rem; font-size: 1.05rem;">Empezar a usar mi dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUIÉN -->
+  <section id="para-quien">
+    <div class="container">
+      <div class="section-title-wrap">
+        <h2>¿Para quién es Dashboard Financiero?</h2>
+        <p>Diseñado para personas que quieren entender su economía sin perder horas manteniendo plantillas manuales.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Estudiantes y primeros sueldos</h3>
+          <p>Si estás empezando a gestionar tus propios ingresos, tendrás claridad absoluta de cuánto consumes al mes y cuánto logras reservar.</p>
+        </div>
+        <div class="card">
+          <h3>Profesionales y freelances</h3>
+          <p>Distingue claramente los meses fuertes de los flojos y monitoriza tu fondo de emergencia para trabajar con total tranquilidad.</p>
+        </div>
+        <div class="card">
+          <h3>Parejas que gestionan juntos</h3>
+          <p>Un espacio unificado para revisar gastos comunes, equilibrar aportaciones y planificar vacaciones u objetivos compartidos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-title-wrap">
+        <h2>Preguntas frecuentes</h2>
+        <p>Resolvemos las dudas más habituales sobre la plataforma.</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>¿Necesito saber de Excel o finanzas?</h4>
+          <p>No. No hay fórmulas ni configuraciones técnicas. El sistema procesa los importes y genera los gráficos automáticamente.</p>
+        </div>
+        <div class="faq-item">
+          <h4>¿Tengo que pagar algo?</h4>
+          <p>Esta versión Early Access es de uso libre mientras seguimos incorporando nuevas funciones y optimizaciones.</p>
+        </div>
+        <div class="faq-item">
+          <h4>¿Qué datos necesito registrar?</h4>
+          <p>Basta con la fecha, el concepto y el importe. El sistema se encarga de sugerir o asignar la categoría correspondiente.</p>
+        </div>
+        <div class="faq-item">
+          <h4>¿Puedo consultarlo desde el teléfono móvil?</h4>
+          <p>Sí, la interfaz se adapta de forma fluida a pantallas de teléfonos, tablets y ordenadores portátiles o de sobremesa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-wrap">
         <div>
-            <!-- ENLACE ACTUALIZADO A RENDER -->
-            <a href="https://findash-backend-1.onrender.com/" class="btn-login outline">Acceder</a>
+          <strong style="color: var(--text-main);">Dashboard Financiero</strong> · FinDash
+          <div style="font-size: 0.8rem; margin-top: 0.2rem;">Control y soberanía sobre tus finanzas personales.</div>
         </div>
-    </nav>
-
-    <!-- Sección Hero -->
-    <header class="hero" id="top">
-        <div class="hero-badge">BETA · HECHO PARA TUS FINANZAS PERSONALES</div>
-        <h1>Ten claro tu dinero <br>sin pelearte con <span>Excel.</span></h1>
-        <p>Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros, con gráficos claros y automatizados, para que veas en segundos a dónde se va tu dinero.</p>
-        
-        <div class="hero-ctas">
-            <!-- ENLACE ACTUALIZADO A RENDER -->
-            <a href="https://findash-backend-1.onrender.com/" class="btn-login solid">Acceder a mi dashboard</a>
-            <a href="#ejemplo-panel" class="btn-login outline">Ver ejemplo de panel</a>
+        <div class="footer-links">
+          <a href="mailto:claccolu06@gmail.com">✉ claccolu06@gmail.com</a>
+          <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener">in LinkedIn</a>
+          <a href="https://claudioaccorinti.pythonanywhere.com/login">Acceder</a>
         </div>
-    </header>
-
-    <!-- Características (Bento Grid) -->
-    <section class="section" id="que-es">
-        <h2 class="section-title">Qué hace Dashboard Financiero</h2>
-        <p class="section-subtitle">Una vista clara y centralizada de tus finanzas personales para saber en segundos cómo vas de ingresos, gastos y ahorro.</p>
-
-        <div class="bento-grid">
-            <div class="bento-box span-2">
-                <div class="bento-icon"><i class="ph-bold ph-chart-pie-slice"></i></div>
-                <h3>Centraliza tus movimientos</h3>
-                <p>Registra ingresos y gastos por categorías y olvídate de Excels dispersos. Todo queda guardado en un mismo panel.</p>
-            </div>
-            <div class="bento-box">
-                <div class="bento-icon"><i class="ph-bold ph-arrows-clockwise"></i></div>
-                <h3>Gráficos listos para usar</h3>
-                <p>Ve tus datos en gráficos claros: ingresos vs gastos, categorías principales y evolución mensual.</p>
-            </div>
-            <div class="bento-box span-2">
-                <div class="bento-icon"><i class="ph-bold ph-target"></i></div>
-                <h3>Decisiones más rápidas</h3>
-                <p>Identifica en qué se va el dinero y cuánto estás ahorrando cada mes para ajustar hábitos y objetivos.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cómo funciona -->
-    <section class="section" id="como-funciona">
-        <h2 class="section-title">Cómo funciona</h2>
-        <p class="section-subtitle">En tres pasos tienes tus finanzas bajo control, sin fórmulas complicadas ni plantillas que se rompen.</p>
-
-        <div class="bento-grid">
-            <div class="bento-box">
-                <div class="bento-icon">1</div>
-                <h3>Crea tu dashboard</h3>
-                <p>Entra con tu usuario, configura tus categorías básicas y deja preparado el panel para registrar movimientos.</p>
-            </div>
-            <div class="bento-box">
-                <div class="bento-icon">2</div>
-                <h3>Registra ingresos y gastos</h3>
-                <p>Apunta tus movimientos cuando quieras: el sistema se encarga de colocarlos en las tablas y gráficos.</p>
-            </div>
-            <div class="bento-box">
-                <div class="bento-icon">3</div>
-                <h3>Revisa tus gráficos</h3>
-                <p>Mira resúmenes mensuales, categorías principales y evolución para ajustar hábitos y objetivos de ahorro.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección Panel / CTA Intermedio -->
-    <section class="section" id="ejemplo-panel">
-        <h2 class="section-title">Un panel claro para ver todo de un vistazo</h2>
-        <p class="section-subtitle">Dashboard Financiero agrupa tus métricas clave: ingresos, gastos, ahorro del mes e históricos, con gráficos que puedes revisar en segundos desde cualquier dispositivo.</p>
-        <div style="text-align: center; margin-top: 2rem;">
-            <!-- ENLACE ACTUALIZADO A RENDER -->
-            <a href="https://findash-backend-1.onrender.com/" class="btn-login solid" style="padding: 1rem 2rem; font-size: 1rem;">Empezar a usar mi dashboard</a>
-        </div>
-    </section>
-
-    <!-- Para quién es -->
-    <section class="section" id="para-quien">
-        <h2 class="section-title">¿Para quién es Dashboard Financiero?</h2>
-        <p class="section-subtitle">Está pensado para personas que quieren tomar el control de sus finanzas sin complicarse con hojas de cálculo infinitas ni fórmulas raras.</p>
-        <div class="bento-grid">
-            <div class="bento-box" style="background: transparent; border: 1px dashed var(--border-color);">
-                <i class="ph-fill ph-student" style="font-size: 2.5rem; color: var(--text-main); margin-bottom: 1rem; display: block;"></i>
-                <h3 style="font-size: 1.1rem;">Estudiantes y primeros sueldos</h3>
-                <p style="font-size: 0.9rem;">Si estás empezando a manejar tu propio dinero, tendrás una visión clara de en qué se te va el mes y cuánto consigues ahorrar.</p>
-            </div>
-            <div class="bento-box" style="background: transparent; border: 1px dashed var(--border-color);">
-                <i class="ph-fill ph-briefcase" style="font-size: 2.5rem; color: var(--text-main); margin-bottom: 1rem; display: block;"></i>
-                <h3 style="font-size: 1.1rem;">Profesionales y freelances</h3>
-                <p style="font-size: 0.9rem;">Separa mejor gastos personales y profesionales, y entiende tus meses fuertes y flojos de un vistazo.</p>
-            </div>
-            <div class="bento-box" style="background: transparent; border: 1px dashed var(--border-color);">
-                <i class="ph-fill ph-users" style="font-size: 2.5rem; color: var(--text-main); margin-bottom: 1rem; display: block;"></i>
-                <h3 style="font-size: 1.1rem;">Parejas que gestionan juntos</h3>
-                <p style="font-size: 0.9rem;">Un panel compartido para ver ingresos, gastos comunes y objetivos de ahorro sin discusiones por los números.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Final -->
-    <section class="section" style="text-align: center;">
-        <h2 class="section-title">Empieza hoy a tener claro tu dinero</h2>
-        <p class="section-subtitle">En pocos minutos puedes tener tu dashboard creado, empezar a registrar movimientos y ver tus primeros gráficos.</p>
-        <div style="margin-top: 2rem;">
-            <!-- ENLACE ACTUALIZADO A RENDER -->
-            <a href="https://findash-backend-1.onrender.com/" class="btn-login solid" style="padding: 1rem 2rem; font-size: 1rem;">Acceder a mi dashboard</a>
-        </div>
-    </section>
-
-    <!-- Preguntas frecuentes -->
-    <section class="section" id="faq">
-        <h2 class="section-title">Preguntas frecuentes</h2>
-        <div class="bento-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;">
-            <div class="bento-box">
-                <h3>¿Necesito saber de Excel o finanzas?</h3>
-                <p>No. Solo tienes que registrar tus ingresos y gastos. El dashboard se encarga de organizar los datos y mostrarte los gráficos.</p>
-            </div>
-            <div class="bento-box">
-                <h3>¿Tengo que pagar algo?</h3>
-                <p>Esta versión es un proyecto personal en beta. Puedes usarla gratis mientras la voy mejorando y añadiendo funciones.</p>
-            </div>
-            <div class="bento-box">
-                <h3>¿Qué datos tengo que meter?</h3>
-                <p>Importe, fecha, categoría y una pequeña descripción si quieres. Con eso ya puedes ver resúmenes y tendencias.</p>
-            </div>
-            <div class="bento-box">
-                <h3>¿Puedo verlo desde el móvil?</h3>
-                <p>Sí, el dashboard está pensado para funcionar bien en móvil, tablet y ordenador, para que lo consultes cuando quieras.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div style="margin-bottom: 1rem;">
-            <i class="ph-fill ph-wallet" style="font-size: 2rem; color: var(--primary);"></i>
-        </div>
-        <p>Una herramienta construida para darte tranquilidad financiera.</p>
-        <div style="margin-top: 1.5rem;">
-            <a href="mailto:claccolu06@gmail.com"><i class="ph-bold ph-envelope"></i> Soporte</a>
-            <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank"><i class="ph-bold ph-linkedin-logo"></i> Desarrollador</a>
-        </div>
-        <p style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.5;">&copy; 2026 Dashboard Financiero. Proyecto Beta.</p>
-    </footer>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>
