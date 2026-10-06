@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Financiero | Ten claro tu dinero</title>
-  <meta name="description" content="Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros con gráficos claros y automatizados.">
+  <title>FinDash · Control Financiero Personal Sin Fricción</title>
+  <meta name="description" content="Gestiona ingresos, gastos y proyección de ahorro personal con procesamiento seguro de movimientos bancarios y análisis de autonomía financiera.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --card-hover: #162035;
-      --border: #1f293d;
-      --text-main: #f9fafb;
-      --text-muted: #94a3b8;
-      --primary: #10b981;
-      --primary-hover: #059669;
-      --primary-glow: rgba(16, 185, 129, 0.15);
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --bg-base: #07090e;
+      --bg-surface: #0e131f;
+      --bg-surface-elevated: #141c2e;
+      --border-subtle: #1e293b;
+      --border-focus: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-emerald: #10b981;
+      --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+      --accent-emerald-hover: #059669;
+      --accent-danger: #f43f5e;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * {
@@ -29,39 +33,40 @@
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: var(--font);
-      line-height: 1.6;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
     }
 
     .container {
-      max-width: 1140px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
 
-    /* BARRA DE NAVEGACIÓN */
+    /* HEADER & NAV */
     header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(9, 13, 22, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 70px;
+      height: 72px;
     }
 
     .brand {
@@ -70,35 +75,43 @@
       gap: 0.75rem;
       font-weight: 700;
       font-size: 1.25rem;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
-    .brand-icon {
+    .brand-mark {
       width: 32px;
       height: 32px;
-      background: linear-gradient(135deg, #10b981, #047857);
-      border-radius: 8px;
+      background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
       color: #fff;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1rem;
     }
 
     .nav-links {
       display: flex;
-      align-items: center;
       gap: 2rem;
     }
 
-    .nav-link {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      transition: color 0.2s ease;
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: color 0.15s ease;
     }
 
-    .nav-link:hover {
-      color: var(--text-main);
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-auth {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     /* BOTONES */
@@ -106,72 +119,74 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
       font-weight: 600;
-      font-size: 0.95rem;
-      padding: 0.65rem 1.4rem;
-      border-radius: 8px;
-      transition: all 0.2s ease;
+      padding: 0.6rem 1.25rem;
+      border-radius: 7px;
+      transition: all 0.15s ease;
       cursor: pointer;
+      white-space: nowrap;
     }
 
-    .btn-solid {
-      background: var(--primary);
-      color: #062b1e;
-      border: 1px solid var(--primary);
+    .btn-primary {
+      background: var(--accent-emerald);
+      color: #022c22;
+      border: 1px solid var(--accent-emerald);
     }
 
-    .btn-solid:hover {
-      background: var(--primary-hover);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-      transform: translateY(-1px);
+    .btn-primary:hover {
+      background: var(--accent-emerald-hover);
+      border-color: var(--accent-emerald-hover);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
     }
 
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-main);
+    .btn-secondary {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
     }
 
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: #334155;
+    .btn-secondary:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--border-focus);
     }
 
     /* HERO */
     .hero {
-      padding: 5rem 0 4rem;
+      padding: 5rem 0 3.5rem;
       text-align: center;
-      position: relative;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.35rem 1rem;
-      border-radius: 9999px;
-      background: var(--primary-glow);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: var(--primary);
-      font-size: 0.85rem;
+      padding: 0.3rem 0.85rem;
+      background: var(--accent-emerald-soft);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 999px;
+      font-size: 0.8rem;
       font-weight: 600;
+      color: var(--accent-emerald);
       margin-bottom: 1.5rem;
     }
 
     .hero h1 {
-      font-size: clamp(2.3rem, 5vw, 3.8rem);
-      line-height: 1.15;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.1;
       font-weight: 800;
-      letter-spacing: -0.03em;
-      max-width: 850px;
-      margin: 0 auto 1.5rem;
+      letter-spacing: -0.04em;
+      max-width: 900px;
+      margin: 0 auto 1.25rem;
     }
 
     .hero p {
-      font-size: clamp(1.05rem, 2vw, 1.25rem);
-      color: var(--text-muted);
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--text-secondary);
       max-width: 680px;
       margin: 0 auto 2.5rem;
+      line-height: 1.6;
     }
 
     .hero-actions {
@@ -179,198 +194,199 @@
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
-      margin-bottom: 3.5rem;
+      margin-bottom: 4rem;
     }
 
-    /* PREVIEW DASHBOARD */
-    .dashboard-preview {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(16, 185, 129, 0.08);
-      max-width: 980px;
+    /* INTERACTIVE SIMULATOR CARD */
+    .cockpit-preview {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.75rem;
+      max-width: 960px;
       margin: 0 auto;
       text-align: left;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
     }
 
-    .preview-header {
+    .cockpit-topbar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border);
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
       padding-bottom: 1rem;
       margin-bottom: 1.5rem;
     }
 
-    .preview-dots {
+    .terminal-dots {
       display: flex;
       gap: 6px;
     }
 
-    .dot {
+    .terminal-dots span {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #334155;
+      background: #1e293b;
     }
 
-    .metrics-grid {
+    .cockpit-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
 
-    .metric-card {
-      background: #0b1120;
-      border: 1px solid var(--border);
+    .stat-box {
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
       padding: 1.25rem;
-      border-radius: 10px;
+      border-radius: 8px;
     }
 
-    .metric-title {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .stat-label {
+      font-size: 0.75rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      color: var(--text-muted);
       margin-bottom: 0.4rem;
     }
 
-    .metric-val {
-      font-size: 1.5rem;
+    .stat-number {
+      font-size: 1.6rem;
       font-weight: 700;
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
     }
 
-    .val-green { color: #10b981; }
-    .val-red { color: #ef4444; }
+    .text-emerald { color: var(--accent-emerald); }
+    .text-rose { color: var(--accent-danger); }
 
-    /* SECCIONES COMUNES */
-    section {
+    .simulator-control {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      min-width: 250px;
+    }
+
+    input[type=range] {
+      flex: 1;
+      accent-color: var(--accent-emerald);
+    }
+
+    /* BENTO GRID (CARACTERÍSTICAS) */
+    .section-bento {
       padding: 5rem 0;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-subtle);
     }
 
-    .section-title-wrap {
+    .section-header {
       text-align: center;
-      max-width: 650px;
+      max-width: 600px;
       margin: 0 auto 3.5rem;
     }
 
-    .section-title-wrap h2 {
+    .section-header h2 {
       font-size: 2.2rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       margin-bottom: 0.75rem;
     }
 
-    .section-title-wrap p {
-      color: var(--text-muted);
+    .section-header p {
+      color: var(--text-secondary);
       font-size: 1.05rem;
     }
 
-    .grid-3 {
+    .bento-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.25rem;
     }
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 2rem;
+    .bento-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: #334155;
-    }
+    .bento-col-8 { grid-column: span 8; }
+    .bento-col-4 { grid-column: span 4; }
+    .bento-col-6 { grid-column: span 6; }
 
-    .card h3 {
-      font-size: 1.25rem;
+    .bento-tag {
+      font-size: 0.75rem;
       font-weight: 600;
+      color: var(--accent-emerald);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       margin-bottom: 0.75rem;
     }
 
-    .card p {
-      color: var(--text-muted);
+    .bento-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .bento-card p {
+      color: var(--text-secondary);
       font-size: 0.95rem;
       line-height: 1.6;
     }
 
-    .step-num {
-      width: 36px;
-      height: 36px;
-      background: var(--primary-glow);
-      color: var(--primary);
-      border-radius: 8px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-    }
-
-    /* CTA BOX */
+    /* CTA FINAL */
     .cta-banner {
-      background: linear-gradient(180deg, #111827 0%, #0d1527 100%);
-      border: 1px solid var(--border);
-      padding: 3.5rem 2rem;
+      background: linear-gradient(180deg, var(--bg-surface) 0%, #080c14 100%);
+      border: 1px solid var(--border-subtle);
       border-radius: 16px;
+      padding: 4rem 2rem;
       text-align: center;
-      margin: 3rem 0;
+      margin: 4rem 0;
     }
 
     .cta-banner h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       margin-bottom: 1rem;
     }
 
     .cta-banner p {
-      color: var(--text-muted);
-      max-width: 600px;
+      color: var(--text-secondary);
+      max-width: 580px;
       margin: 0 auto 2rem;
       font-size: 1.1rem;
     }
 
-    /* FAQ */
-    .faq-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .faq-item {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 1.75rem;
-      border-radius: 12px;
-    }
-
-    .faq-item h4 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-      color: var(--text-main);
-    }
-
-    .faq-item p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
     /* FOOTER */
     footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-subtle);
       padding: 3rem 0;
+      font-size: 0.875rem;
       color: var(--text-muted);
-      font-size: 0.9rem;
     }
 
-    .footer-wrap {
+    .footer-flex {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -384,204 +400,186 @@
     }
 
     .footer-links a:hover {
-      color: var(--text-main);
+      color: var(--text-primary);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 860px) {
+      .bento-col-8, .bento-col-4, .bento-col-6 { grid-column: span 12; }
       .nav-links { display: none; }
-      .faq-grid { grid-template-columns: 1fr; }
       .hero { padding: 3.5rem 0 2rem; }
     }
   </style>
 </head>
 <body id="top">
 
-  <!-- NAVBAR -->
+  <!-- CABECERA DE NAVEGACIÓN -->
   <header>
     <div class="container">
       <nav>
         <a href="#top" class="brand">
-          <div class="brand-icon">F</div>
+          <div class="brand-mark">F</div>
           <span>FinDash</span>
         </a>
+
         <div class="nav-links">
-          <a href="#que-es" class="nav-link">Qué hace</a>
-          <a href="#para-quien" class="nav-link">Para quién</a>
-          <a href="#faq" class="nav-link">FAQ</a>
+          <a href="#arquitectura">Arquitectura</a>
+          <a href="#ingesta">Ingesta de Datos</a>
+          <a href="#autonomia">Autonomía</a>
         </div>
-        <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn btn-outline">Acceder</a>
+
+        <!-- BIFURCACIÓN EXPLÍCITA DE ACCESO -->
+        <div class="nav-auth">
+          <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn btn-secondary">Iniciar sesión</a>
+          <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn btn-primary">Crear cuenta gratis</a>
+        </div>
       </nav>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" style="border:none;">
+  <!-- SECCIÓN HERO -->
+  <section class="hero">
     <div class="container">
-      <div class="badge">Early Access · Finanzas Personales</div>
-      <h1>Ten claro tu dinero sin pelearte con Excel</h1>
-      <p>Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros con gráficos claros y automatizados para que veas en segundos a dónde va tu dinero.</p>
+      <div class="badge">Soberanía de Datos · Early Access</div>
+      <h1>Ten claro tu dinero sin pelearte con hojas de cálculo</h1>
+      <p>FinDash centraliza tus ingresos y gastos mediante análisis de extractos bancarios en segundos. Sin fórmulas rotas, sin compartir credenciales bancarias.</p>
+      
       <div class="hero-actions">
-        <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn btn-solid" style="padding: 0.85rem 2rem; font-size: 1.05rem;">Acceder a mi dashboard</a>
-        <a href="#ejemplo-panel" class="btn btn-outline" style="padding: 0.85rem 1.8rem; font-size: 1.05rem;">Ver ejemplo de panel</a>
+        <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn btn-primary" style="padding: 0.85rem 2rem; font-size: 1rem;">Comenzar ahora</a>
+        <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn btn-secondary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">Acceder al panel</a>
       </div>
 
-      <!-- PREVIEW PANEL -->
-      <div class="dashboard-preview" id="ejemplo-panel">
-        <div class="preview-header">
-          <div class="preview-dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
+      <!-- COCKPIT INTERACTIVO (SIMULADOR EN TIEMPO REAL) -->
+      <div class="cockpit-preview">
+        <div class="cockpit-topbar">
+          <div class="terminal-dots">
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Panel Financiero</span>
+          <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">simulador_autonomia.sh</span>
         </div>
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-title">Ingresos del Mes</div>
-            <div class="metric-val val-green">2.850,00 €</div>
+
+        <div class="cockpit-grid">
+          <div class="stat-box">
+            <div class="stat-label">Ingresos Mensuales</div>
+            <div class="stat-number text-emerald" id="val-ingresos">2.800,00 €</div>
           </div>
-          <div class="metric-card">
-            <div class="metric-title">Gastos del Mes</div>
-            <div class="metric-val val-red">1.420,50 €</div>
+          <div class="stat-box">
+            <div class="stat-label">Gasto Mensual Medio</div>
+            <div class="stat-number text-rose" id="val-gastos">1.400,00 €</div>
           </div>
-          <div class="metric-card">
-            <div class="metric-title">Ahorro Neto</div>
-            <div class="metric-val val-green">1.429,50 €</div>
+          <div class="stat-box">
+            <div class="stat-label">Fondo Acumulado</div>
+            <div class="stat-number" id="val-fondo">9.100,00 €</div>
           </div>
-          <div class="metric-card">
-            <div class="metric-title">Colchón Financiero</div>
-            <div class="metric-val">6.8 meses</div>
+          <div class="stat-box">
+            <div class="stat-label">Colchón Financiero</div>
+            <div class="stat-number text-emerald" id="val-runway">6.5 meses</div>
+          </div>
+        </div>
+
+        <div class="simulator-control">
+          <div style="font-size: 0.85rem; color: var(--text-secondary);">
+            Ajusta tu <strong>gasto mensual medio</strong> para ver la variación de autonomía:
+          </div>
+          <div class="slider-wrap">
+            <input type="range" id="gasto-slider" min="800" max="2500" step="50" value="1400">
+            <span id="slider-indicator" style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600;">1.400 €</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- QUÉ HACE -->
-  <section id="que-es">
+  <!-- BENTO GRID (CAPACIDADES DEL PRODUCTO) -->
+  <section class="section-bento" id="arquitectura">
     <div class="container">
-      <div class="section-title-wrap">
-        <h2>Qué hace Dashboard Financiero</h2>
-        <p>Una vista clara y centralizada de tus finanzas personales para saber en segundos cómo vas de ingresos, gastos y capacidad de ahorro.</p>
+      <div class="section-header">
+        <h2>Diseñado para el control real</h2>
+        <p>Eliminamos la fricción de entrada de datos y transformamos números dispersos en tranquilidad tangible.</p>
       </div>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Centraliza tus movimientos</h3>
-          <p>Registra ingresos y gastos organizados por categorías y olvídate de hojas de cálculo dispersas. Todo queda guardado y estructurado en un único panel.</p>
-        </div>
-        <div class="card">
-          <h3>Gráficos listos para usar</h3>
-          <p>Visualiza tus números en gráficos directos: comparación de ingresos vs gastos, desglose por categorías y tendencia de saldo a lo largo del tiempo.</p>
-        </div>
-        <div class="card">
-          <h3>Decisiones más rápidas</h3>
-          <p>Detecta de un vistazo dónde se concentra el gasto prescindible y ajusta tus hábitos para cumplir metas de ahorro sin fricción.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- CÓMO FUNCIONA -->
-  <section>
-    <div class="container">
-      <div class="section-title-wrap">
-        <h2>Cómo funciona</h2>
-        <p>En tres pasos tomas el control de tus finanzas, sin fórmulas complicadas ni tablas que se desconfiguran.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card">
-          <div class="step-num">1</div>
-          <h3>Crea tu dashboard</h3>
-          <p>Accede con tu cuenta y deja preparado tu panel de control para registrar movimientos al instante.</p>
+      <div class="bento-grid">
+        <div class="bento-card bento-col-8" id="ingesta">
+          <div>
+            <div class="bento-tag">Ingesta Dual Sin Fricción</div>
+            <h3>Importación adaptada a tu dispositivo</h3>
+            <p>En el ordenador, procesa extractos en bloque (CSV y Excel). En tu teléfono móvil, simplemente copia los movimientos de la app de tu banco y pégalos: el reconstructor heurístico detecta fechas, conceptos e importes en milisegundos.</p>
+          </div>
+          <div style="margin-top: 1.5rem; font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-base); padding: 0.85rem; border-radius: 6px; border: 1px solid var(--border-subtle); color: var(--accent-emerald);">
+            ✓ Ingesta bancaria universal · 0 contraseñas requeridas
+          </div>
         </div>
-        <div class="card">
-          <div class="step-num">2</div>
-          <h3>Registra ingresos y gastos</h3>
-          <p>Copia tus transacciones del banco o sube tu extracto: el motor se encarga de categorizarlas y guardarlas en tu base de datos.</p>
+
+        <div class="bento-card bento-col-4" id="autonomia">
+          <div>
+            <div class="bento-tag">Psicología de Ahorro</div>
+            <h3>Colchón Financiero</h3>
+            <p>Deja de medir tu dinero en cifras abstractas. FinDash calcula tu autonomía: cuántos meses puedes sostener tu estilo de vida sin necesidad de percibir ingresos.</p>
+          </div>
         </div>
-        <div class="card">
-          <div class="step-num">3</div>
-          <h3>Revisa tus gráficos</h3>
-          <p>Consulta tus resúmenes del mes, vigila tu autonomía financiera y comprueba el avance de tus metas de ahorro.</p>
+
+        <div class="bento-card bento-col-4">
+          <div>
+            <div class="bento-tag">Prevención</div>
+            <h3>Alertas Semafóricas</h3>
+            <p>Límites automáticos por categoría. El panel te alerta de forma visual cuando alcanzas el 80% y el 100% de tu presupuesto para evitar sorpresas a fin de mes.</p>
+          </div>
+        </div>
+
+        <div class="bento-card bento-col-8">
+          <div>
+            <div class="bento-tag">Soberanía y Privacidad</div>
+            <h3>Tus datos nunca se venden</h3>
+            <p>A diferencia de los agregadores tradicionales, FinDash no exige vinculación por Open Banking ni comercializa tus hábitos con entidades aseguradoras o bancarias.</p>
+          </div>
         </div>
       </div>
 
+      <!-- BANNER CTA FINAL -->
       <div class="cta-banner">
-        <h2>Un panel claro para ver todo de un vistazo</h2>
-        <p>FinDash calcula tus métricas en tiempo real para que tomes decisiones con datos en lugar de intuiciones.</p>
-        <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn btn-solid" style="padding: 0.9rem 2.2rem; font-size: 1.05rem;">Empezar a usar mi dashboard</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARA QUIÉN -->
-  <section id="para-quien">
-    <div class="container">
-      <div class="section-title-wrap">
-        <h2>¿Para quién es Dashboard Financiero?</h2>
-        <p>Diseñado para personas que quieren entender su economía sin perder horas manteniendo plantillas manuales.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Estudiantes y primeros sueldos</h3>
-          <p>Si estás empezando a gestionar tus propios ingresos, tendrás claridad absoluta de cuánto consumes al mes y cuánto logras reservar.</p>
-        </div>
-        <div class="card">
-          <h3>Profesionales y freelances</h3>
-          <p>Distingue claramente los meses fuertes de los flojos y monitoriza tu fondo de emergencia para trabajar con total tranquilidad.</p>
-        </div>
-        <div class="card">
-          <h3>Parejas que gestionan juntos</h3>
-          <p>Un espacio unificado para revisar gastos comunes, equilibrar aportaciones y planificar vacaciones u objetivos compartidos.</p>
+        <h2>Toma el control definitivo de tus números</h2>
+        <p>Configura tu espacio de trabajo en menos de un minuto y olvídate para siempre de las hojas de cálculo rotas.</p>
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn btn-primary" style="padding: 0.85rem 2rem; font-size: 1rem;">Crear cuenta gratis</a>
+          <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn btn-secondary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">Iniciar sesión</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="container">
-      <div class="section-title-wrap">
-        <h2>Preguntas frecuentes</h2>
-        <p>Resolvemos las dudas más habituales sobre la plataforma.</p>
-      </div>
-      <div class="faq-grid">
-        <div class="faq-item">
-          <h4>¿Necesito saber de Excel o finanzas?</h4>
-          <p>No. No hay fórmulas ni configuraciones técnicas. El sistema procesa los importes y genera los gráficos automáticamente.</p>
-        </div>
-        <div class="faq-item">
-          <h4>¿Tengo que pagar algo?</h4>
-          <p>Esta versión Early Access es de uso libre mientras seguimos incorporando nuevas funciones y optimizaciones.</p>
-        </div>
-        <div class="faq-item">
-          <h4>¿Qué datos necesito registrar?</h4>
-          <p>Basta con la fecha, el concepto y el importe. El sistema se encarga de sugerir o asignar la categoría correspondiente.</p>
-        </div>
-        <div class="faq-item">
-          <h4>¿Puedo consultarlo desde el teléfono móvil?</h4>
-          <p>Sí, la interfaz se adapta de forma fluida a pantallas de teléfonos, tablets y ordenadores portátiles o de sobremesa.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+  <!-- PIE DE PÁGINA -->
   <footer>
     <div class="container">
-      <div class="footer-wrap">
+      <div class="footer-flex">
         <div>
-          <strong style="color: var(--text-main);">Dashboard Financiero</strong> · FinDash
-          <div style="font-size: 0.8rem; margin-top: 0.2rem;">Control y soberanía sobre tus finanzas personales.</div>
+          <strong style="color: var(--text-primary);">FinDash</strong> · Dashboard Financiero
+          <div style="margin-top: 0.25rem;">Plataforma de soberanía financiera y control presupuestario.</div>
         </div>
         <div class="footer-links">
-          <a href="mailto:claccolu06@gmail.com">✉ claccolu06@gmail.com</a>
-          <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener">in LinkedIn</a>
+          <a href="mailto:claccolu06@gmail.com">Contacto</a>
+          <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://claudioaccorinti.pythonanywhere.com/login">Acceder</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- LÓGICA DEL SIMULADOR REACTIVO -->
+  <script>
+    const slider = document.getElementById('gasto-slider');
+    const indicator = document.getElementById('slider-indicator');
+    const valGastos = document.getElementById('val-gastos');
+    const valRunway = document.getElementById('val-runway');
+    const fondoFijo = 9100;
+
+    slider.addEventListener('input', (e) => {
+      const gasto = parseFloat(e.target.value);
+      indicator.textContent = gasto.toLocaleString('es-ES') + ' €';
+      valGastos.textContent = gasto.toLocaleString('es-ES', { minimumFractionDigits: 2 }) + ' €';
+      const runway = (fondoFijo / gasto).toFixed(1);
+      valRunway.textContent = runway + ' meses';
+    });
+  </script>
 </body>
 </html>
