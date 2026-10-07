@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>FinDash · El Futuro de tus Finanzas</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   
   <style>
-    /* VARIABLES */
+    /* VARIABLES GLOBALES */
     :root {
       --black: #000000;
       --glass-bg: rgba(20, 20, 20, 0.4);
@@ -24,7 +24,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; background-color: var(--black); }
 
     body {
       background-color: var(--black);
@@ -34,13 +34,13 @@
       line-height: 1.6;
     }
 
-    /* EFECTOS DE FONDO */
+    /* EFECTOS DE FONDO CIBERNÉTICOS */
     .bg-orb {
       position: absolute; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.3;
-      animation: pulseOrb 8s infinite alternate;
+      animation: pulseOrb 8s infinite alternate; pointer-events: none;
     }
-    .orb-1 { width: 500px; height: 500px; background: var(--neon-green); top: -10%; left: -10%; }
-    .orb-2 { width: 600px; height: 600px; background: #333333; bottom: 10%; right: -10%; }
+    .orb-1 { width: 50vw; height: 50vw; max-width: 500px; max-height: 500px; background: var(--neon-green); top: -10%; left: -10%; }
+    .orb-2 { width: 60vw; height: 60vw; max-width: 600px; max-height: 600px; background: #333333; bottom: 10%; right: -10%; }
 
     @keyframes pulseOrb {
       0% { transform: scale(1); opacity: 0.2; }
@@ -49,7 +49,7 @@
 
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
 
-    /* CRISTALMODERNISMO */
+    /* PANELES DE CRISTAL */
     .glass-panel {
       background: var(--glass-bg);
       backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
@@ -59,11 +59,11 @@
     }
     .glass-panel:hover { border-color: var(--glass-hover); box-shadow: 0 0 30px rgba(0, 0, 0, 0.8); }
 
-    /* HEADER */
+    /* NAVEGACIÓN SUPERIOR */
     header {
       position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%);
       width: 95%; max-width: 1200px; z-index: 100;
-      background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border); border-radius: 100px;
       display: flex; justify-content: space-between; align-items: center;
       padding: 0.75rem 1.5rem;
@@ -75,6 +75,7 @@
     .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
     .nav-links a:hover { color: var(--text-main); }
     
+    .nav-btn-group { display: flex; gap: 1rem; }
     .nav-btn {
       background: transparent; border: 1px solid var(--glass-border); color: var(--text-main);
       padding: 0.5rem 1.25rem; border-radius: 100px; font-weight: 600; font-family: 'Space Grotesk';
@@ -88,24 +89,24 @@
     }
     .nav-btn.primary:hover { box-shadow: 0 0 25px var(--neon-green); transform: scale(1.05); }
 
-    /* HERO SECTION */
+    /* SECCIÓN HERO */
     .hero {
       min-height: 90vh; display: grid; grid-template-columns: 1.1fr 0.9fr;
       align-items: center; padding-top: 8rem; gap: 4rem;
     }
     .hero-text h1 {
-      font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.05;
+      font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.05;
       letter-spacing: -2px; margin-bottom: 1.5rem; text-transform: uppercase;
     }
     .hero-text h1 span { color: var(--neon-green); }
     .hero-text p { font-size: 1.15rem; color: var(--text-muted); max-width: 500px; margin-bottom: 2.5rem; }
 
-    /* SIMULADOR */
+    /* SIMULADOR INTERACTIVO */
     .hero-interactive { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     .sim-card { width: 100%; z-index: 10; position: relative; padding: 2.5rem; }
     .sim-stats { display: flex; justify-content: space-between; margin-bottom: 2.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1.5rem; }
     .stat-block .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;}
-    .stat-block .value { font-family: 'JetBrains Mono', monospace; font-size: 2.5rem; font-weight: 800; color: var(--neon-green); line-height: 1;}
+    .stat-block .value { font-family: 'JetBrains Mono', monospace; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: var(--neon-green); line-height: 1;}
     
     input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; margin-top: 1rem; }
     input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
@@ -115,15 +116,15 @@
       box-shadow: 0 0 15px var(--neon-green);
     }
 
-    /* SECCIÓN DEMO CON VÍDEO VERTICAL */
-    .demo-section { padding: 8rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .demo-text h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; text-transform: uppercase; }
+    /* PANTALLA DIVIDIDA: VÍDEO VERTICAL */
+    .demo-section { padding: 6rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .demo-text h2 { font-size: clamp(2.5rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; text-transform: uppercase; }
     .demo-text h2 span { color: var(--neon-green); }
     .demo-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
     
     .mobile-frame-container { display: flex; justify-content: center; align-items: center; }
     .mobile-hologram-frame {
-      position: relative; padding: 0.75rem; width: 100%; max-width: 320px; aspect-ratio: 9/16;
+      position: relative; padding: 0.75rem; width: 100%; max-width: 300px; aspect-ratio: 9/16;
       background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0));
       border-radius: 32px; border: 1px solid rgba(255,255,255,0.2);
       box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(0, 213, 137, 0.1);
@@ -132,7 +133,7 @@
     .app-video { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; display: block; }
 
     /* BENTO GRID */
-    .bento-section { padding: 4rem 0 8rem; }
+    .bento-section { padding: 4rem 0 6rem; }
     .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .bento-item { display: flex; flex-direction: column; justify-content: flex-start; padding: 2rem; }
     .bento-large { grid-column: span 2; }
@@ -141,14 +142,7 @@
     .bento-desc { color: var(--text-muted); font-size: 0.95rem; }
 
     /* SECCIÓN UNIFICADA: FAQ + CONTACTO */
-    .unified-bottom-section {
-      padding: 4rem 0 4rem;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr; /* FAQ un poco más ancho que Contacto */
-      gap: 3rem;
-      align-items: start;
-    }
-
+    .unified-bottom-section { padding: 4rem 0 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start; }
     .section-header { font-size: 2rem; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; color: #fff; }
 
     /* FAQ ACORDEÓN (Izquierda) */
@@ -166,76 +160,73 @@
       padding: 0 1.5rem; max-height: 0; overflow: hidden; color: var(--text-muted);
       transition: max-height 0.4s ease, padding 0.4s ease;
     }
-    .faq-item.active .faq-answer { max-height: 250px; padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--glass-border); margin-top: 0.5rem; padding-top: 1rem;}
+    .faq-item.active .faq-answer { max-height: 300px; padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--glass-border); margin-top: 0.5rem; padding-top: 1rem;}
     .faq-item.active .faq-question i { transform: rotate(180deg); color: var(--neon-green); }
-    .faq-question i { transition: transform 0.3s; }
 
     /* CONTACTO & MASCOTA (Derecha) */
-    .contact-wrapper { width: 100%; }
+    .contact-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .contact-card { width: 100%; text-align: center; padding: 2.5rem; position: relative; z-index: 2; }
+    .contact-socials { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
     
-    .contact-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 2.5rem;
-      gap: 1.5rem;
-    }
-    
-    .contact-info { flex: 1; }
-    .contact-socials { display: flex; gap: 1rem; margin-top: 1.5rem; }
-    
-    /* La mascota ahora vive DENTRO de la tarjeta de contacto */
+    /* LA MASCOTA CUSTODIANDO EL CONTACTO */
     .contact-mascot {
-      width: 140px; /* Tamaño perfecto para estar dentro de la caja */
-      height: 140px;
-      flex-shrink: 0;
-      perspective: 1000px;
+      width: 140px; height: 140px; margin-top: 1.5rem; perspective: 1000px;
     }
     .contact-mascot video {
       width: 100%; height: 100%; object-fit: contain;
-      mix-blend-mode: screen; /* Fondo transparente mágico */
-      pointer-events: none;
+      mix-blend-mode: screen; pointer-events: none;
     }
 
-    /* FOOTER / CREDENCIALES */
+    /* FOOTER ACADÉMICO / PROFESIONAL */
     .site-footer {
-      border-top: 1px solid var(--glass-border);
-      padding: 2.5rem 0;
-      margin-top: 2rem;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      border-top: 1px solid var(--glass-border); padding: 2.5rem 2rem; margin-top: 2rem;
+      text-align: center; color: var(--text-muted); font-size: 0.9rem;
     }
     .site-footer p { margin-bottom: 0.5rem; }
     .site-footer strong { color: var(--text-main); font-weight: 700; }
     .site-footer .highlight { color: var(--neon-green); font-weight: 600; }
 
+    /* RESPONSIVE (MÓVIL Y TABLETS) - PROPORCIONES OPTIMIZADAS */
     @media (max-width: 900px) {
+      header { padding: 0.5rem 1rem; width: 90%; }
       .nav-links { display: none; }
-      .hero, .demo-section { grid-template-columns: 1fr; text-align: center; gap: 3rem;}
-      .hero-text h1 { font-size: 2.5rem; }
-      .unified-bottom-section { grid-template-columns: 1fr; gap: 4rem; }
-      .contact-card { flex-direction: column; text-align: center; }
+      .nav-btn { padding: 0.4rem 1rem; font-size: 0.8rem; }
+      .brand { font-size: 1.2rem; }
+      
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 7rem; gap: 2rem; min-height: auto; margin-bottom: 2rem; }
+      .hero-interactive { width: 100%; }
+      
+      .demo-section { grid-template-columns: 1fr; text-align: center; gap: 3rem; padding: 4rem 0; }
+      .demo-text .ph-bold { margin: 0 auto; } /* Centra los iconos en móvil */
+      
       .bento-grid { grid-template-columns: 1fr; }
       .bento-large { grid-column: span 1; }
+      
+      .unified-bottom-section { grid-template-columns: 1fr; gap: 4rem; padding: 2rem 0; }
+      .contact-card { padding: 1.5rem; }
+      
+      .mobile-hologram-frame { max-width: 260px; margin: 0 auto; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Luces de fondo -->
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
 
+  <!-- NAVEGACIÓN -->
   <header>
-    <a href="#" class="brand"><i class="ph-fill ph-hexagon"></i> FINDASH</a>
+    <a href="#top" class="brand"><i class="ph-fill ph-hexagon"></i> FINDASH</a>
     <div class="nav-links">
       <a href="#simulador">Simulador</a>
       <a href="#funcionalidades">Funcionalidades</a>
       <a href="#faq">Preguntas</a>
     </div>
-    <div style="display: flex; gap: 1rem;">
-      <a href="#" class="nav-btn">Acceder</a>
-      <a href="#" class="nav-btn primary">Registrarse</a>
+    <div class="nav-btn-group">
+      <!-- RUTAS FLASK APLICADAS AQUI -->
+      <a href="{{ url_for('login') }}" class="nav-btn">Acceder</a>
+      <a href="{{ url_for('registro') }}" class="nav-btn primary">Registrarse</a>
     </div>
   </header>
 
@@ -246,7 +237,7 @@
       <div class="hero-text">
         <h1>Deja de pelearte<br><span>con Excel.</span></h1>
         <p>Una terminal financiera de élite. Ingesta inteligente, categorización automática y proyecciones matemáticas en tiempo real.</p>
-        <a href="#" class="nav-btn primary" style="padding: 1rem 2.5rem; font-size: 1.1rem; display: inline-block;">Arrancar Sistema</a>
+        <a href="{{ url_for('registro') }}" class="nav-btn primary" style="padding: 1rem 2.5rem; font-size: 1.1rem; display: inline-flex;">Arrancar Sistema</a>
       </div>
       
       <div class="hero-interactive">
@@ -274,20 +265,20 @@
       </div>
     </section>
 
-    <!-- SECCIÓN DE DEMO CON VÍDEO VERTICAL (Ruta corregida y blindada) -->
+    <!-- SECCIÓN DE DEMO: VÍDEO VERTICAL ENLAZADO AL SERVER -->
     <section class="demo-section" id="funcionalidades">
       <div class="demo-text">
         <h2>Sincronización sin dolor.<br><span>Resultados al instante.</span></h2>
         <p>No conectamos con tu banco ni te pedimos claves. Simplemente copia tus movimientos, pégalos en la terminal, y nuestro motor estructura y dibuja tu radiografía financiera.</p>
         
         <div style="display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem;">
-          <div style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
+          <div style="display: flex; align-items: center; justify-content: flex-start; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
             <i class="ph-bold ph-terminal-window" style="color: var(--neon-green); font-size: 1.5rem;"></i> 1. Copia y Pega tus datos
           </div>
-          <div style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
+          <div style="display: flex; align-items: center; justify-content: flex-start; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
             <i class="ph-bold ph-cpu" style="color: var(--neon-green); font-size: 1.5rem;"></i> 2. Categorización Automática
           </div>
-          <div style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
+          <div style="display: flex; align-items: center; justify-content: flex-start; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
             <i class="ph-bold ph-chart-polar" style="color: var(--neon-green); font-size: 1.5rem;"></i> 3. Toma el control visual
           </div>
         </div>
@@ -295,9 +286,9 @@
       
       <div class="mobile-frame-container">
         <div class="mobile-hologram-frame">
-          <!-- IMPORTANTE: El archivo en tu carpeta debe llamarse exactamente así -->
+          <!-- VÍDEO CONECTADO A LA RUTA FLASK (Asegúrate de que se llama dashboard_fina.mp4) -->
           <video class="app-video" autoplay loop muted playsinline>
-            <source src="dashboard_fina.mp4" type="video/mp4">
+            <source src="{{ url_for('static', filename='dashboard_fina.mp4') }}" type="video/mp4">
           </video>
         </div>
       </div>
@@ -334,13 +325,12 @@
       </div>
     </section>
 
-    <!-- SECCIÓN UNIFICADA: FAQ + CONTACTO AL MISMO NIVEL -->
+    <!-- FAQ + CONTACTO Y MASCOTA -->
     <section class="unified-bottom-section" id="faq">
       
-      <!-- IZQUIERDA: Preguntas Frecuentes -->
+      <!-- FAQ ACORDEÓN -->
       <div class="faq-wrapper">
         <h2 class="section-header">Preguntas Frecuentes</h2>
-        
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             ¿Necesito conectar mi cuenta bancaria? <i class="ph-bold ph-caret-down"></i>
@@ -349,7 +339,6 @@
             Rotundamente no. FinDash funciona por ingesta pasiva. Tú copias y pegas tus movimientos bancarios o subes tu archivo CSV. El sistema los categoriza sin necesidad de pedirte tus claves, garantizando tu seguridad al 100%.
           </div>
         </div>
-
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             ¿Necesito saber de Excel o contabilidad? <i class="ph-bold ph-caret-down"></i>
@@ -358,7 +347,6 @@
             En absoluto. FinDash está diseñado precisamente para sustituir a Excel. El motor interno estructura los datos, hace las sumas y genera los gráficos automáticamente para que tú solo tengas que tomar decisiones.
           </div>
         </div>
-
         <div class="faq-item">
           <div class="faq-question" onclick="toggleFaq(this)">
             ¿Es gratis usar FinDash? <i class="ph-bold ph-caret-down"></i>
@@ -369,26 +357,23 @@
         </div>
       </div>
 
-      <!-- DERECHA: Contacto con la mascota DENTRO -->
+      <!-- CONTACTO + MASCOTA -->
       <div class="contact-wrapper">
         <h2 class="section-header">Contacto</h2>
         
         <div class="glass-panel contact-card">
-          <div class="contact-info">
-            <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem;">¿Dudas o Sugerencias?</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem;">Hablemos. Escríbeme y charlamos sobre el futuro del proyecto.</p>
-            
-            <div class="contact-socials">
-              <a href="mailto:claccolu06@gmail.com" class="nav-btn"><i class="ph-bold ph-envelope-simple"></i> Email</a>
-              <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" class="nav-btn primary"><i class="ph-bold ph-linkedin-logo"></i> LinkedIn</a>
-            </div>
-          </div>
+          <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem;">¿Dudas o Sugerencias?</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Hablemos. Escríbeme y charlamos sobre el futuro del proyecto.</p>
           
-          <!-- LA MASCOTA AHORA VIVE AQUÍ DENTRO -->
+          <div class="contact-socials">
+            <a href="mailto:claccolu06@gmail.com" class="nav-btn"><i class="ph-bold ph-envelope-simple"></i> Email</a>
+            <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener" class="nav-btn primary"><i class="ph-bold ph-linkedin-logo"></i> LinkedIn</a>
+          </div>
+
+          <!-- LA MASCOTA CUSTODIANDO LA CAJA DE CONTACTO -->
           <div class="contact-mascot">
-            <!-- IMPORTANTE: Renombra el vídeo de Bob Esponja a mascota.mp4 -->
             <video id="mascot" autoplay loop muted playsinline>
-              <source src="mascota.mp4" type="video/mp4">
+              <source src="{{ url_for('static', filename='mascota.mp4') }}" type="video/mp4">
             </video>
           </div>
         </div>
@@ -396,7 +381,7 @@
 
     </section>
 
-    <!-- FOOTER / CREDENCIALES -->
+    <!-- FOOTER FINAL CON TUS CREDENCIALES -->
     <footer class="site-footer">
       <p><strong>FinDash</strong> · Control y soberanía sobre tus datos financieros.</p>
       <p>Diseñado y desarrollado por <span class="highlight">Claudio Accorinti</span>, estudiante de la Universidad de Sevilla.</p>
