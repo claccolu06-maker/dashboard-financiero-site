@@ -3,478 +3,446 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Financiero · Control y Autonomía de tu Dinero</title>
-  <meta name="description" content="Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros con gráficos interactivos y cálculo de autonomía sin depender de Excel.">
+  <title>FinDash · El Futuro de tus Finanzas</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;800&display=swap" rel="stylesheet">
-  
-  <!-- Iconos Premium para mejorar el atractivo visual -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   
   <style>
+    /* VARIABLES */
     :root {
-      --bg-base: #07090e;
-      --bg-surface: #0e131f;
-      --bg-surface-elevated: #141c2e;
-      --border-subtle: #1e293b;
-      --border-focus: #334155;
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --accent-emerald: #10b981;
-      --accent-emerald-soft: rgba(16, 185, 129, 0.12);
-      --accent-emerald-hover: #059669;
-      --accent-danger: #f43f5e;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --black: #000000;
+      --glass-bg: rgba(20, 20, 20, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-hover: rgba(255, 255, 255, 0.15);
+      --neon-green: #00d589;
+      --neon-glow: rgba(0, 213, 137, 0.3);
+      --text-main: #ffffff;
+      --text-muted: #888888;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
-      background-color: var(--bg-base);
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      line-height: 1.6;
+      background-color: var(--black);
+      color: var(--text-main);
+      font-family: 'Space Grotesk', sans-serif;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
     }
 
-    a { color: inherit; text-decoration: none; }
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 1.5rem; }
+    /* EFECTOS DE FONDO */
+    .bg-orb {
+      position: absolute; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.3;
+      animation: pulseOrb 8s infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--neon-green); top: -10%; left: -10%; }
+    .orb-2 { width: 600px; height: 600px; background: #333333; bottom: 10%; right: -10%; }
 
-    /* HEADER & NAVEGACIÓN */
+    @keyframes pulseOrb {
+      0% { transform: scale(1); opacity: 0.2; }
+      100% { transform: scale(1.2); opacity: 0.4; }
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
+
+    /* CRISTALMODERNISMO */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px; padding: 2.5rem;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .glass-panel:hover { border-color: var(--glass-hover); box-shadow: 0 0 30px rgba(0, 0, 0, 0.8); }
+
+    /* HEADER */
     header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(7, 9, 14, 0.88);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-subtle);
+      position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%);
+      width: 95%; max-width: 1200px; z-index: 100;
+      background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: 100px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.75rem 1.5rem;
     }
-    nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .brand { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; }
-    .brand-svg-logo {
-      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-      background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 8px;
-    }
-    .nav-links { display: flex; align-items: center; gap: 2rem; }
-    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; transition: color 0.15s ease; }
-    .nav-links a:hover { color: var(--text-primary); }
-    .nav-auth { display: flex; align-items: center; gap: 0.75rem; }
-
-    /* BOTONES */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      font-size: 0.875rem; font-weight: 600; padding: 0.6rem 1.25rem;
-      border-radius: 7px; transition: all 0.15s ease; cursor: pointer; white-space: nowrap;
-    }
-    .btn-primary { background: var(--accent-emerald); color: #022c22; border: 1px solid var(--accent-emerald); }
-    .btn-primary:hover {
-      background: var(--accent-emerald-hover); border-color: var(--accent-emerald-hover);
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3); transform: translateY(-1px);
-    }
-    .btn-secondary { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-subtle); }
-    .btn-secondary:hover { background: var(--bg-surface-elevated); border-color: var(--border-focus); }
-
-    /* HERO & MASCOTA */
-    .hero { padding: 4.5rem 0 3.5rem; text-align: center; position: relative; overflow: hidden; }
-    .hero-content { position: relative; z-index: 2; }
+    .brand { font-size: 1.4rem; font-weight: 900; letter-spacing: -1px; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: white;}
+    .brand i { color: var(--neon-green); }
     
-    .mascot-wrapper {
-      position: absolute;
-      right: -2%;
-      top: 5%;
-      width: 450px;
-      z-index: 1;
-      pointer-events: none;
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+    .nav-links a:hover { color: var(--text-main); }
+    
+    .nav-btn {
+      background: transparent; border: 1px solid var(--glass-border); color: var(--text-main);
+      padding: 0.5rem 1.25rem; border-radius: 100px; font-weight: 600; font-family: 'Space Grotesk';
+      cursor: pointer; transition: 0.3s; text-decoration: none; font-size: 0.9rem;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,0.1); }
+    .nav-btn.primary {
+      background: var(--neon-green); color: var(--black); border: none;
+      box-shadow: 0 0 15px var(--neon-glow);
+    }
+    .nav-btn.primary:hover { box-shadow: 0 0 25px var(--neon-green); transform: scale(1.05); }
+
+    /* HERO SECTION */
+    .hero {
+      min-height: 90vh; display: grid; grid-template-columns: 1.1fr 0.9fr;
+      align-items: center; padding-top: 8rem; gap: 4rem;
+    }
+    .hero-text h1 {
+      font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.05;
+      letter-spacing: -2px; margin-bottom: 1.5rem; text-transform: uppercase;
+    }
+    .hero-text h1 span { color: var(--neon-green); }
+    .hero-text p { font-size: 1.15rem; color: var(--text-muted); max-width: 500px; margin-bottom: 2.5rem; }
+
+    /* SIMULADOR */
+    .hero-interactive { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .sim-card { width: 100%; z-index: 10; position: relative; padding: 2.5rem; }
+    .sim-stats { display: flex; justify-content: space-between; margin-bottom: 2.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1.5rem; }
+    .stat-block .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;}
+    .stat-block .value { font-family: 'JetBrains Mono', monospace; font-size: 2.5rem; font-weight: 800; color: var(--neon-green); line-height: 1;}
+    
+    input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; margin-top: 1rem; }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%;
+      background: var(--neon-green); margin-top: -9px; cursor: pointer;
+      box-shadow: 0 0 15px var(--neon-green);
+    }
+
+    /* SECCIÓN DEMO CON VÍDEO VERTICAL */
+    .demo-section { padding: 8rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .demo-text h2 { font-size: 3rem; font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .demo-text h2 span { color: var(--neon-green); }
+    .demo-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
+    
+    .mobile-frame-container { display: flex; justify-content: center; align-items: center; }
+    .mobile-hologram-frame {
+      position: relative; padding: 0.75rem; width: 100%; max-width: 320px; aspect-ratio: 9/16;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0));
+      border-radius: 32px; border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(0, 213, 137, 0.1);
+      overflow: hidden; display: flex; background-color: #05070a;
+    }
+    .app-video { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; display: block; }
+
+    /* BENTO GRID */
+    .bento-section { padding: 4rem 0 8rem; }
+    .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .bento-item { display: flex; flex-direction: column; justify-content: flex-start; padding: 2rem; }
+    .bento-large { grid-column: span 2; }
+    .bento-icon { font-size: 2.2rem; color: var(--neon-green); margin-bottom: 1rem; }
+    .bento-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .bento-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* SECCIÓN UNIFICADA: FAQ + CONTACTO */
+    .unified-bottom-section {
+      padding: 4rem 0 4rem;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr; /* FAQ un poco más ancho que Contacto */
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .section-header { font-size: 2rem; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; color: #fff; }
+
+    /* FAQ ACORDEÓN (Izquierda) */
+    .faq-wrapper { width: 100%; }
+    .faq-item {
+      background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px;
+      margin-bottom: 1rem; overflow: hidden; backdrop-filter: blur(12px);
+    }
+    .faq-question {
+      padding: 1.2rem 1.5rem; font-weight: 700; font-size: 1.1rem; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; transition: background 0.3s;
+    }
+    .faq-question:hover { background: rgba(255,255,255,0.02); }
+    .faq-answer {
+      padding: 0 1.5rem; max-height: 0; overflow: hidden; color: var(--text-muted);
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+    .faq-item.active .faq-answer { max-height: 250px; padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--glass-border); margin-top: 0.5rem; padding-top: 1rem;}
+    .faq-item.active .faq-question i { transform: rotate(180deg); color: var(--neon-green); }
+    .faq-question i { transition: transform 0.3s; }
+
+    /* CONTACTO & MASCOTA (Derecha) */
+    .contact-wrapper { width: 100%; }
+    
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.5rem;
+      gap: 1.5rem;
+    }
+    
+    .contact-info { flex: 1; }
+    .contact-socials { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    
+    /* La mascota ahora vive DENTRO de la tarjeta de contacto */
+    .contact-mascot {
+      width: 140px; /* Tamaño perfecto para estar dentro de la caja */
+      height: 140px;
+      flex-shrink: 0;
       perspective: 1000px;
-      opacity: 0.9;
     }
-    .mascot-video {
-      width: 100%;
-      mix-blend-mode: screen; /* ELIMINA EL FONDO NEGRO DEL VÍDEO */
-      filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.15));
-      transition: transform 0.1s ease-out;
+    .contact-mascot video {
+      width: 100%; height: 100%; object-fit: contain;
+      mix-blend-mode: screen; /* Fondo transparente mágico */
+      pointer-events: none;
     }
 
-    .badge {
-      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.85rem;
-      background: var(--accent-emerald-soft); border: 1px solid rgba(16, 185, 129, 0.25);
-      border-radius: 999px; font-size: 0.8rem; font-weight: 600; color: var(--accent-emerald); margin-bottom: 1.5rem;
+    /* FOOTER / CREDENCIALES */
+    .site-footer {
+      border-top: 1px solid var(--glass-border);
+      padding: 2.5rem 0;
+      margin-top: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
-    .hero h1 { font-size: clamp(2.3rem, 5vw, 3.8rem); line-height: 1.15; font-weight: 800; letter-spacing: -0.03em; max-width: 880px; margin: 0 auto 1.25rem; }
-    .hero p { font-size: clamp(1.05rem, 1.8vw, 1.25rem); color: var(--text-secondary); max-width: 680px; margin: 0 auto 2.5rem; }
-    .hero-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
-
-    /* SIMULADOR DE AUTONOMÍA */
-    .cockpit-preview {
-      background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px;
-      padding: 1.75rem; max-width: 960px; margin: 0 auto; text-align: left;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7); position: relative; z-index: 3;
-    }
-    .cockpit-topbar { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.85rem; margin-bottom: 1.5rem; }
-    .terminal-dots { display: flex; gap: 6px; }
-    .terminal-dots span { width: 10px; height: 10px; border-radius: 50%; background: #1e293b; }
-    .cockpit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-    .stat-box { background: var(--bg-base); border: 1px solid var(--border-subtle); padding: 1.25rem; border-radius: 8px; }
-    .stat-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.4rem; }
-    .stat-number { font-size: 1.55rem; font-weight: 700; font-family: var(--font-mono); letter-spacing: -0.02em; }
-    .text-emerald { color: var(--accent-emerald); }
-    .text-rose { color: var(--accent-danger); }
-    .simulator-control { background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .slider-wrap { display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 250px; }
-    input[type=range] { flex: 1; accent-color: var(--accent-emerald); cursor: pointer; }
-
-    /* SECCIONES Y TARJETAS */
-    section { padding: 5rem 0; border-top: 1px solid var(--border-subtle); }
-    .section-title-wrap { text-align: center; max-width: 650px; margin: 0 auto 3.5rem; }
-    .section-title-wrap h2 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-    .section-title-wrap p { color: var(--text-secondary); font-size: 1.05rem; }
-
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .card { background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 2rem; border-radius: 12px; transition: transform 0.2s ease, border-color 0.2s ease; }
-    .card:hover { transform: translateY(-3px); border-color: var(--accent-emerald-soft); }
-    .card i { font-size: 2.2rem; color: var(--accent-emerald); margin-bottom: 1rem; display: block; }
-    .card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
-    .card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
-
-    /* PANTALLA DIVIDIDA: CÓMO FUNCIONA */
-    .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .step-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
-    .step-item { display: flex; gap: 1.25rem; }
-    .step-num { width: 36px; height: 36px; background: var(--accent-emerald-soft); color: var(--accent-emerald); border-radius: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); flex-shrink: 0; }
-    .split-video-wrapper { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 0.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-    .split-video-wrapper video { width: 100%; border-radius: 8px; display: block; border: 1px solid rgba(255,255,255,0.05); }
-
-    /* FAQ ACORDEÓN */
-    .faq-grid { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
-    .faq-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s ease; }
-    .faq-item:hover { border-color: var(--border-focus); }
-    .faq-question { padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; }
-    .faq-answer { padding: 0 1.5rem 1.5rem 1.5rem; color: var(--text-secondary); font-size: 0.95rem; display: none; border-top: 1px dashed var(--border-subtle); margin-top: 0.5rem; padding-top: 1rem;}
-    .faq-item.open .faq-answer { display: block; }
-    .faq-item.open .faq-question i { transform: rotate(180deg); }
-    .faq-question i { transition: transform 0.3s ease; color: var(--accent-emerald); }
-
-    /* CONTACTO / AUTOR */
-    .contact-card { background: linear-gradient(145deg, var(--bg-surface), var(--bg-surface-elevated)); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; margin-top: 4rem; }
-
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border-subtle); padding: 3rem 0; color: var(--text-muted); font-size: 0.9rem; }
-    .footer-wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a:hover { color: var(--text-primary); }
+    .site-footer p { margin-bottom: 0.5rem; }
+    .site-footer strong { color: var(--text-main); font-weight: 700; }
+    .site-footer .highlight { color: var(--neon-green); font-weight: 600; }
 
     @media (max-width: 900px) {
       .nav-links { display: none; }
-      .hero { padding: 3.5rem 0 2rem; }
-      .mascot-wrapper { display: none; /* Ocultamos la mascota en móvil para no tapar el simulador */ }
-      .split-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero, .demo-section { grid-template-columns: 1fr; text-align: center; gap: 3rem;}
+      .hero-text h1 { font-size: 2.5rem; }
+      .unified-bottom-section { grid-template-columns: 1fr; gap: 4rem; }
+      .contact-card { flex-direction: column; text-align: center; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-large { grid-column: span 1; }
     }
   </style>
 </head>
-<body id="top">
+<body>
 
-  <!-- BARRA DE NAVEGACIÓN -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
   <header>
-    <div class="container">
-      <nav>
-        <a href="#top" class="brand">
-          <div class="brand-svg-logo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 3v18h18"></path>
-              <path d="m19 9-5 5-4-4-3 3"></path>
-            </svg>
-          </div>
-          <span>FinDash</span>
-        </a>
-
-        <div class="nav-links">
-          <a href="#que-es">Arsenal Financiero</a>
-          <a href="#como-funciona">Cómo funciona</a>
-          <a href="#para-quien">Para quién</a>
-          <a href="#faq">Preguntas</a>
-        </div>
-
-        <div class="nav-auth">
-          <a href="https://claudioaccorinti.pythonanywhere.com/login" class="btn btn-secondary">Iniciar sesión</a>
-          <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn btn-primary">Registrarse</a>
-        </div>
-      </nav>
+    <a href="#" class="brand"><i class="ph-fill ph-hexagon"></i> FINDASH</a>
+    <div class="nav-links">
+      <a href="#simulador">Simulador</a>
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#faq">Preguntas</a>
+    </div>
+    <div style="display: flex; gap: 1rem;">
+      <a href="#" class="nav-btn">Acceder</a>
+      <a href="#" class="nav-btn primary">Registrarse</a>
     </div>
   </header>
 
-  <!-- SECCIÓN HERO -->
-  <section class="hero" style="border: none;">
-    <!-- MASCOTA ANIMADA INTERACTIVA (Bucle Infinito) -->
-    <div class="mascot-wrapper">
-      <video id="mascot" class="mascot-video" autoplay loop muted playsinline>
-         <source src="{{ url_for('static', filename='Sponge_character_holding_money_20261007193509.mp4') }}" type="video/mp4">
-      </video>
-    </div>
-
-    <div class="container hero-content">
-      <div class="badge"><i class="ph-fill ph-sparkle"></i> IA Integrada · Acceso Anticipado</div>
-      <h1>Ten claro tu dinero sin pelearte con Excel</h1>
-      <p>Dashboard Financiero reúne en un solo sitio tus ingresos, gastos y ahorros con gráficos claros y automatizados para que veas en segundos a dónde va tu dinero.</p>
+  <div class="container">
+    
+    <!-- HERO SECTION -->
+    <section class="hero" id="simulador">
+      <div class="hero-text">
+        <h1>Deja de pelearte<br><span>con Excel.</span></h1>
+        <p>Una terminal financiera de élite. Ingesta inteligente, categorización automática y proyecciones matemáticas en tiempo real.</p>
+        <a href="#" class="nav-btn primary" style="padding: 1rem 2.5rem; font-size: 1.1rem; display: inline-block;">Arrancar Sistema</a>
+      </div>
       
-      <div class="hero-actions">
-        <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="btn btn-primary" style="padding: 0.85rem 2rem; font-size: 1rem;"><i class="ph-bold ph-rocket-launch"></i> Crear cuenta gratis</a>
-        <a href="#como-funciona" class="btn btn-secondary" style="padding: 0.85rem 1.8rem; font-size: 1rem;"><i class="ph-bold ph-play-circle"></i> Ver demostración</a>
-      </div>
-
-      <!-- COCKPIT INTERACTIVO -->
-      <div class="cockpit-preview">
-        <div class="cockpit-topbar">
-          <div class="terminal-dots">
-            <span style="background: #f43f5e;"></span>
-            <span style="background: #f59e0b;"></span>
-            <span style="background: #10b981;"></span>
+      <div class="hero-interactive">
+        <div class="glass-panel sim-card">
+          <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; text-transform: uppercase;">Cálculo de Supervivencia</h2>
+          <div class="sim-stats">
+            <div class="stat-block">
+              <div class="label">Fondo (Ahorros)</div>
+              <div class="value" style="color: #fff;">15.000<span style="font-size: 1.2rem;">€</span></div>
+            </div>
+            <div class="stat-block" style="text-align: right;">
+              <div class="label">Autonomía Real</div>
+              <div class="value" id="meses-val">10.0<span style="font-size: 1.2rem;">M</span></div>
+            </div>
           </div>
-          <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">simulador_autonomia.sh</span>
-        </div>
-
-        <div class="cockpit-grid">
-          <div class="stat-box">
-            <div class="stat-label">Ingresos Mensuales</div>
-            <div class="stat-number text-emerald" id="val-ingresos">2.800,00 €</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Gasto Mensual Medio</div>
-            <div class="stat-number text-rose" id="val-gastos">1.400,00 €</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Fondo Acumulado</div>
-            <div class="stat-number" id="val-fondo">9.100,00 €</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Colchón Financiero</div>
-            <div class="stat-number text-emerald" id="val-runway" style="font-size: 2rem;">6.5 meses</div>
-          </div>
-        </div>
-
-        <div class="simulator-control">
-          <div style="font-size: 0.85rem; color: var(--text-secondary);">
-            Ajusta tu <strong>gasto mensual medio</strong> para ver la variación en meses de tranquilidad:
-          </div>
-          <div class="slider-wrap">
-            <input type="range" id="gasto-slider" min="800" max="2500" step="50" value="1400">
-            <span id="slider-indicator" style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600;">1.400 €</span>
+          
+          <div>
+            <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.5rem;">
+              <span style="color: var(--text-muted); font-size: 0.85rem;">Simula tu Gasto Mensual:</span>
+              <span id="gasto-val" style="color: #fff; font-weight: bold;">1.500 €</span>
+            </div>
+            <input type="range" id="gasto-slider" min="500" max="5000" step="100" value="1500">
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- QUÉ HACE DASHBOARD FINANCIERO -->
-  <section id="que-es">
-    <div class="container">
-      <div class="section-title-wrap">
-        <h2>El arsenal definitivo para tu dinero</h2>
-        <p>Una vista clara y centralizada de tus finanzas personales para saber en segundos cómo vas de ingresos, gastos y capacidad de ahorro.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card">
-          <i class="ph-duotone ph-database"></i>
-          <h3>Centraliza tus movimientos</h3>
-          <p>Registra ingresos y gastos organizados por categorías y olvídate de hojas de cálculo dispersas. Todo queda guardado y estructurado en un único panel.</p>
-        </div>
-        <div class="card">
-          <i class="ph-duotone ph-chart-line-up"></i>
-          <h3>Gráficos listos para usar</h3>
-          <p>Visualiza tus números en gráficos directos: comparación de ingresos vs gastos, desglose por categorías y tendencia de saldo a lo largo del tiempo.</p>
-        </div>
-        <div class="card">
-          <i class="ph-duotone ph-target"></i>
-          <h3>Decisiones más rápidas</h3>
-          <p>Detecta de un vistazo dónde se concentra el gasto prescindible y ajusta tus hábitos para cumplir metas de ahorro sin fricción.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CÓMO FUNCIONA (PANTALLA DIVIDIDA CON VÍDEO EN BUCLE) -->
-  <section id="como-funciona" style="background: rgba(14, 19, 31, 0.5);">
-    <div class="container">
-      <div class="split-layout">
+    <!-- SECCIÓN DE DEMO CON VÍDEO VERTICAL (Ruta corregida y blindada) -->
+    <section class="demo-section" id="funcionalidades">
+      <div class="demo-text">
+        <h2>Sincronización sin dolor.<br><span>Resultados al instante.</span></h2>
+        <p>No conectamos con tu banco ni te pedimos claves. Simplemente copia tus movimientos, pégalos en la terminal, y nuestro motor estructura y dibuja tu radiografía financiera.</p>
         
-        <div>
-          <div class="section-title-wrap" style="text-align: left; margin-bottom: 2rem;">
-            <h2>Sin magia, pura IA.</h2>
-            <p>En tres pasos tomas el control de tus finanzas, sin conectar tu cuenta bancaria y sin comprometer tu seguridad.</p>
+        <div style="display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem;">
+          <div style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
+            <i class="ph-bold ph-terminal-window" style="color: var(--neon-green); font-size: 1.5rem;"></i> 1. Copia y Pega tus datos
           </div>
-          <div class="step-list">
-            <div class="step-item">
-              <div class="step-num">1</div>
-              <div>
-                <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Crea tu dashboard</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem;">Accede con tu usuario y deja preparado tu panel de control para registrar movimientos al instante.</p>
-              </div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">2</div>
-              <div>
-                <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Copia y Pega</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem;">Copia tus movimientos bancarios o sube tu extracto CSV: el motor normaliza las fechas, importes y categoriza automáticamente.</p>
-              </div>
-            </div>
-            <div class="step-item">
-              <div class="step-num">3</div>
-              <div>
-                <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Visualiza y Crece</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem;">Consulta tus resúmenes del mes, vigila tus alertas semafóricas y comprueba el avance de tus metas de ahorro.</p>
-              </div>
-            </div>
+          <div style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
+            <i class="ph-bold ph-cpu" style="color: var(--neon-green); font-size: 1.5rem;"></i> 2. Categorización Automática
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
+            <i class="ph-bold ph-chart-polar" style="color: var(--neon-green); font-size: 1.5rem;"></i> 3. Toma el control visual
           </div>
         </div>
-
-        <div class="split-video-wrapper">
-          <div class="terminal-dots" style="padding: 0.5rem 0.5rem 1rem;">
-            <span style="background: #f43f5e;"></span>
-            <span style="background: #f59e0b;"></span>
-            <span style="background: #10b981;"></span>
-          </div>
-          <!-- VÍDEO DE DEMOSTRACIÓN (Bucle Infinito) -->
-          <video autoplay loop muted playsinline style="width: 100%; border-radius: 8px; border: 1px solid var(--border-focus);">
-             <source src="{{ url_for('static', filename='dashboard fina.mp4') }}" type="video/mp4">
+      </div>
+      
+      <div class="mobile-frame-container">
+        <div class="mobile-hologram-frame">
+          <!-- IMPORTANTE: El archivo en tu carpeta debe llamarse exactamente así -->
+          <video class="app-video" autoplay loop muted playsinline>
+            <source src="dashboard_fina.mp4" type="video/mp4">
           </video>
         </div>
+      </div>
+    </section>
 
+    <!-- BENTO GRID -->
+    <section class="bento-section">
+      <div class="bento-grid">
+        <div class="glass-panel bento-item bento-large">
+          <i class="ph-duotone ph-chart-line-up bento-icon"></i>
+          <h3 class="bento-title">Proyecciones y Analítica de Datos</h3>
+          <p class="bento-desc">Cruza tus ingresos y gastos para generar gráficos visuales interactivos. Detecta tendencias, calcula tu tasa de ahorro neto mensual y deja de adivinar a dónde va tu dinero.</p>
+        </div>
+        <div class="glass-panel bento-item">
+          <i class="ph-duotone ph-traffic-signal bento-icon"></i>
+          <h3 class="bento-title">Límites Semafóricos</h3>
+          <p class="bento-desc">Establece techos de gasto por categoría. El panel te avisa en rojo antes de que te pases.</p>
+        </div>
+        <div class="glass-panel bento-item">
+          <i class="ph-duotone ph-lock-key bento-icon"></i>
+          <h3 class="bento-title">Soberanía de Datos</h3>
+          <p class="bento-desc">Base de datos SQLite local cifrada. Sin Open Banking. Tu privacidad financiera es intocable.</p>
+        </div>
+        <div class="glass-panel bento-item">
+          <i class="ph-duotone ph-file-csv bento-icon"></i>
+          <h3 class="bento-title">Auditoría Externa (CSV)</h3>
+          <p class="bento-desc">Descarga todo tu libro mayor en formato Excel con un solo clic para tu propia contabilidad.</p>
+        </div>
+        <div class="glass-panel bento-item">
+          <i class="ph-duotone ph-device-mobile bento-icon"></i>
+          <h3 class="bento-title">Experiencia Nativa Móvil</h3>
+          <p class="bento-desc">Diseño Mobile-First con menús táctiles para que registres gastos mientras te tomas un café.</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PARA QUIÉN ES DASHBOARD FINANCIERO -->
-  <section id="para-quien">
-    <div class="container">
-      <div class="section-title-wrap">
-        <h2>Diseñado para los que valoran su tiempo</h2>
-        <p>Pensado para personas que quieren tomar el control de sus finanzas sin complicarse con hojas de cálculo infinitas ni fórmulas complejas.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card">
-          <i class="ph-duotone ph-student"></i>
-          <h3>Estudiantes y primeros sueldos</h3>
-          <p>Si estás empezando a manejar tu propio dinero, tendrás una visión clara de en qué se te va el mes y cuánto consigues reservar para tus proyectos.</p>
+    <!-- SECCIÓN UNIFICADA: FAQ + CONTACTO AL MISMO NIVEL -->
+    <section class="unified-bottom-section" id="faq">
+      
+      <!-- IZQUIERDA: Preguntas Frecuentes -->
+      <div class="faq-wrapper">
+        <h2 class="section-header">Preguntas Frecuentes</h2>
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            ¿Necesito conectar mi cuenta bancaria? <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="faq-answer">
+            Rotundamente no. FinDash funciona por ingesta pasiva. Tú copias y pegas tus movimientos bancarios o subes tu archivo CSV. El sistema los categoriza sin necesidad de pedirte tus claves, garantizando tu seguridad al 100%.
+          </div>
         </div>
-        <div class="card">
-          <i class="ph-duotone ph-briefcase"></i>
-          <h3>Profesionales y freelances</h3>
-          <p>Separa mejor tus presupuestos personales y entiende tus meses fuertes y flojos de un vistazo para planificar con total certidumbre.</p>
-        </div>
-        <div class="card">
-          <i class="ph-duotone ph-users-three"></i>
-          <h3>Parejas que gestionan juntos</h3>
-          <p>Un espacio organizado para revisar gastos comunes, equilibrar aportaciones y planificar objetivos de ahorro sin desajustes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- PREGUNTAS FRECUENTES (MODO ACORDEÓN) -->
-  <section id="faq">
-    <div class="container">
-      <div class="section-title-wrap">
-        <h2>Preguntas frecuentes</h2>
-        <p>Respuestas directas a las dudas comunes sobre la plataforma.</p>
-      </div>
-      <div class="faq-grid">
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">¿Necesito saber de Excel o contabilidad? <i class="ph-bold ph-caret-down"></i></div>
-          <div class="faq-answer">No. Solo introduces tus movimientos. El dashboard se encarga de estructurar los datos y generar los gráficos de forma automática y visual.</div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            ¿Necesito saber de Excel o contabilidad? <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="faq-answer">
+            En absoluto. FinDash está diseñado precisamente para sustituir a Excel. El motor interno estructura los datos, hace las sumas y genera los gráficos automáticamente para que tú solo tengas que tomar decisiones.
+          </div>
         </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">¿Tengo que pagar por usarlo? <i class="ph-bold ph-caret-down"></i></div>
-          <div class="faq-answer">Esta versión de Acceso Anticipado es de uso libre mientras seguimos incorporando nuevas funciones y optimizaciones de producto impulsadas por IA.</div>
-        </div>
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <div class="faq-question">¿Tienen acceso a mis cuentas bancarias? <i class="ph-bold ph-caret-down"></i></div>
-          <div class="faq-answer">Rotundamente no. FinDash funciona por ingesta pasiva. Tú copias y pegas tus movimientos o subes un archivo CSV. Jamás te pediremos las contraseñas de tu banco.</div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            ¿Es gratis usar FinDash? <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="faq-answer">
+            Sí. Actualmente estamos en fase de "Acceso Anticipado", por lo que puedes crear tu cuenta y empezar a controlar tu dinero de forma gratuita mientras añadimos nuevas funcionalidades al panel.
+          </div>
         </div>
       </div>
 
-      <!-- TARJETA DE CONTACTO MEJORADA -->
-      <div class="contact-card">
-        <div>
-          <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.3rem;">¿Tienes dudas o sugerencias?</h3>
-          <p style="color: var(--text-secondary); font-size: 0.95rem;">Si quieres saber más sobre FinDash o tienes una propuesta, contáctame directamente.</p>
-        </div>
-        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-          <a href="mailto:claccolu06@gmail.com" class="btn btn-secondary"><i class="ph-bold ph-envelope-simple"></i> claccolu06@gmail.com</a>
-          <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener" class="btn btn-primary"><i class="ph-bold ph-linkedin-logo"></i> LinkedIn</a>
+      <!-- DERECHA: Contacto con la mascota DENTRO -->
+      <div class="contact-wrapper">
+        <h2 class="section-header">Contacto</h2>
+        
+        <div class="glass-panel contact-card">
+          <div class="contact-info">
+            <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem;">¿Dudas o Sugerencias?</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Hablemos. Escríbeme y charlamos sobre el futuro del proyecto.</p>
+            
+            <div class="contact-socials">
+              <a href="mailto:claccolu06@gmail.com" class="nav-btn"><i class="ph-bold ph-envelope-simple"></i> Email</a>
+              <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" class="nav-btn primary"><i class="ph-bold ph-linkedin-logo"></i> LinkedIn</a>
+            </div>
+          </div>
+          
+          <!-- LA MASCOTA AHORA VIVE AQUÍ DENTRO -->
+          <div class="contact-mascot">
+            <!-- IMPORTANTE: Renombra el vídeo de Bob Esponja a mascota.mp4 -->
+            <video id="mascot" autoplay loop muted playsinline>
+              <source src="mascota.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- PIE DE PÁGINA -->
-  <footer>
-    <div class="container">
-      <div class="footer-wrap">
-        <div>
-          <strong style="color: var(--text-primary); font-size: 1.1rem;">FinDash</strong>
-          <div style="font-size: 0.85rem; margin-top: 0.25rem;">Control y soberanía sobre tus finanzas personales.</div>
-        </div>
-        <div class="footer-links">
-          <a href="https://claudioaccorinti.pythonanywhere.com/login">Iniciar sesión</a>
-          <a href="https://claudioaccorinti.pythonanywhere.com/registro">Registrarse</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+    </section>
+
+    <!-- FOOTER / CREDENCIALES -->
+    <footer class="site-footer">
+      <p><strong>FinDash</strong> · Control y soberanía sobre tus datos financieros.</p>
+      <p>Diseñado y desarrollado por <span class="highlight">Claudio Accorinti</span>, estudiante de la Universidad de Sevilla.</p>
+      <p style="margin-top: 1rem; opacity: 0.5;">&copy; 2026 Todos los derechos reservados.</p>
+    </footer>
+
+  </div>
 
   <script>
-    // 1. LÓGICA DEL SIMULADOR REACTIVO
+    // 1. Lógica del Simulador
     const slider = document.getElementById('gasto-slider');
-    const indicator = document.getElementById('slider-indicator');
-    const valGastos = document.getElementById('val-gastos');
-    const valRunway = document.getElementById('val-runway');
-    const fondoFijo = 9100;
+    const gastoVal = document.getElementById('gasto-val');
+    const mesesVal = document.getElementById('meses-val');
+    const ahorros = 15000;
 
-    if(slider) {
-      slider.addEventListener('input', (e) => {
-        const gasto = parseFloat(e.target.value);
-        indicator.textContent = gasto.toLocaleString('es-ES') + ' €';
-        valGastos.textContent = gasto.toLocaleString('es-ES', { minimumFractionDigits: 2 }) + ' €';
-        const runway = (fondoFijo / gasto).toFixed(1);
-        valRunway.textContent = runway + ' meses';
-      });
+    slider.addEventListener('input', (e) => {
+      const gasto = parseFloat(e.target.value);
+      gastoVal.textContent = gasto.toLocaleString('es-ES') + ' €';
+      const meses = (ahorros / gasto).toFixed(1);
+      mesesVal.innerHTML = meses + '<span style="font-size: 1.2rem;">M</span>';
+    });
+
+    // 2. Acordeón FAQ
+    function toggleFaq(element) {
+      const parent = element.parentElement;
+      const isActive = parent.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+      if (!isActive) parent.classList.add('active');
     }
 
-    // 2. LÓGICA DE LA MASCOTA QUE SIGUE EL RATÓN EN 3D
+    // 3. Mascota Siguiendo el Ratón en 3D
     document.addEventListener("DOMContentLoaded", () => {
         const mascot = document.getElementById("mascot");
         if(mascot) {
             document.addEventListener("mousemove", (e) => {
                 const rect = mascot.getBoundingClientRect();
-                // Coordenadas del centro de la mascota
                 const mascotX = rect.left + rect.width / 2;
                 const mascotY = rect.top + rect.height / 2;
-                
-                // Distancia entre el ratón y la mascota
                 const deltaX = e.clientX - mascotX;
                 const deltaY = e.clientY - mascotY;
-                
-                // Convertimos la distancia en grados de rotación (limitado para no romper la imagen)
-                const rotateY = (deltaX / window.innerWidth) * 25; 
-                const rotateX = -(deltaY / window.innerHeight) * 25;
-                
+                const rotateY = (deltaX / window.innerWidth) * 40; 
+                const rotateX = -(deltaY / window.innerHeight) * 40;
                 mascot.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
             });
         }
     });
-
-    // 3. LÓGICA DE PREGUNTAS FRECUENTES (ACORDEÓN)
-    function toggleFaq(element) {
-        const isOpen = element.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('open');
-        });
-        if (!isOpen) {
-            element.classList.add('open');
-        }
-    }
   </script>
 </body>
 </html>
