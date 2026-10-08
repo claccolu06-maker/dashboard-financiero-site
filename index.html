@@ -163,19 +163,10 @@
     .faq-item.active .faq-answer { max-height: 300px; padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--glass-border); margin-top: 0.5rem; padding-top: 1rem;}
     .faq-item.active .faq-question i { transform: rotate(180deg); color: var(--neon-green); }
 
-    /* CONTACTO & MASCOTA (Derecha) */
+    /* CONTACTO (Derecha) - SIN MASCOTA */
     .contact-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; }
     .contact-card { width: 100%; text-align: center; padding: 2.5rem; position: relative; z-index: 2; }
     .contact-socials { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
-    
-    /* LA MASCOTA CUSTODIANDO EL CONTACTO */
-    .contact-mascot {
-      width: 140px; height: 140px; margin-top: 1.5rem; perspective: 1000px;
-    }
-    .contact-mascot video {
-      width: 100%; height: 100%; object-fit: contain;
-      mix-blend-mode: screen; pointer-events: none;
-    }
 
     /* FOOTER ACADÉMICO / PROFESIONAL */
     .site-footer {
@@ -186,7 +177,7 @@
     .site-footer strong { color: var(--text-main); font-weight: 700; }
     .site-footer .highlight { color: var(--neon-green); font-weight: 600; }
 
-    /* RESPONSIVE (MÓVIL Y TABLETS) - PROPORCIONES OPTIMIZADAS */
+    /* RESPONSIVE (MÓVIL Y TABLETS) */
     @media (max-width: 900px) {
       header { padding: 0.5rem 1rem; width: 90%; }
       .nav-links { display: none; }
@@ -197,7 +188,7 @@
       .hero-interactive { width: 100%; }
       
       .demo-section { grid-template-columns: 1fr; text-align: center; gap: 3rem; padding: 4rem 0; }
-      .demo-text .ph-bold { margin: 0 auto; } /* Centra los iconos en móvil */
+      .demo-text .ph-bold { margin: 0 auto; }
       
       .bento-grid { grid-template-columns: 1fr; }
       .bento-large { grid-column: span 1; }
@@ -224,7 +215,6 @@
       <a href="#faq">Preguntas</a>
     </div>
     <div class="nav-btn-group">
-      <!-- ENLACES ABSOLUTOS A PYTHONANYWHERE -->
       <a href="https://claudioaccorinti.pythonanywhere.com/login" class="nav-btn">Acceder</a>
       <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="nav-btn primary">Registrarse</a>
     </div>
@@ -265,7 +255,7 @@
       </div>
     </section>
 
-    <!-- SECCIÓN DE DEMO CON VÍDEO VERTICAL -->
+    <!-- SECCIÓN DE DEMO CON VÍDEO VERTICAL EN CLOUDINARY -->
     <section class="demo-section" id="funcionalidades">
       <div class="demo-text">
         <h2>Sincronización sin dolor.<br><span>Resultados al instante.</span></h2>
@@ -284,18 +274,16 @@
         </div>
       </div>
       
-    <div class="mobile-frame-container">
-        <!-- El overflow:hidden recorta los bordes cuadrados de YouTube -->
-        <div class="mobile-hologram-frame" style="overflow: hidden; padding: 0;">
-          
-          <iframe 
-            src="https://www.youtube.com/embed/https://res.cloudinary.com/gscwvnkt/video/upload/v1791452807/Editor_requesting_video_crop_20261007195031.mp4 ?autoplay=1&mute=1&controls=0&loop=1&playlist=https://res.cloudinary.com/gscwvnkt/video/upload/v1791452807/Editor_requesting_video_crop_20261007195031.mp4 &playsinline=1&modestbranding=1" 
-            style="width: 100%; height: 100%; border: none; pointer-events: none; border-radius: 24px; scale: 1.1;" 
-            allow="autoplay; fullscreen">
-          </iframe>
-          
+      <div class="mobile-frame-container">
+        <div class="mobile-hologram-frame">
+          <!-- VÍDEO ALOJADO EN CLOUDINARY (INYECCIÓN DIRECTA Y LIMPIA) -->
+          <video class="app-video" autoplay loop muted playsinline>
+            <source src="https://res.cloudinary.com/gscwvnkt/video/upload/v1791452807/Editor_requesting_video_crop_20261007195031.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
+    </section>
+
     <!-- BENTO GRID -->
     <section class="bento-section">
       <div class="bento-grid">
@@ -327,7 +315,7 @@
       </div>
     </section>
 
-    <!-- FAQ + CONTACTO Y MASCOTA -->
+    <!-- FAQ + CONTACTO -->
     <section class="unified-bottom-section" id="faq">
       
       <!-- FAQ ACORDEÓN -->
@@ -359,7 +347,7 @@
         </div>
       </div>
 
-      <!-- CONTACTO + MASCOTA -->
+      <!-- CONTACTO (Minimalista) -->
       <div class="contact-wrapper">
         <h2 class="section-header">Contacto</h2>
         
@@ -373,6 +361,8 @@
               <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener" class="nav-btn primary"><i class="ph-bold ph-linkedin-logo"></i> LinkedIn</a>
             </div>
           </div>
+        </div>
+      </div>
 
     </section>
 
@@ -386,7 +376,7 @@
   </div>
 
   <script>
-    // 1. Lógica del Simulador
+    // Lógica del Simulador
     const slider = document.getElementById('gasto-slider');
     const gastoVal = document.getElementById('gasto-val');
     const mesesVal = document.getElementById('meses-val');
@@ -399,30 +389,13 @@
       mesesVal.innerHTML = meses + '<span style="font-size: 1.2rem;">M</span>';
     });
 
-    // 2. Acordeón FAQ
+    // Acordeón FAQ
     function toggleFaq(element) {
       const parent = element.parentElement;
       const isActive = parent.classList.contains('active');
       document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
       if (!isActive) parent.classList.add('active');
     }
-
-    // 3. Mascota Siguiendo el Ratón en 3D
-    document.addEventListener("DOMContentLoaded", () => {
-        const mascot = document.getElementById("mascot");
-        if(mascot) {
-            document.addEventListener("mousemove", (e) => {
-                const rect = mascot.getBoundingClientRect();
-                const mascotX = rect.left + rect.width / 2;
-                const mascotY = rect.top + rect.height / 2;
-                const deltaX = e.clientX - mascotX;
-                const deltaY = e.clientY - mascotY;
-                const rotateY = (deltaX / window.innerWidth) * 40; 
-                const rotateX = -(deltaY / window.innerHeight) * 40;
-                mascot.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-            });
-        }
-    });
   </script>
 </body>
 </html>
