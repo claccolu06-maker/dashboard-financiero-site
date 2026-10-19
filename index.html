@@ -2,400 +2,3499 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>FinDash · El Futuro de tus Finanzas</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#07090B">
+  <title>FinDash · Ten claro tu dinero sin pelearte con Excel</title>
+  <meta name="description" content="FinDash convierte tus extractos bancarios en un centro de mando: categorización con IA en segundos, alertas de presupuesto y cuántos meses de autonomía tienes hoy. Sin pedirte las claves del banco.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="FinDash">
+  <meta property="og:title" content="FinDash · Tu centro de mando de autonomía financiera">
+  <meta property="og:description" content="Sube tu extracto, deja que la IA lo ordene en segundos y descubre cuánto dura tu dinero. Sin claves bancarias.">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Favicon SVG inline -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307090B'/%3E%3Crect x='1' y='1' width='30' height='30' rx='7' fill='none' stroke='%2310B981' stroke-width='2'/%3E%3Crect x='8' y='17' width='4' height='7' rx='2' fill='%2310B981'/%3E%3Crect x='14' y='12' width='4' height='12' rx='2' fill='%2310B981'/%3E%3Crect x='20' y='8' width='4' height='16' rx='2' fill='%2334D399'/%3E%3C/svg%3E">
+
+  <!-- Datos estructurados: sin precios ni valoraciones (no confirmados) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "FinDash",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "es-ES",
+    "url": "https://claudioaccorinti.pythonanywhere.com/",
+    "description": "Dashboard financiero personal: ingesta de extractos en CSV, Excel, PDF o copia-pega con categorización automática por IA, simulador de autonomía financiera (runway), alertas de presupuesto semafóricas y metas de ahorro. Sin claves bancarias.",
+    "author": { "@type": "Person", "name": "Claudio Accorinti" }
+  }
+  </script>
+
   <style>
-    /* VARIABLES GLOBALES */
-    :root {
-      --black: #000000;
-      --glass-bg: rgba(20, 20, 20, 0.4);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-hover: rgba(255, 255, 255, 0.15);
-      --neon-green: #00d589;
-      --neon-glow: rgba(0, 213, 137, 0.3);
-      --text-main: #ffffff;
-      --text-muted: #888888;
+    /* ===== TOKENS ===== */
+    @property --aura {
+      syntax: '<color>';
+      inherits: true;
+      initial-value: #10B981;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background-color: var(--black); }
+    :root {
+      color-scheme: dark;
+
+      --bg: #07090B;
+      --bg-elev: #0D1117;
+      --surface: #111827;
+      --surface-2: #1F2937;
+      --border: rgba(148, 163, 184, .14);
+      --border-strong: rgba(148, 163, 184, .24);
+      --text: #E5E7EB;
+      --text-muted: #9CA3AF;
+      --accent: #10B981;
+      --accent-bright: #34D399;
+      --accent-soft: rgba(16, 185, 129, .12);
+      --accent-glow: rgba(16, 185, 129, .35);
+      --on-accent: #04130D;
+      --warn: #F59E0B;
+      --danger: #EF4444;
+      --danger-text: #F87171;
+      --focus: #6EE7B7;
+      --tier: var(--accent);
+
+      --glass-bg: rgba(17, 24, 39, .55);
+      --glass-bg-solid: rgba(17, 24, 39, .92);
+
+      --radius-sm: 14px;
+      --radius-md: 18px;
+      --radius-lg: 24px;
+
+      --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+      --fs-xs: .8125rem;
+      --fs-sm: .9375rem;
+      --fs-md: 1rem;
+      --fs-lg: clamp(1.0625rem, 1rem + .35vw, 1.25rem);
+      --fs-h3: clamp(1.125rem, 1.05rem + .4vw, 1.375rem);
+      --fs-h2: clamp(1.75rem, 1.25rem + 2.1vw, 2.75rem);
+      --fs-h1: clamp(2.25rem, 1.4rem + 3.9vw, 4.25rem);
+
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --t-fast: 150ms;
+      --t-base: 250ms;
+      --t-slow: 400ms;
+
+      --header-h: 64px;
+      --shadow-card: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 20px 40px -24px rgba(0, 0, 0, .8);
+    }
+
+    /* Color por nivel de autonomía, reutilizado por calculadoras y mascota */
+    [data-tier="alert"] { --tier: var(--danger); }
+    [data-tier="building"] { --tier: var(--warn); }
+    [data-tier="solid"] { --tier: var(--accent); }
+    [data-tier="freedom"] { --tier: var(--accent-bright); }
+
+    /* ===== BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; }
+
+    html {
+      background: var(--bg);
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
 
     body {
-      background-color: var(--black);
-      color: var(--text-main);
-      font-family: 'Space Grotesk', sans-serif;
-      overflow-x: hidden;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: var(--font-sans);
+      font-size: var(--fs-md);
       line-height: 1.6;
+      color: var(--text);
+      background: transparent;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* EFECTOS DE FONDO CIBERNÉTICOS */
-    .bg-orb {
-      position: absolute; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.3;
-      animation: pulseOrb 8s infinite alternate; pointer-events: none;
+    /* Fondo: degradados radiales esmeralda y cuadrícula CSS */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
     }
-    .orb-1 { width: 50vw; height: 50vw; max-width: 500px; max-height: 500px; background: var(--neon-green); top: -10%; left: -10%; }
-    .orb-2 { width: 60vw; height: 60vw; max-width: 600px; max-height: 600px; background: #333333; bottom: 10%; right: -10%; }
+    body::before {
+      background:
+        radial-gradient(60rem 40rem at 88% -12%, rgba(16, 185, 129, .13), transparent 62%),
+        radial-gradient(46rem 34rem at -12% 28%, rgba(16, 185, 129, .07), transparent 60%),
+        radial-gradient(40rem 30rem at 50% 115%, rgba(16, 185, 129, .06), transparent 60%);
+    }
+    body::after {
+      background-image:
+        linear-gradient(rgba(148, 163, 184, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, .05) 1px, transparent 1px);
+      background-size: 56px 56px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 25%, transparent 78%);
+      mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 25%, transparent 78%);
+    }
 
-    @keyframes pulseOrb {
-      0% { transform: scale(1); opacity: 0.2; }
-      100% { transform: scale(1.2); opacity: 0.4; }
+    img, svg, video { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, input { font: inherit; color: inherit; }
+    h1, h2, h3 { line-height: 1.12; letter-spacing: -.02em; text-wrap: balance; }
+    p { text-wrap: pretty; }
+    ul, ol { padding: 0; list-style: none; }
+
+    .num { font-variant-numeric: tabular-nums; }
+
+    [id] { scroll-margin-top: calc(var(--header-h) + 16px); }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 3px;
+      border-radius: 6px;
     }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; }
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
-    /* PANELES DE CRISTAL */
-    .glass-panel {
-      background: var(--glass-bg);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px; padding: 2.5rem;
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    .skip-link {
+      position: fixed;
+      top: 12px; left: 12px;
+      z-index: 200;
+      padding: .75rem 1rem;
+      border-radius: 12px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-weight: 700;
+      text-decoration: none;
+      transform: translateY(-160%);
+      transition: transform var(--t-base) var(--ease);
     }
-    .glass-panel:hover { border-color: var(--glass-hover); box-shadow: 0 0 30px rgba(0, 0, 0, 0.8); }
+    .skip-link:focus { transform: none; }
 
-    /* NAVEGACIÓN SUPERIOR */
-    header {
-      position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%);
-      width: 95%; max-width: 1200px; z-index: 100;
-      background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border); border-radius: 100px;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.75rem 1.5rem;
+    .container {
+      width: min(100% - 32px, 1200px);
+      margin-inline: auto;
     }
-    .brand { font-size: 1.4rem; font-weight: 900; letter-spacing: -1px; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: white;}
-    .brand i { color: var(--neon-green); }
-    
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
-    .nav-links a:hover { color: var(--text-main); }
-    
-    .nav-btn-group { display: flex; gap: 1rem; }
-    .nav-btn {
-      background: transparent; border: 1px solid var(--glass-border); color: var(--text-main);
-      padding: 0.5rem 1.25rem; border-radius: 100px; font-weight: 600; font-family: 'Space Grotesk';
-      cursor: pointer; transition: 0.3s; text-decoration: none; font-size: 0.9rem;
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    }
-    .nav-btn:hover { background: rgba(255,255,255,0.1); }
-    .nav-btn.primary {
-      background: var(--neon-green); color: var(--black); border: none;
-      box-shadow: 0 0 15px var(--neon-glow);
-    }
-    .nav-btn.primary:hover { box-shadow: 0 0 25px var(--neon-green); transform: scale(1.05); }
 
-    /* SECCIÓN HERO */
+    .text-accent { color: var(--accent); }
+
+    /* ===== COMPONENTES: BOTONES ===== */
+    .btn {
+      --btn-pad-y: .75rem;
+      --btn-pad-x: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      min-height: 44px;
+      padding: var(--btn-pad-y) var(--btn-pad-x);
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: var(--fs-sm);
+      font-weight: 650;
+      line-height: 1.2;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition:
+        transform var(--t-fast) var(--ease),
+        box-shadow var(--t-base) var(--ease),
+        background-color var(--t-base) var(--ease),
+        border-color var(--t-base) var(--ease),
+        color var(--t-base) var(--ease);
+    }
+    .btn svg { width: 18px; height: 18px; flex: none; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--on-accent);
+      box-shadow: 0 0 0 1px rgba(16, 185, 129, .4), 0 8px 24px -8px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      background: var(--accent-bright);
+      box-shadow: 0 0 0 1px rgba(52, 211, 153, .6), 0 12px 32px -8px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: translateY(0) scale(.98); }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, .03);
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(16, 185, 129, .55);
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+
+    .btn-sm { --btn-pad-y: .5rem; --btn-pad-x: 1rem; font-size: var(--fs-xs); min-height: 40px; }
+    .btn-lg { --btn-pad-y: .9rem; --btn-pad-x: 1.6rem; font-size: var(--fs-md); min-height: 52px; }
+
+    .btn[aria-disabled="true"] { cursor: progress; opacity: .8; transform: none; }
+
+    /* ===== COMPONENTES: CRISTAL, ETIQUETAS ===== */
+    .glass {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, 0) 38%),
+        var(--glass-bg-solid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }
+    @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+      .glass {
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, 0) 38%),
+          var(--glass-bg);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        backdrop-filter: blur(16px) saturate(140%);
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .375rem .75rem;
+      border: 1px solid rgba(16, 185, 129, .3);
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-bright);
+      font-size: var(--fs-xs);
+      font-weight: 650;
+      letter-spacing: .02em;
+    }
+    .pulse-dot {
+      position: relative;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .pulse-dot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: ping 1.8s var(--ease) infinite;
+    }
+    @keyframes ping { to { transform: scale(2.6); opacity: 0; } }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .375rem;
+      padding: .25rem .625rem;
+      border: 1px dashed var(--border-strong);
+      border-radius: 999px;
+      color: var(--text-muted);
+      font-size: .75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      padding: .2rem .55rem;
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 650;
+      line-height: 1.4;
+      white-space: nowrap;
+      background: rgba(148, 163, 184, .12);
+      color: var(--text);
+    }
+    .chip-food { background: rgba(52, 211, 153, .14); color: #6EE7B7; }
+    .chip-subs { background: rgba(167, 139, 250, .16); color: #C4B5FD; }
+    .chip-income { background: rgba(56, 189, 248, .14); color: #7DD3FC; }
+
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .3rem .7rem;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--tier) 16%, transparent);
+      border: 1px solid color-mix(in srgb, var(--tier) 40%, transparent);
+      color: var(--tier);
+      font-size: .75rem;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    [data-tier="alert"] .tier-badge { color: var(--danger-text); }
+    .tier-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+    .section {
+      position: relative;
+      padding-block: clamp(4rem, 3rem + 4vw, 7rem);
+    }
+    .section-head {
+      max-width: 44rem;
+      margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+    }
+    .section-head .eyebrow { margin-bottom: 1rem; }
+    .section-title { font-size: var(--fs-h2); font-weight: 800; }
+    .section-lead {
+      margin-top: 1rem;
+      font-size: var(--fs-lg);
+      color: var(--text-muted);
+    }
+
+    .bar {
+      position: relative;
+      height: 8px;
+      margin-top: .35rem;
+      border-radius: 999px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+    .bar > span {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--c, var(--accent));
+      transform-origin: left center;
+      transform: scaleX(var(--v, .5));
+    }
+    .budget { --c: var(--accent); }
+    .budget[data-level="warn"] { --c: var(--warn); }
+    .budget[data-level="danger"] { --c: var(--danger); }
+    .budget-head {
+      display: flex;
+      justify-content: space-between;
+      gap: .5rem;
+      font-size: var(--fs-xs);
+      font-weight: 600;
+    }
+    .budget-head .num { color: var(--c); }
+
+    /* ===== REVELADO AL HACER SCROLL ===== */
+    /* Se usa la propiedad «translate» para dejar «transform» libre a hover e inclinación 3D */
+    .js .reveal {
+      opacity: 0;
+      translate: 0 16px;
+      transition: opacity var(--t-slow) var(--ease), translate var(--t-slow) var(--ease);
+    }
+    .js .reveal.is-visible { opacity: 1; translate: 0 0; }
+    .js .reveal[data-delay="1"] { transition-delay: 80ms; }
+    .js .reveal[data-delay="2"] { transition-delay: 160ms; }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      height: var(--header-h);
+      border-bottom: 1px solid transparent;
+      background: rgba(7, 9, 11, .9);
+      transition: border-color var(--t-base) var(--ease);
+    }
+    @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+      .site-header {
+        background: rgba(7, 9, 11, .62);
+        -webkit-backdrop-filter: blur(14px) saturate(150%);
+        backdrop-filter: blur(14px) saturate(150%);
+      }
+    }
+    .site-header.is-scrolled { border-bottom-color: var(--border); }
+
+    .header-inner {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      margin-right: auto;
+      font-weight: 800;
+      font-size: 1.125rem;
+      letter-spacing: -.02em;
+      text-decoration: none;
+    }
+    .brand svg { width: 30px; height: 30px; }
+
+    .nav { order: 3; }
+    .header-actions { display: flex; align-items: center; gap: .5rem; }
+    .header-login { display: none; }
+
+    .nav-toggle {
+      display: inline-grid;
+      place-items: center;
+      width: 44px; height: 44px;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .03);
+      cursor: pointer;
+    }
+    .nav-toggle svg { width: 20px; height: 20px; }
+    .nav-toggle .icon-close { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-open { display: none; }
+    .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0; right: 0;
+      flex-direction: column;
+      gap: .25rem;
+      padding: .75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: rgba(13, 17, 23, .98);
+      box-shadow: 0 24px 48px -16px rgba(0, 0, 0, .8);
+    }
+    .nav-menu.is-open { display: flex; animation: menu-in var(--t-base) var(--ease); }
+    @keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } }
+
+    .nav-menu a:not(.btn) {
+      display: block;
+      padding: .75rem .875rem;
+      border-radius: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+    }
+    .nav-menu a:not(.btn):hover { color: var(--text); background: rgba(255, 255, 255, .04); }
+    .nav-menu-login { padding-top: .5rem; }
+    .nav-menu-login .btn { width: 100%; }
+
+    @media (min-width: 600px) {
+      .header-login { display: inline-flex; }
+      .nav-menu-login { display: none; }
+    }
+
+    @media (min-width: 960px) {
+      .nav { order: 0; margin-right: .5rem; }
+      .nav-toggle { display: none; }
+      .nav-menu {
+        display: flex;
+        position: static;
+        flex-direction: row;
+        gap: .125rem;
+        padding: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+      }
+      .nav-menu.is-open { animation: none; }
+      .nav-menu a:not(.btn) { padding: .5rem .7rem; font-size: var(--fs-sm); }
+    }
+
+    /* ===== HERO ===== */
     .hero {
-      min-height: 90vh; display: grid; grid-template-columns: 1.1fr 0.9fr;
-      align-items: center; padding-top: 8rem; gap: 4rem;
+      padding-top: calc(var(--header-h) + clamp(1.75rem, 1rem + 3vw, 4.5rem));
+      padding-bottom: clamp(3rem, 2rem + 4vw, 6rem);
     }
-    .hero-text h1 {
-      font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.05;
-      letter-spacing: -2px; margin-bottom: 1.5rem; text-transform: uppercase;
+    .hero-grid {
+      display: grid;
+      gap: clamp(2.25rem, 1.5rem + 2vw, 3.5rem);
+      align-items: center;
     }
-    .hero-text h1 span { color: var(--neon-green); }
-    .hero-text p { font-size: 1.15rem; color: var(--text-muted); max-width: 500px; margin-bottom: 2.5rem; }
+    .hero-copy { max-width: 38rem; }
+    .hero-copy .eyebrow { margin-bottom: 1.25rem; }
 
-    /* SIMULADOR INTERACTIVO */
-    .hero-interactive { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .sim-card { width: 100%; z-index: 10; position: relative; padding: 2.5rem; }
-    .sim-stats { display: flex; justify-content: space-between; margin-bottom: 2.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1.5rem; }
-    .stat-block .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;}
-    .stat-block .value { font-family: 'JetBrains Mono', monospace; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: var(--neon-green); line-height: 1;}
-    
-    input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; margin-top: 1rem; }
-    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; }
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%;
-      background: var(--neon-green); margin-top: -9px; cursor: pointer;
-      box-shadow: 0 0 15px var(--neon-green);
+    .hero-title {
+      font-size: var(--fs-h1);
+      font-weight: 850;
+      letter-spacing: -.035em;
+      line-height: 1.03;
+    }
+    .hero-title .text-accent { display: block; }
+
+    .hero-sub {
+      margin-top: 1.25rem;
+      max-width: 30rem;
+      font-size: var(--fs-lg);
+      color: var(--text-muted);
     }
 
-    /* PANTALLA DIVIDIDA: VÍDEO VERTICAL */
-    .demo-section { padding: 6rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .demo-text h2 { font-size: clamp(2.5rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; text-transform: uppercase; }
-    .demo-text h2 span { color: var(--neon-green); }
-    .demo-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
-    
-    .mobile-frame-container { display: flex; justify-content: center; align-items: center; }
-    .mobile-hologram-frame {
-      position: relative; padding: 0.75rem; width: 100%; max-width: 300px; aspect-ratio: 9/16;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0));
-      border-radius: 32px; border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(0, 213, 137, 0.1);
-      overflow: hidden; display: flex; background-color: #05070a;
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 2rem;
     }
-    .app-video { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; display: block; }
-
-    /* BENTO GRID */
-    .bento-section { padding: 4rem 0 6rem; }
-    .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .bento-item { display: flex; flex-direction: column; justify-content: flex-start; padding: 2rem; }
-    .bento-large { grid-column: span 2; }
-    .bento-icon { font-size: 2.2rem; color: var(--neon-green); margin-bottom: 1rem; }
-    .bento-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .bento-desc { color: var(--text-muted); font-size: 0.95rem; }
-
-    /* SECCIÓN UNIFICADA: FAQ + CONTACTO */
-    .unified-bottom-section { padding: 4rem 0 4rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start; }
-    .section-header { font-size: 2rem; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; color: #fff; }
-
-    /* FAQ ACORDEÓN (Izquierda) */
-    .faq-wrapper { width: 100%; }
-    .faq-item {
-      background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px;
-      margin-bottom: 1rem; overflow: hidden; backdrop-filter: blur(12px);
+    .hero-login {
+      margin-top: 1rem;
+      font-size: var(--fs-sm);
+      color: var(--text-muted);
     }
-    .faq-question {
-      padding: 1.2rem 1.5rem; font-weight: 700; font-size: 1.1rem; cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center; transition: background 0.3s;
-    }
-    .faq-question:hover { background: rgba(255,255,255,0.02); }
-    .faq-answer {
-      padding: 0 1.5rem; max-height: 0; overflow: hidden; color: var(--text-muted);
-      transition: max-height 0.4s ease, padding 0.4s ease;
-    }
-    .faq-item.active .faq-answer { max-height: 300px; padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--glass-border); margin-top: 0.5rem; padding-top: 1rem;}
-    .faq-item.active .faq-question i { transform: rotate(180deg); color: var(--neon-green); }
+    .hero-login a { color: var(--accent-bright); font-weight: 650; text-underline-offset: 3px; }
 
-    /* CONTACTO (Derecha) - SIN MASCOTA */
-    .contact-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; }
-    .contact-card { width: 100%; text-align: center; padding: 2.5rem; position: relative; z-index: 2; }
-    .contact-socials { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: 1.75rem;
+    }
+    .trust li {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .4rem .75rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .02);
+      font-size: var(--fs-xs);
+      font-weight: 550;
+    }
+    .trust svg { width: 16px; height: 16px; color: var(--accent); flex: none; }
 
-    /* FOOTER ACADÉMICO / PROFESIONAL */
+    .hero-visual {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      margin-inline: auto;
+      /* Hueco reservado para la mascota que se asoma (alto del SVG hasta el borde de la tarjeta) */
+      padding-top: 84px;
+    }
+
+    @media (max-width: 479px) {
+      .hero-ctas .btn { width: 100%; }
+    }
+    @media (min-width: 1024px) {
+      .hero-grid { grid-template-columns: 1.05fr .95fr; }
+      .hero-visual { margin-inline: 0; justify-self: end; padding-top: 122px; }
+    }
+
+    /* ===== HERO: CÁLCULO DE SUPERVIVENCIA ===== */
+    .sim {
+      z-index: 1;
+      display: grid;
+      gap: 1.5rem;
+      padding: clamp(1.25rem, 1rem + 1.4vw, 2.25rem);
+    }
+    .sim-title {
+      font-size: clamp(1.05rem, 1rem + .4vw, 1.35rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .sim-stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-label {
+      margin-bottom: .5rem;
+      font-size: .75rem;
+      font-weight: 650;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .stat-value small { font-size: .5em; margin-left: .15em; }
+    .stat-value.is-tier { color: var(--tier); transition: color var(--t-slow) var(--ease); }
+    [data-tier="alert"] .stat-value.is-tier { color: var(--danger-text); }
+    .stat-right { text-align: right; }
+
+    .sim-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: .75rem;
+      font-family: var(--font-mono);
+    }
+    .sim-row label { color: var(--text-muted); font-size: var(--fs-xs); }
+    .sim-row output { font-weight: 800; font-variant-numeric: tabular-nums; }
+
+    .sim-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .sim-meter {
+      flex: 1 1 140px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+    .sim-meter span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--tier);
+      transform-origin: left center;
+      transform: scaleX(.55);
+      transition: transform var(--t-slow) var(--ease), background-color var(--t-slow) var(--ease);
+    }
+
+    /* ===== MASCOTA «CÉNTI» (MONEDA GUARDIANA) ===== */
+    .fin {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      z-index: 2;
+      width: 104px;
+      transform: translateX(-50%);
+    }
+    @media (min-width: 1024px) {
+      .fin { left: auto; right: 28px; width: 150px; transform: none; }
+    }
+
+    .fin-btn {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+      border-radius: 50%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .fin-btn:focus-visible { outline-offset: 2px; }
+
+    .fin-svg { width: 100%; height: auto; overflow: hidden; }
+
+    .fin-svg #bot { animation: fin-float 3.2s var(--ease) infinite alternate; }
+    .fin.is-paused .fin-svg * { animation-play-state: paused !important; }
+    @keyframes fin-float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-3px); }
+    }
+
+    .fin-svg #head { transform-box: fill-box; transform-origin: 50% 100%; }
+    .fin-svg #spin { transform-box: fill-box; transform-origin: 50% 50%; }
+    .fin-svg .eye-socket { fill: #FFFDF5; }
+    .fin-svg .pupil { fill: #2A1A02; }
+    .fin-svg .eye {
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+      transition: transform var(--t-base) var(--ease);
+    }
+    .fin-svg .lid {
+      transform-box: fill-box;
+      transform-origin: 50% 0;
+      transform: scaleY(0);
+      transition: transform var(--t-base) var(--ease);
+    }
+    .fin-svg.is-blinking .lid { transform: scaleY(1); transition-duration: 80ms; }
+
+    .fin-svg .mouth-shape {
+      fill: none;
+      stroke: #6B4305;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      opacity: 0;
+      transition: opacity var(--t-fast) var(--ease);
+    }
+    .fin-svg #mouth { transform-box: fill-box; transform-origin: 50% 50%; }
+
+    .fin-svg .spark {
+      fill: #FDE68A;
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+      transition: transform var(--t-base) var(--ease);
+      animation: spark-idle 2.4s var(--ease) infinite alternate;
+    }
+    @keyframes spark-idle { from { opacity: .35; transform: scale(.8); } to { opacity: 1; transform: scale(1); } }
+
+    .fin-svg .leaf { transform-box: fill-box; transition: transform var(--t-base) var(--ease); }
+    .fin-svg .leaf-l { transform-origin: 100% 60%; }
+    .fin-svg .leaf-r { transform-origin: 0% 60%; }
+
+    .fin-svg .glint {
+      opacity: 0;
+      animation: glint 5.5s var(--ease) infinite;
+    }
+    @keyframes glint {
+      0%, 68% { transform: translateX(-70px); opacity: 0; }
+      74% { opacity: .55; }
+      86%, 100% { transform: translateX(80px); opacity: 0; }
+    }
+
+    .fin-svg .sweat, .fin-svg .burst { opacity: 0; transition: opacity var(--t-base) var(--ease); }
+    .fin-svg .burst { transform-box: fill-box; transform-origin: 50% 50%; }
+
+    .fin-svg #aura { opacity: .55; transition: opacity var(--t-slow) var(--ease); }
+    .fin-svg .aura-stop-a { stop-color: var(--aura); stop-opacity: .55; }
+    .fin-svg .aura-stop-b { stop-color: var(--aura); stop-opacity: 0; }
+    .fin-svg { --aura: var(--accent); transition: --aura var(--t-slow) var(--ease); }
+    .fin-svg[data-tier="alert"] { --aura: var(--danger); }
+    .fin-svg[data-tier="building"] { --aura: var(--warn); }
+    .fin-svg[data-tier="solid"] { --aura: var(--accent); }
+    .fin-svg[data-tier="freedom"] { --aura: var(--accent-bright); }
+
+    /* Boca por estado */
+    .fin-svg[data-state="idle"] .m-line,
+    .fin-svg[data-state="amazed"] .m-o,
+    .fin-svg[data-state="thinking"] .m-flat,
+    .fin-svg[data-state="cautious"] .m-flat,
+    .fin-svg[data-state="worried"] .m-frown,
+    .fin-svg[data-state="calm"] .m-smile,
+    .fin-svg[data-state="celebrating"] .m-smile,
+    .fin-svg[data-state="talk"] .m-smile { opacity: 1; }
+
+    /* Ojos y párpados por estado */
+    .fin-svg[data-state="amazed"] .eye { transform: scale(1.14); }
+    .fin-svg[data-state="celebrating"] .eye { transform: scale(1.08); }
+    .fin-svg[data-state="thinking"] .lid { transform: scaleY(.3); }
+    .fin-svg[data-state="cautious"] .lid { transform: scaleY(.22); }
+    .fin-svg[data-state="worried"] .lid { transform: scaleY(.4); }
+    .fin-svg[data-state="worried"] .sweat { opacity: 1; }
+
+    /* Brote, chispa y aura por estado */
+    .fin-svg[data-state="amazed"] .spark,
+    .fin-svg[data-state="celebrating"] .spark { transform: scale(1.6); animation: spark-flash 400ms var(--ease) 3; }
+    .fin-svg[data-state="amazed"] .leaf-l,
+    .fin-svg[data-state="celebrating"] .leaf-l { transform: rotate(-14deg); }
+    .fin-svg[data-state="amazed"] .leaf-r,
+    .fin-svg[data-state="celebrating"] .leaf-r { transform: rotate(14deg); }
+    .fin-svg[data-state="worried"] .leaf-l { transform: rotate(16deg); }
+    .fin-svg[data-state="worried"] .leaf-r { transform: rotate(-16deg); }
+    .fin-svg[data-state="amazed"] #aura,
+    .fin-svg[data-state="celebrating"] #aura { opacity: .95; }
+    .fin-svg[data-state="worried"] #aura,
+    .fin-svg[data-state="cautious"] #aura { opacity: .8; }
+    @keyframes spark-flash { 50% { opacity: .3; } }
+
+    /* Celebración: la moneda gira sobre sí misma y suelta destellos */
+    .fin-svg[data-state="celebrating"] #spin { animation: coin-spin 700ms var(--ease) 1; }
+    .fin-svg[data-state="celebrating"] .burst { animation: burst 700ms var(--ease) both; }
+    .fin-svg[data-state="celebrating"] .burst:nth-of-type(2) { animation-delay: 90ms; }
+    .fin-svg[data-state="celebrating"] .burst:nth-of-type(3) { animation-delay: 180ms; }
+    @keyframes coin-spin {
+      0% { transform: scaleX(1); }
+      50% { transform: scaleX(-1); }
+      100% { transform: scaleX(1); }
+    }
+    @keyframes burst {
+      0% { opacity: 0; transform: scale(.2); }
+      40% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0; transform: scale(.6); }
+    }
+
+    .fin-svg[data-state="talk"] #mouth { animation: fin-talk 250ms var(--ease) infinite alternate; }
+    @keyframes fin-talk { to { transform: scaleY(1.6); } }
+
+    /* Bocadillo */
+    .fin-bubble {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      z-index: 3;
+      width: max-content;
+      max-width: min(260px, calc(100vw - 32px));
+      padding: .75rem .9rem;
+      border: 1px solid rgba(245, 196, 69, .45);
+      border-radius: 14px;
+      background: #14110A;
+      box-shadow: 0 18px 40px -12px rgba(0, 0, 0, .85), 0 0 0 4px rgba(245, 196, 69, .06);
+      color: var(--text);
+      font-size: var(--fs-xs);
+      font-weight: 550;
+      line-height: 1.45;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 4px) scale(.98);
+      transition: opacity var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+    }
+    .fin-bubble.is-visible { opacity: 1; transform: translate(-50%, 0); }
+    .fin-bubble:empty { padding: 0; border: 0; }
+    @media (min-width: 1024px) {
+      .fin-bubble {
+        top: 14px;
+        left: auto;
+        right: calc(100% + 8px);
+        max-width: 240px;
+        transform: translateX(4px) scale(.98);
+      }
+      .fin-bubble.is-visible { transform: none; }
+    }
+
+    /* ===== CÓMO FUNCIONA: SINCRONIZACIÓN + VÍDEO EN MÓVIL ===== */
+    .demo-grid {
+      display: grid;
+      gap: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+      align-items: center;
+    }
+    @media (min-width: 900px) { .demo-grid { grid-template-columns: 1fr 1fr; } }
+
+    .demo-steps { display: grid; gap: .75rem; margin-top: 2rem; }
+    .demo-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: .25rem 1rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: rgba(17, 24, 39, .4);
+      overflow: hidden;
+      cursor: default;
+      transition: border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+    }
+    .demo-step-icon {
+      grid-row: span 2;
+      display: grid;
+      place-items: center;
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+    }
+    .demo-step-icon svg { width: 22px; height: 22px; }
+    .demo-step h3 { font-size: 1.05rem; font-weight: 750; align-self: end; }
+    .demo-step p { font-size: var(--fs-xs); color: var(--text-muted); }
+    .demo-step-progress {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 2px;
+    }
+    .demo-step-progress span {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+    .demo-step.is-active {
+      border-color: rgba(16, 185, 129, .45);
+      background: linear-gradient(90deg, rgba(16, 185, 129, .1), transparent 70%), rgba(17, 24, 39, .6);
+      transform: translateX(4px);
+    }
+    .demo-step.is-active .demo-step-icon { background: var(--accent); color: var(--on-accent); }
+    .demo-steps.is-cycling .demo-step.is-active .demo-step-progress span { animation: step-progress 3.2s linear both; }
+    @keyframes step-progress { to { transform: scaleX(1); } }
+
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+      perspective: 1200px;
+    }
+    .phone {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 9 / 16;
+      padding: .75rem;
+      border-radius: 36px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(0, 0, 0, 0)) #05070A;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, .8), 0 0 60px rgba(16, 185, 129, .14);
+      transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+    }
+    .phone:hover { box-shadow: 0 30px 60px rgba(0, 0, 0, .8), 0 0 80px rgba(16, 185, 129, .25); }
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 1.15rem; left: 50%;
+      z-index: 2;
+      width: 34%; height: 18px;
+      border-radius: 999px;
+      background: #000;
+      transform: translateX(-50%);
+    }
+    .phone-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 26px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 30%, rgba(16, 185, 129, .16), transparent 60%), #070A0D;
+    }
+    .phone-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity var(--t-slow) var(--ease);
+    }
+    .phone.is-playing .phone-video,
+    .phone.is-ready .phone-video { opacity: 1; }
+    .phone-fallback {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: .75rem;
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: var(--fs-xs);
+      transition: opacity var(--t-slow) var(--ease);
+    }
+    .phone-fallback svg { width: 44px; height: 44px; }
+    .phone.is-playing .phone-fallback,
+    .phone.is-ready .phone-fallback { opacity: 0; pointer-events: none; }
+    .phone-glow {
+      position: absolute;
+      inset: auto 10% -30px 10%;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-glow);
+      filter: blur(30px);
+      z-index: -1;
+    }
+
+    /* ===== BENTO GRID ===== */
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+      overflow: hidden;
+      isolation: isolate;
+      transition:
+        transform var(--t-base) var(--ease),
+        border-color var(--t-base) var(--ease),
+        box-shadow var(--t-base) var(--ease);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(16, 185, 129, .14), transparent 60%);
+      opacity: 0;
+      transition: opacity var(--t-base) var(--ease);
+      pointer-events: none;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(16, 185, 129, .4);
+      box-shadow: var(--shadow-card), 0 18px 48px -20px var(--accent-glow);
+    }
+    @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+      .card:hover::before { opacity: 1; }
+      .card[data-tilt]:hover {
+        transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px);
+      }
+    }
+
+    .card-kicker {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+    }
+    .card-title { font-size: var(--fs-h3); font-weight: 750; }
+    .card-desc { color: var(--text-muted); font-size: var(--fs-sm); }
+
+    .viz {
+      margin-top: auto;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      transition: border-color var(--t-base) var(--ease);
+    }
+    .card:hover .viz { border-color: rgba(16, 185, 129, .25); }
+
+    @media (min-width: 768px) {
+      .bento { grid-template-columns: repeat(6, 1fr); gap: 1.25rem; }
+      .bento-ingest, .bento-command { grid-column: span 6; }
+      .bento-runway, .bento-privacy { grid-column: span 3; }
+    }
+    @media (min-width: 1024px) {
+      .bento { grid-template-columns: repeat(12, 1fr); }
+      .bento-ingest { grid-column: span 7; }
+      .bento-runway { grid-column: span 5; }
+      .bento-privacy { grid-column: span 5; }
+      .bento-command { grid-column: span 7; }
+    }
+
+    /* Viz 1: ingesta */
+    .viz-ingest { display: grid; gap: .875rem; }
+    .ingest-sources { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .file-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .4rem .7rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      font-weight: 700;
+      transition: transform var(--t-base) var(--ease), border-color var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+    }
+    .file-chip svg { width: 14px; height: 14px; color: var(--accent); }
+    .file-chip-paste { font-family: var(--font-sans); border-style: dashed; }
+    .bento-ingest:hover .file-chip { transform: translateY(-3px); border-color: rgba(16, 185, 129, .55); box-shadow: 0 8px 18px -10px var(--accent-glow); }
+    .bento-ingest:hover .file-chip:nth-child(2) { transition-delay: 50ms; }
+    .bento-ingest:hover .file-chip:nth-child(3) { transition-delay: 100ms; }
+    .bento-ingest:hover .file-chip:nth-child(4) { transition-delay: 150ms; }
+
+    .ingest-flow { display: flex; align-items: center; gap: .75rem; }
+    .flow-line {
+      position: relative;
+      flex: 1;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--surface-2), rgba(16, 185, 129, .6));
+      overflow: hidden;
+    }
+    .flow-line::after {
+      content: "";
+      position: absolute;
+      top: -2px; left: 0;
+      width: 24px; height: 6px;
+      border-radius: 6px;
+      background: var(--accent-bright);
+      box-shadow: 0 0 12px var(--accent);
+      animation: flow 2.2s var(--ease) infinite;
+    }
+    .bento-ingest:hover .flow-line::after { animation-duration: 1.1s; }
+    @keyframes flow {
+      from { transform: translateX(-30px); opacity: 0; }
+      20% { opacity: 1; }
+      to { transform: translateX(600px); opacity: 0; }
+    }
+    .flow-badge {
+      padding: .25rem .6rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-size: .75rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .ingest-out { display: grid; gap: .4rem; }
+    .ingest-out li {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .5rem .65rem;
+      border-radius: 10px;
+      background: var(--surface);
+      font-size: var(--fs-xs);
+      font-weight: 600;
+    }
+    .ingest-out li .chip { margin-left: auto; }
+
+    /* Viz 2: medidor de runway */
+    .viz-gauge { display: grid; justify-items: center; gap: .25rem; }
+    .viz-gauge svg { width: min(100%, 260px); overflow: visible; }
+    .viz-gauge .g-track { stroke: var(--surface-2); }
+    .viz-gauge .g-value { stroke: var(--accent); transition: stroke var(--t-base) var(--ease); }
+    .bento-runway:hover .g-value { stroke: var(--accent-bright); }
+    .viz-gauge .g-needle { transform-box: view-box; transform-origin: 100px 100px; transform: rotate(65deg); }
+    .viz-gauge text { fill: var(--text-muted); font-family: var(--font-sans); font-size: 10px; font-weight: 600; }
+    .viz-gauge .g-num { fill: var(--accent-bright); font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .viz-gauge .g-unit { fill: var(--text); font-size: 11px; }
+    .viz-gauge p { font-size: .75rem; color: var(--text-muted); text-align: center; }
+
+    /* Viz 3: privacidad */
+    .viz-privacy { display: flex; align-items: center; gap: 1rem; }
+    .shield { width: 76px; height: 88px; flex: none; overflow: visible; }
+    .shield .shackle { transform: translateY(-5px); transition: transform var(--t-slow) var(--ease); }
+    .shield .shield-ring {
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+      opacity: 0;
+    }
+    .bento-privacy:hover .shield .shackle,
+    .bento-privacy.is-visible .shield .shackle { transform: none; }
+    .bento-privacy:hover .shield .shield-ring { animation: ring 1.2s var(--ease) infinite; }
+    @keyframes ring {
+      from { opacity: .7; transform: scale(.9); }
+      to { opacity: 0; transform: scale(1.35); }
+    }
+    .privacy-list { display: grid; gap: .5rem; font-size: var(--fs-xs); font-weight: 600; }
+    .privacy-list li { display: flex; align-items: center; gap: .5rem; }
+    .privacy-list svg { width: 16px; height: 16px; color: var(--accent); flex: none; }
+
+    /* Viz 4: centro de mando */
+    .viz-command { display: grid; gap: 1rem; }
+    @media (min-width: 600px) { .viz-command { grid-template-columns: auto 1fr 1fr; align-items: stretch; } }
+    .traffic {
+      display: flex;
+      gap: .5rem;
+      justify-content: center;
+      align-items: center;
+      padding: .6rem;
+      border-radius: 14px;
+      background: #05070A;
+      border: 1px solid var(--border);
+    }
+    @media (min-width: 600px) { .traffic { flex-direction: column; } }
+    .traffic i { width: 18px; height: 18px; border-radius: 50%; opacity: .2; }
+    .traffic i:nth-child(1) { background: var(--danger); }
+    .traffic i:nth-child(2) { background: var(--warn); opacity: 1; box-shadow: 0 0 14px rgba(245, 158, 11, .7); }
+    .traffic i:nth-child(3) { background: var(--accent); }
+    /* Al pasar el ratón el semáforo recorre verde → ámbar → rojo */
+    .bento-command:hover .traffic i { animation: 2.4s steps(1, end) infinite; }
+    .bento-command:hover .traffic i:nth-child(3) { animation-name: light-green; }
+    .bento-command:hover .traffic i:nth-child(2) { animation-name: light-amber; }
+    .bento-command:hover .traffic i:nth-child(1) { animation-name: light-red; }
+    @keyframes light-green { 0% { opacity: 1; } 33% { opacity: .2; } }
+    @keyframes light-amber { 0% { opacity: .2; } 33% { opacity: 1; } 66% { opacity: .2; } }
+    @keyframes light-red { 0% { opacity: .2; } 66% { opacity: 1; } }
+
+    .mini-goals { display: grid; gap: .65rem; align-content: center; }
+    .mini-goals .budget-head { font-size: .75rem; }
+    .autopilot { display: grid; gap: .45rem; align-content: center; }
+    .autopilot-head { display: flex; align-items: center; gap: .4rem; font-size: .75rem; font-weight: 700; color: var(--accent-bright); }
+    .autopilot-head svg { width: 14px; height: 14px; transition: transform var(--t-slow) var(--ease); }
+    .bento-command:hover .autopilot-head svg { transform: rotate(180deg); }
+    .autopilot li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem;
+      padding: .4rem .55rem;
+      border-radius: 10px;
+      background: var(--surface);
+      font-size: .75rem;
+      font-weight: 600;
+    }
+    .switch {
+      position: relative;
+      width: 28px; height: 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      flex: none;
+    }
+    .switch::after {
+      content: "";
+      position: absolute;
+      top: 2px; left: 14px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--on-accent);
+    }
+
+    /* Animaciones de entrada del Bento (solo con movimiento permitido) */
+    @media (prefers-reduced-motion: no-preference) {
+      .js .bento .card:not(.is-visible) .bar > span { transform: scaleX(0); }
+      .js .bento .card.is-visible .bar > span { transition: transform 900ms var(--ease) 250ms; }
+      .js .bento .card:not(.is-visible) .g-value { stroke-dashoffset: 36; }
+      .js .bento .card.is-visible .g-value { transition: stroke-dashoffset 1200ms var(--ease) 200ms, stroke var(--t-base) var(--ease); }
+      .js .bento .card:not(.is-visible) .g-needle { transform: rotate(0deg); }
+      .js .bento .card.is-visible .g-needle { transition: transform 1200ms var(--ease) 200ms; }
+      .js .bento .card:not(.is-visible) .ingest-out li { opacity: 0; transform: translateX(-8px); }
+      .js .bento .card.is-visible .ingest-out li { transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); }
+      .js .bento .card.is-visible .ingest-out li:nth-child(1) { transition-delay: 300ms; }
+      .js .bento .card.is-visible .ingest-out li:nth-child(2) { transition-delay: 450ms; }
+      .js .bento .card.is-visible .ingest-out li:nth-child(3) { transition-delay: 600ms; }
+      .js .bento .card:not(.is-visible) .switch::after { transform: translateX(-12px); }
+      .js .bento .card.is-visible .switch::after { transition: transform var(--t-slow) var(--ease) 500ms; }
+    }
+
+    /* ===== PRUÉBALO AHORA: UTILIDADES ===== */
+    .tools { display: grid; gap: 1.25rem; align-items: start; }
+    @media (min-width: 1024px) { .tools { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+
+    .tool {
+      padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+      display: grid;
+      gap: 1.25rem;
+    }
+    .tool-head { display: flex; gap: .875rem; align-items: flex-start; }
+    .tool-icon {
+      display: grid;
+      place-items: center;
+      width: 44px; height: 44px;
+      flex: none;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(16, 185, 129, .3);
+      color: var(--accent-bright);
+    }
+    .tool-icon svg { width: 22px; height: 22px; }
+    .tool-title { font-size: var(--fs-h3); font-weight: 750; }
+    .tool-sub { margin-top: .2rem; color: var(--text-muted); font-size: var(--fs-sm); }
+    .tool-head .tag { margin-left: auto; }
+    .tool-head-text { min-width: 0; }
+
+    /* Calculadora */
+    .calc-fields { display: grid; gap: 1.25rem; }
+    .field-range-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .field-range-head label { font-weight: 650; font-size: var(--fs-sm); }
+
+    .input-affix {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: 0 .75rem;
+      min-height: 44px;
+      width: 9.5rem;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      background: var(--bg-elev);
+      transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+    }
+    .input-affix:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(16, 185, 129, .25); }
+    .input-affix input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      background: none;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+      outline: none;
+    }
+    .input-affix span { color: var(--text-muted); font-weight: 600; }
+    .field-range.is-invalid .input-affix { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239, 68, 68, .2); }
+
+    .range {
+      --pct: 50%;
+      -webkit-appearance: none;
+      appearance: none;
+      display: block;
+      width: 100%;
+      height: 28px;
+      margin-top: .5rem;
+      background: transparent;
+      cursor: pointer;
+    }
+    .range:focus-visible { outline-offset: 4px; border-radius: 10px; }
+    .range::-webkit-slider-runnable-track {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent) 0 var(--pct), var(--surface-2) var(--pct) 100%);
+    }
+    .range::-moz-range-track { height: 8px; border-radius: 999px; background: var(--surface-2); }
+    .range::-moz-range-progress { height: 8px; border-radius: 999px; background: var(--accent); }
+    .range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px; height: 22px;
+      margin-top: -7px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      background: #ECFDF5;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, .18);
+      transition: transform var(--t-fast) var(--ease);
+    }
+    .range::-moz-range-thumb {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      background: #ECFDF5;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, .18);
+    }
+    .range:hover::-webkit-slider-thumb { transform: scale(1.1); }
+
+    .range-scale {
+      display: flex;
+      justify-content: space-between;
+      margin-top: .25rem;
+      font-size: .75rem;
+      color: var(--text-muted);
+    }
+    .field-error {
+      margin-top: .35rem;
+      font-size: var(--fs-xs);
+      font-weight: 600;
+      color: var(--danger-text);
+    }
+    .field-error:empty { display: none; }
+
+    .result {
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--tier) 14%, transparent), transparent 65%), var(--bg-elev);
+      border: 1px solid color-mix(in srgb, var(--tier) 35%, transparent);
+      transition: border-color var(--t-slow) var(--ease);
+    }
+    .result-top { display: flex; justify-content: space-between; align-items: center; gap: .75rem; flex-wrap: wrap; }
+    .result-label {
+      font-size: .75rem;
+      font-weight: 650;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .result-main {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: .25rem .5rem;
+      margin-top: .35rem;
+    }
+    .result-num {
+      font-size: clamp(2.75rem, 2rem + 3vw, 3.75rem);
+      font-weight: 850;
+      letter-spacing: -.04em;
+      line-height: 1;
+      color: var(--tier);
+    }
+    [data-tier="alert"] .result-num { color: var(--danger-text); }
+    .result-unit { font-size: var(--fs-lg); font-weight: 700; }
+    .result-years { margin-top: .25rem; font-weight: 650; }
+
+    .gauge { position: relative; margin-top: 1.25rem; padding-bottom: 1.25rem; }
+    .gauge-track {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+    .gauge-fill {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--danger) 0 16.6%, var(--warn) 16.6% 33.3%, var(--accent) 33.3% 66.6%, var(--accent-bright) 66.6% 100%);
+      transform-origin: left center;
+      transform: scaleX(.36);
+      transition: transform var(--t-slow) var(--ease);
+    }
+    .gauge-marks span {
+      position: absolute;
+      top: 0;
+      left: var(--at);
+      transform: translateX(-50%);
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      font-size: .6875rem;
+      font-weight: 650;
+      color: var(--text-muted);
+    }
+    .gauge-marks span::before {
+      content: "";
+      width: 2px; height: 14px;
+      margin-top: -2px;
+      border-radius: 2px;
+      background: rgba(229, 231, 235, .55);
+    }
+
+    .tier-msg { margin-top: .5rem; color: var(--text-muted); font-size: var(--fs-sm); }
+    .impact { margin-top: .75rem; font-weight: 600; }
+    .impact strong { color: var(--tier); font-variant-numeric: tabular-nums; }
+    [data-tier="alert"] .impact strong { color: var(--danger-text); }
+
+    .note {
+      display: flex;
+      gap: .5rem;
+      align-items: flex-start;
+      font-size: .75rem;
+      color: var(--text-muted);
+    }
+    .note svg { width: 14px; height: 14px; flex: none; margin-top: 2px; }
+
+    .tool-foot { display: grid; gap: .875rem; }
+    .tool-foot .btn { justify-self: start; }
+
+    /* Simulador IA */
+    .ai-list { display: grid; gap: .625rem; }
+    .ai-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 64px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-elev);
+      overflow: hidden;
+      transition: border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
+    }
+    .ai-row > * { grid-area: 1 / 1; min-width: 0; }
+    .ai-row::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(16, 185, 129, .28), transparent);
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .ai-row.is-scanning { border-color: rgba(16, 185, 129, .55); }
+    .ai-row.is-scanning::after { animation: scan 600ms var(--ease) forwards; }
+    @keyframes scan {
+      0% { transform: translateX(-100%); opacity: 1; }
+      100% { transform: translateX(100%); opacity: 1; }
+    }
+    .ai-row.is-done { border-color: rgba(16, 185, 129, .3); background: linear-gradient(90deg, rgba(16, 185, 129, .06), transparent 70%), var(--bg-elev); }
+
+    .ai-raw {
+      align-self: center;
+      padding: .75rem .9rem;
+      font-family: var(--font-mono);
+      font-size: clamp(.75rem, .7rem + .2vw, .8125rem);
+      color: #CBD5E1;
+      letter-spacing: .02em;
+      overflow-wrap: anywhere;
+      transition: opacity var(--t-base) var(--ease), transform var(--t-base) var(--ease), color var(--t-fast) var(--ease);
+    }
+    .ai-row.is-scanning .ai-raw { color: var(--accent-bright); }
+    .ai-row.is-done .ai-raw { opacity: 0; transform: translateY(-8px); }
+
+    .ai-clean {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .65rem .9rem;
+      opacity: 0;
+      transform: translateY(10px) scale(.98);
+      transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease);
+    }
+    .ai-row.is-done .ai-clean { opacity: 1; transform: none; transition-delay: 80ms; }
+    .ai-icon {
+      display: grid;
+      place-items: center;
+      width: 38px; height: 38px;
+      flex: none;
+      border-radius: 12px;
+      background: rgba(52, 211, 153, .14);
+      color: #6EE7B7;
+    }
+    .ai-icon svg { width: 20px; height: 20px; }
+    .ai-icon[data-cat="subs"] { background: rgba(167, 139, 250, .16); color: #C4B5FD; }
+    .ai-icon[data-cat="income"] { background: rgba(56, 189, 248, .14); color: #7DD3FC; }
+    .ai-merchant { display: grid; gap: .2rem; min-width: 0; }
+    .ai-merchant .chip { white-space: normal; }
+    .ai-merchant strong { font-size: var(--fs-sm); font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ai-amount { margin-left: auto; font-weight: 750; font-size: var(--fs-sm); white-space: nowrap; }
+    .ai-amount.is-pos { color: var(--accent-bright); }
+
+    .ai-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
+    .ai-status {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      min-height: 1.5em;
+      font-size: var(--fs-sm);
+      font-weight: 650;
+      color: var(--text-muted);
+    }
+    .ai-status svg { width: 18px; height: 18px; display: none; color: var(--accent); }
+    [data-state="done"] .ai-status { color: var(--accent-bright); }
+    [data-state="done"] .ai-status svg { display: block; }
+    [data-state="running"] .ai-status::before {
+      content: "";
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: blink-dot 600ms var(--ease) infinite alternate;
+    }
+    @keyframes blink-dot { to { opacity: .2; } }
+
+    /* ===== FAQ DINÁMICA ===== */
+    .faq-wrap { display: grid; gap: 1.5rem; }
+    @media (min-width: 1024px) {
+      .faq-wrap { grid-template-columns: .8fr 1.2fr; gap: 3rem; align-items: start; }
+      .faq-side { position: sticky; top: calc(var(--header-h) + 2rem); }
+    }
+    .faq-side .section-head { margin-bottom: 1.5rem; }
+
+    .faq-filters { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .faq-filter {
+      min-height: 40px;
+      padding: .45rem .95rem;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .02);
+      color: var(--text-muted);
+      font-size: var(--fs-xs);
+      font-weight: 650;
+      cursor: pointer;
+      transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease), border-color var(--t-base) var(--ease), transform var(--t-fast) var(--ease);
+    }
+    .faq-filter:hover { color: var(--text); border-color: rgba(16, 185, 129, .5); }
+    .faq-filter:active { transform: scale(.97); }
+    .faq-filter[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+    .faq-count { margin-top: .9rem; font-size: var(--fs-xs); color: var(--text-muted); }
+    .faq-help { margin-top: 1.5rem; font-size: var(--fs-sm); color: var(--text-muted); }
+    .faq-help a { color: var(--accent-bright); font-weight: 650; text-underline-offset: 3px; }
+
+    .faq { display: grid; gap: .75rem; }
+    .faq details {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: rgba(17, 24, 39, .55);
+      overflow: hidden;
+      transition: border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+    }
+    .faq details::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform var(--t-slow) var(--ease);
+    }
+    .faq details:hover { border-color: rgba(16, 185, 129, .3); }
+    .faq details[open]:not(.is-closing) {
+      border-color: rgba(16, 185, 129, .45);
+      background: linear-gradient(135deg, rgba(16, 185, 129, .08), transparent 60%), rgba(17, 24, 39, .7);
+      box-shadow: 0 18px 40px -24px var(--accent-glow);
+    }
+    .faq details[open]:not(.is-closing)::before { transform: scaleY(1); }
+    .faq details.is-entering { animation: faq-enter var(--t-slow) var(--ease) both; }
+    @keyframes faq-enter { from { opacity: 0; transform: translateY(8px); } }
+
+    .faq summary {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-height: 60px;
+      padding: 1rem 1.25rem;
+      font-weight: 650;
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq-index {
+      flex: none;
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: color var(--t-base) var(--ease);
+    }
+    .faq details[open]:not(.is-closing) .faq-index { color: var(--accent-bright); }
+    .faq-q { flex: 1; }
+    .faq-toggle {
+      position: relative;
+      flex: none;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      transition: transform var(--t-base) var(--ease), background-color var(--t-base) var(--ease), border-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+    }
+    .faq-toggle::before,
+    .faq-toggle::after {
+      content: "";
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 12px; height: 2px;
+      margin: -1px 0 0 -6px;
+      border-radius: 2px;
+      background: currentColor;
+      transition: transform var(--t-base) var(--ease);
+    }
+    .faq-toggle::after { transform: rotate(90deg); }
+    .faq details[open]:not(.is-closing) .faq-toggle { transform: rotate(180deg); background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+    .faq details[open]:not(.is-closing) .faq-toggle::after { transform: rotate(0deg); }
+    .faq-answer { overflow: hidden; }
+    .faq-answer p { padding: 0 1.25rem 1.25rem calc(1.25rem + 2.4rem); color: var(--text-muted); }
+    @media (max-width: 479px) { .faq-answer p { padding-left: 1.25rem; } }
+
+    /* ===== CONTACTO ===== */
+    .contact {
+      display: grid;
+      gap: 1.5rem;
+      padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .contact::after {
+      content: "";
+      position: absolute;
+      top: -40%; right: -15%;
+      width: 60%; height: 140%;
+      background: radial-gradient(closest-side, rgba(16, 185, 129, .16), transparent);
+      pointer-events: none;
+      z-index: -1;
+    }
+    @media (min-width: 900px) { .contact { grid-template-columns: 1.2fr .8fr; align-items: center; gap: 3rem; } }
+    .contact-actions { display: grid; gap: .75rem; }
+    .contact-actions .btn { width: 100%; }
+
+    /* ===== FOOTER ===== */
     .site-footer {
-      border-top: 1px solid var(--glass-border); padding: 2.5rem 2rem; margin-top: 2rem;
-      text-align: center; color: var(--text-muted); font-size: 0.9rem;
+      padding-block: 2.5rem 3rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: var(--fs-xs);
     }
-    .site-footer p { margin-bottom: 0.5rem; }
-    .site-footer strong { color: var(--text-main); font-weight: 700; }
-    .site-footer .highlight { color: var(--neon-green); font-weight: 600; }
+    .footer-inner { display: grid; gap: 1.25rem; }
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; }
+    .footer-links a { text-decoration: none; font-weight: 600; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-disclaimer {
+      padding: .875rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .02);
+    }
+    .footer-credit .highlight { color: var(--accent-bright); font-weight: 650; }
+    .site-footer strong { color: var(--text); }
+    .site-footer .brand { font-size: 1rem; color: var(--text); margin-right: 0; }
+    .site-footer .brand svg { width: 26px; height: 26px; }
 
-    /* RESPONSIVE (MÓVIL Y TABLETS) */
-    @media (max-width: 900px) {
-      header { padding: 0.5rem 1rem; width: 90%; }
-      .nav-links { display: none; }
-      .nav-btn { padding: 0.4rem 1rem; font-size: 0.8rem; }
-      .brand { font-size: 1.2rem; }
-      
-      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 7rem; gap: 2rem; min-height: auto; margin-bottom: 2rem; }
-      .hero-interactive { width: 100%; }
-      
-      .demo-section { grid-template-columns: 1fr; text-align: center; gap: 3rem; padding: 4rem 0; }
-      .demo-text .ph-bold { margin: 0 auto; }
-      
-      .bento-grid { grid-template-columns: 1fr; }
-      .bento-large { grid-column: span 1; }
-      
-      .unified-bottom-section { grid-template-columns: 1fr; gap: 4rem; padding: 2rem 0; }
-      .contact-card { padding: 1.5rem; }
-      
-      .mobile-hologram-frame { max-width: 260px; margin: 0 auto; }
+    /* ===== MOVIMIENTO REDUCIDO ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0ms !important;
+        scroll-behavior: auto !important;
+      }
+      .fin-svg #bot, .fin-svg .spark, .fin-svg .glint, .flow-line::after, .pulse-dot::after { animation: none !important; }
+      .js .reveal { opacity: 1; translate: none; }
+      .card:hover, .btn:hover, .demo-step.is-active { transform: none; }
+      .phone { transform: none; }
     }
   </style>
 </head>
-<body>
+<body id="top">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div data-scroll-sentinel aria-hidden="true" style="position:absolute;top:0;left:0;width:1px;height:24px;pointer-events:none"></div>
 
-  <!-- Luces de fondo -->
-  <div class="bg-orb orb-1"></div>
-  <div class="bg-orb orb-2"></div>
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="FinDash, ir al inicio">
+        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect x="1" y="1" width="30" height="30" rx="8" fill="#0D1117" stroke="#10B981" stroke-width="2"/>
+          <rect x="8" y="17" width="4" height="7" rx="2" fill="#10B981"/>
+          <rect x="14" y="12" width="4" height="12" rx="2" fill="#10B981"/>
+          <rect x="20" y="8" width="4" height="16" rx="2" fill="#34D399"/>
+        </svg>
+        <span>FinDash</span>
+      </a>
 
-  <!-- NAVEGACIÓN -->
-  <header>
-    <a href="#top" class="brand"><i class="ph-fill ph-hexagon"></i> FINDASH</a>
-    <div class="nav-links">
-      <a href="#simulador">Simulador</a>
-      <a href="#funcionalidades">Funcionalidades</a>
-      <a href="#faq">Preguntas</a>
-    </div>
-    <div class="nav-btn-group">
-      <a href="https://claudioaccorinti.pythonanywhere.com/login" class="nav-btn">Acceder</a>
-      <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="nav-btn primary">Registrarse</a>
+      <nav class="nav" aria-label="Principal">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" data-nav-toggle>
+          <span class="sr-only" data-nav-toggle-label>Abrir menú</span>
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <ul class="nav-menu" id="nav-menu" data-nav-menu>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#funciones">Funciones</a></li>
+          <li><a href="#pruebalo">Pruébalo</a></li>
+          <li><a href="#faq">Preguntas</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li class="nav-menu-login"><a class="btn btn-ghost btn-sm" href="https://claudioaccorinti.pythonanywhere.com/login">Iniciar sesión</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-sm header-login" href="https://claudioaccorinti.pythonanywhere.com/login">Iniciar sesión</a>
+        <a class="btn btn-primary btn-sm" href="https://claudioaccorinti.pythonanywhere.com/registro" data-cta="header">Registrarse</a>
+      </div>
     </div>
   </header>
 
-  <div class="container">
-    
-    <!-- HERO SECTION -->
-    <section class="hero" id="simulador">
-      <div class="hero-text">
-        <h1>Deja de pelearte<br><span>con Excel.</span></h1>
-        <p>Una terminal financiera de élite. Ingesta inteligente, categorización automática y proyecciones matemáticas en tiempo real.</p>
-        <a href="https://claudioaccorinti.pythonanywhere.com/registro" class="nav-btn primary" style="padding: 1rem 2.5rem; font-size: 1.1rem; display: inline-flex;">Arrancar Sistema</a>
-      </div>
-      
-      <div class="hero-interactive">
-        <div class="glass-panel sim-card">
-          <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; text-transform: uppercase;">Cálculo de Supervivencia</h2>
-          <div class="sim-stats">
-            <div class="stat-block">
-              <div class="label">Fondo (Ahorros)</div>
-              <div class="value" style="color: #fff;">15.000<span style="font-size: 1.2rem;">€</span></div>
-            </div>
-            <div class="stat-block" style="text-align: right;">
-              <div class="label">Autonomía Real</div>
-              <div class="value" id="meses-val">10.0<span style="font-size: 1.2rem;">M</span></div>
-            </div>
+  <main id="contenido" tabindex="-1">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Early Access abierto</p>
+          <h1 class="hero-title" id="hero-title">Ten claro tu dinero. <span class="text-accent">Sin pelearte con Excel.</span></h1>
+          <p class="hero-sub">Sube tu extracto y descubre en segundos cuánto dura tu dinero. Sin dar tus claves del banco.</p>
+
+          <div class="hero-ctas">
+            <a class="btn btn-primary btn-lg" href="https://claudioaccorinti.pythonanywhere.com/registro" data-cta="hero">
+              Registrarse
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-ghost btn-lg" href="#calculadora">Probar la calculadora</a>
           </div>
-          
+          <p class="hero-login">¿Ya tienes cuenta? <a href="https://claudioaccorinti.pythonanywhere.com/login">Iniciar sesión</a></p>
+
+          <ul class="trust" aria-label="Compromisos de privacidad">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              Sin claves bancarias
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>
+              Sin scraping
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+              Cifrado SSL
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero-visual">
+          <!-- Mascota «Cénti»: una moneda guardiana que se asoma sobre la tarjeta -->
+          <div class="fin" data-fin>
+            <button class="fin-btn" type="button" aria-label="Cénti, la moneda guardiana de FinDash: pulsa para ver un consejo rápido" aria-controls="fin-bubble" aria-expanded="false">
+              <svg class="fin-svg" viewBox="0 0 200 176" aria-hidden="true" focusable="false" data-state="idle" data-tier="solid">
+                <defs>
+                  <radialGradient id="fin-aura-grad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" class="aura-stop-a"/>
+                    <stop offset="100%" class="aura-stop-b"/>
+                  </radialGradient>
+                  <!-- En userSpaceOnUse para que los párpados compartan exactamente el color de la cara -->
+                  <radialGradient id="coin-face-grad" gradientUnits="userSpaceOnUse" cx="86" cy="76" r="76">
+                    <stop offset="0%" stop-color="#FFE9A3"/>
+                    <stop offset="55%" stop-color="#F7C64A"/>
+                    <stop offset="100%" stop-color="#E09F1C"/>
+                  </radialGradient>
+                  <linearGradient id="coin-rim-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#F5BE3E"/>
+                    <stop offset="100%" stop-color="#B07209"/>
+                  </linearGradient>
+                  <clipPath id="fin-clip-l"><rect x="70" y="70" width="20" height="26" rx="10"/></clipPath>
+                  <clipPath id="fin-clip-r"><rect x="110" y="70" width="20" height="26" rx="10"/></clipPath>
+                  <clipPath id="fin-clip-coin"><circle cx="100" cy="96" r="52"/></clipPath>
+                </defs>
+
+                <g id="bot">
+                  <ellipse id="aura" cx="100" cy="92" rx="96" ry="80" fill="url(#fin-aura-grad)"/>
+
+                  <g id="head">
+                    <g id="spin">
+                      <!-- Brote de ahorro: el dinero que crece -->
+                      <g id="antenna">
+                        <path d="M100 37 C99 30 101 24 100 17" fill="none" stroke="#0E9F6E" stroke-width="3" stroke-linecap="round"/>
+                        <path class="leaf leaf-l" d="M100 24 C93 13 80 14 77 21 C85 28 95 28 100 24Z" fill="#10B981"/>
+                        <path class="leaf leaf-r" d="M100 19 C106 8 120 8 123 15 C117 22 106 23 100 19Z" fill="#34D399"/>
+                        <path class="spark" d="M136 13 L138 18 L143 20 L138 22 L136 27 L134 22 L129 20 L134 18 Z"/>
+                      </g>
+
+                      <!-- Canto de la moneda -->
+                      <g id="body">
+                        <circle cx="100" cy="100" r="62" fill="#7A4E05"/>
+                        <circle cx="100" cy="96" r="62" fill="url(#coin-rim-grad)"/>
+                        <circle cx="100" cy="96" r="58.5" fill="none" stroke="#8F5C07" stroke-width="3" stroke-dasharray="2 2.6" opacity=".55"/>
+                        <circle cx="100" cy="96" r="52" fill="url(#coin-face-grad)" stroke="#C8880F" stroke-width="2"/>
+                        <text x="100" y="142" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#B07209" opacity=".7">€</text>
+                      </g>
+
+                      <!-- Cara -->
+                      <ellipse cx="66" cy="106" rx="7" ry="4" fill="#F59E8B" opacity=".5"/>
+                      <ellipse cx="134" cy="106" rx="7" ry="4" fill="#F59E8B" opacity=".5"/>
+
+                      <g id="eye-l" class="eye">
+                        <g clip-path="url(#fin-clip-l)">
+                          <rect class="eye-socket" x="70" y="70" width="20" height="26" rx="10"/>
+                          <g id="pupil-l" class="pupil">
+                            <rect x="74.5" y="76" width="11" height="14" rx="5.5"/>
+                            <circle cx="77.6" cy="79.2" r="2" fill="#FFFFFF"/>
+                          </g>
+                          <rect id="lid-l" class="lid" x="68" y="68" width="24" height="30" fill="url(#coin-face-grad)"/>
+                        </g>
+                      </g>
+                      <g id="eye-r" class="eye">
+                        <g clip-path="url(#fin-clip-r)">
+                          <rect class="eye-socket" x="110" y="70" width="20" height="26" rx="10"/>
+                          <g id="pupil-r" class="pupil">
+                            <rect x="114.5" y="76" width="11" height="14" rx="5.5"/>
+                            <circle cx="117.6" cy="79.2" r="2" fill="#FFFFFF"/>
+                          </g>
+                          <rect id="lid-r" class="lid" x="108" y="68" width="24" height="30" fill="url(#coin-face-grad)"/>
+                        </g>
+                      </g>
+
+                      <g id="mouth">
+                        <path class="mouth-shape m-line" d="M90 111 Q100 116 110 111"/>
+                        <path class="mouth-shape m-smile" d="M86 108 Q100 122 114 108"/>
+                        <path class="mouth-shape m-flat" d="M91 113 H109"/>
+                        <path class="mouth-shape m-frown" d="M89 116 Q100 108 111 116"/>
+                        <ellipse class="mouth-shape m-o" cx="100" cy="113" rx="5" ry="6"/>
+                      </g>
+
+                      <path class="sweat" d="M146 66 Q152 75 146 79 Q140 75 146 66Z" fill="#7DD3FC"/>
+
+                      <!-- Brillo metálico que recorre la moneda -->
+                      <g clip-path="url(#fin-clip-coin)">
+                        <g transform="rotate(25 100 96)">
+                          <rect class="glint" x="94" y="20" width="12" height="160" fill="#FFFFFF"/>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+
+                  <!-- Destellos de celebración -->
+                  <path class="burst" d="M30 40 L32 46 L38 48 L32 50 L30 56 L28 50 L22 48 L28 46 Z" fill="#FDE68A"/>
+                  <path class="burst" d="M170 44 L172 49 L177 51 L172 53 L170 58 L168 53 L163 51 L168 49 Z" fill="#34D399"/>
+                  <path class="burst" d="M176 102 L178 107 L183 109 L178 111 L176 116 L174 111 L169 109 L174 107 Z" fill="#FDE68A"/>
+                </g>
+
+                <!-- Manitas apoyadas en el borde de la tarjeta -->
+                <g id="hands">
+                  <rect x="42" y="154" width="32" height="17" rx="8.5" fill="#FFF4DA" stroke="#3B2A0A" stroke-width="1.5"/>
+                  <path d="M52 157v6M58.5 157v6M65 157v6" stroke="#C9B48A" stroke-width="2" stroke-linecap="round"/>
+                  <rect x="126" y="154" width="32" height="17" rx="8.5" fill="#FFF4DA" stroke="#3B2A0A" stroke-width="1.5"/>
+                  <path d="M135 157v6M141.5 157v6M148 157v6" stroke="#C9B48A" stroke-width="2" stroke-linecap="round"/>
+                </g>
+              </svg>
+            </button>
+            <p class="fin-bubble" id="fin-bubble" role="status" aria-live="polite"></p>
+          </div>
+
+          <!-- Cálculo de supervivencia (simulador rápido del Hero) -->
+          <div class="sim glass" data-hero-sim data-savings="15000" data-tier="solid">
+            <h2 class="sim-title">Cálculo de supervivencia</h2>
+            <div class="sim-stats">
+              <div>
+                <p class="stat-label">Fondo (ahorros)</p>
+                <p class="stat-value num">15.000<small>€</small></p>
+              </div>
+              <div class="stat-right">
+                <p class="stat-label">Autonomía real</p>
+                <p class="stat-value is-tier num"><output data-sim-months for="sim-gasto" aria-live="off">10,0</output><small aria-hidden="true">M</small><span class="sr-only"> meses</span></p>
+              </div>
+            </div>
+            <div>
+              <div class="sim-row">
+                <label for="sim-gasto">Simula tu gasto mensual:</label>
+                <output for="sim-gasto" data-sim-expense>1.500&nbsp;€</output>
+              </div>
+              <input class="range" type="range" id="sim-gasto" min="500" max="5000" step="100" value="1500" aria-valuetext="1.500 euros al mes" data-sim-range>
+            </div>
+            <div class="sim-foot">
+              <div class="sim-meter" aria-hidden="true"><span data-sim-meter></span></div>
+              <p class="tier-badge" data-sim-tier>Colchón sólido</p>
+            </div>
+            <p class="sr-only" aria-live="polite" data-sim-live></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CÓMO FUNCIONA: SINCRONIZACIÓN SIN DOLOR ===== -->
+    <section class="section" id="como-funciona" aria-labelledby="sync-title">
+      <div class="container demo-grid">
+        <div class="reveal">
+          <p class="eyebrow">Cómo funciona</p>
+          <h2 class="section-title" id="sync-title" style="margin-top:1rem">Sincronización sin dolor. <span class="text-accent">Resultados al instante.</span></h2>
+          <p class="section-lead">No conectamos con tu banco ni te pedimos claves. Copia tus movimientos, pégalos y FinDash dibuja tu radiografía financiera.</p>
+
+          <ol class="demo-steps" data-demo-steps>
+            <li class="demo-step is-active" data-step>
+              <span class="demo-step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg>
+              </span>
+              <h3>1. Copia y pega tus datos</h3>
+              <p>CSV, Excel, PDF o directamente desde la web de tu banco.</p>
+              <span class="demo-step-progress" aria-hidden="true"><span></span></span>
+            </li>
+            <li class="demo-step" data-step>
+              <span class="demo-step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>
+              </span>
+              <h3>2. Categorización automática</h3>
+              <p>La IA reconoce cada comercio y lo ordena en segundos.</p>
+              <span class="demo-step-progress" aria-hidden="true"><span></span></span>
+            </li>
+            <li class="demo-step" data-step>
+              <span class="demo-step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9v9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/></svg>
+              </span>
+              <h3>3. Toma el control visual</h3>
+              <p>Presupuestos, metas y tu Colchón Financiero en un panel.</p>
+              <span class="demo-step-progress" aria-hidden="true"><span></span></span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="phone-wrap reveal" data-delay="1">
+          <div class="phone" data-phone>
+            <div class="phone-screen">
+              <!-- Vídeo alojado en Cloudinary: se carga solo cuando el móvil se acerca a la pantalla -->
+              <video class="phone-video" muted loop playsinline preload="none"
+                     data-src="https://res.cloudinary.com/gscwvnkt/video/upload/v1791452807/Editor_requesting_video_crop_20261007195031.mp4"
+                     aria-label="Demostración de FinDash en un móvil: pegar movimientos y ver el panel" data-demo-video></video>
+              <div class="phone-fallback" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="1" y="1" width="30" height="30" rx="8" fill="#0D1117" stroke="#10B981" stroke-width="2"/>
+                  <rect x="8" y="17" width="4" height="7" rx="2" fill="#10B981"/>
+                  <rect x="14" y="12" width="4" height="12" rx="2" fill="#10B981"/>
+                  <rect x="20" y="8" width="4" height="16" rx="2" fill="#34D399"/>
+                </svg>
+                <span data-video-status>Cargando la demo…</span>
+              </div>
+            </div>
+            <span class="phone-glow" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BENTO GRID: FUNCIONES ===== -->
+    <section class="section" id="funciones" aria-labelledby="funciones-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Lo que hace por ti</p>
+          <h2 class="section-title" id="funciones-title">Todo tu dinero, en un solo centro de mando.</h2>
+          <p class="section-lead">Cuatro piezas pensadas para quitarte trabajo y darte certezas: menos horas con hojas de cálculo, más claridad sobre lo que tienes.</p>
+        </div>
+
+        <div class="bento">
+          <!-- 1. Ingesta universal -->
+          <article class="card glass bento-ingest reveal" data-glow data-tilt>
+            <p class="card-kicker">Ingesta universal</p>
+            <h3 class="card-title">Tu extracto, ordenado en 3 segundos</h3>
+            <p class="card-desc">Sube un CSV, un Excel o un PDF, o pega los movimientos directamente desde tu banco. La IA reconoce cada comercio y lo categoriza al instante. Se acabó picar datos a mano el domingo por la tarde.</p>
+            <div class="viz viz-ingest" aria-hidden="true">
+              <div class="ingest-sources">
+                <span class="file-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>CSV</span>
+                <span class="file-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>Excel</span>
+                <span class="file-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M9 13h6M9 17h4"/></svg>PDF</span>
+                <span class="file-chip file-chip-paste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 11h6M9 15h4"/></svg>Pegar del banco</span>
+              </div>
+              <div class="ingest-flow"><span class="flow-line"></span><span class="flow-badge">IA · 3 s</span></div>
+              <ul class="ingest-out">
+                <li>Mercadona <span class="chip chip-food">Alimentación</span></li>
+                <li>Netflix <span class="chip chip-subs">Ocio</span></li>
+                <li>Nómina <span class="chip chip-income">Ingresos</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 2. Colchón financiero -->
+          <article class="card glass bento-runway reveal" data-delay="1" data-glow data-tilt>
+            <p class="card-kicker">Colchón financiero</p>
+            <h3 class="card-title">Cuánto dura tu dinero, en meses</h3>
+            <p class="card-desc">Cruza tu ahorro neto con tu gasto medio y lo traduce en tiempo: los meses que podrías cubrir si hoy dejaras de ingresar. Una cifra clara en lugar de una intuición.</p>
+            <div class="viz viz-gauge" aria-hidden="true">
+              <svg viewBox="0 0 200 118">
+                <path class="g-track" d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke-width="14" stroke-linecap="round"/>
+                <path class="g-value" d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke-width="14" stroke-linecap="round" pathLength="100" stroke-dasharray="36 100"/>
+                <g class="g-needle"><line x1="100" y1="100" x2="40" y2="100" stroke="#E5E7EB" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></g>
+                <circle cx="100" cy="100" r="5" fill="#E5E7EB"/>
+                <text x="12" y="50" text-anchor="middle">3</text>
+                <text x="50" y="14" text-anchor="middle">6</text>
+                <text x="150" y="14" text-anchor="middle">12</text>
+                <text class="g-num" x="100" y="78" text-anchor="middle" data-countup data-to="6.5">6,5</text>
+                <text class="g-unit" x="100" y="117" text-anchor="middle">meses</text>
+              </svg>
+              <p>Ejemplo: 9.750 € de ahorro ÷ 1.500 € de gasto al mes</p>
+            </div>
+          </article>
+
+          <!-- 3. Privacidad -->
+          <article class="card glass bento-privacy reveal" data-glow data-tilt>
+            <p class="card-kicker">Soberanía y privacidad</p>
+            <h3 class="card-title">Tus claves del banco se quedan contigo</h3>
+            <p class="card-desc">No te pedimos credenciales bancarias ni hacemos scraping invasivo. Tú decides qué datos subes, y se procesan en un entorno aislado con conexión cifrada SSL.</p>
+            <div class="viz viz-privacy" aria-hidden="true">
+              <svg class="shield" viewBox="0 0 76 88" fill="none">
+                <path class="shield-ring" d="M38 4l30 11v22c0 21-13 38-30 47C21 75 8 58 8 37V15z" stroke="#34D399" stroke-width="2"/>
+                <path d="M38 4l30 11v22c0 21-13 38-30 47C21 75 8 58 8 37V15z" fill="rgba(16,185,129,.1)" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round"/>
+                <path class="shackle" d="M30 40v-5a8 8 0 0 1 16 0v5" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
+                <rect x="26" y="40" width="24" height="20" rx="4" fill="#10B981"/>
+                <circle cx="38" cy="50" r="3" fill="#04130D"/>
+              </svg>
+              <ul class="privacy-list">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Sin claves bancarias</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Sin scraping invasivo</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Entorno aislado · SSL</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 4. Centro de mando gamificado -->
+          <article class="card glass bento-command reveal" data-delay="1" data-glow data-tilt>
+            <p class="card-kicker">Centro de mando</p>
+            <h3 class="card-title">Un panel que te avisa antes de que te pases</h3>
+            <p class="card-desc">Alertas semafóricas en cada presupuesto (aviso al 80 %, peligro al 100 %), metas de ahorro con progreso visible y piloto automático para tus gastos recurrentes.</p>
+            <div class="viz viz-command" aria-hidden="true">
+              <div class="traffic"><i></i><i></i><i></i></div>
+              <div class="mini-goals">
+                <div class="budget" data-level="ok">
+                  <div class="budget-head"><span>Meta: viaje</span><span class="num">45 %</span></div>
+                  <div class="bar"><span style="--v:.45"></span></div>
+                </div>
+                <div class="budget" data-level="warn">
+                  <div class="budget-head"><span>Ocio</span><span class="num">84 %</span></div>
+                  <div class="bar"><span style="--v:.84"></span></div>
+                </div>
+                <div class="budget" data-level="danger">
+                  <div class="budget-head"><span>Restaurantes</span><span class="num">100 %</span></div>
+                  <div class="bar"><span style="--v:1"></span></div>
+                </div>
+              </div>
+              <div class="autopilot">
+                <p class="autopilot-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>Piloto automático</p>
+                <ul>
+                  <li>Alquiler <span class="switch"></span></li>
+                  <li>Gimnasio <span class="switch"></span></li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRUÉBALO AHORA ===== -->
+    <section class="section" id="pruebalo" aria-labelledby="pruebalo-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Pruébalo ahora · sin registro</p>
+          <h2 class="section-title" id="pruebalo-title">Comprueba el valor antes de dejarnos tu email.</h2>
+          <p class="section-lead">Dos minutos bastan: calcula cuánto dura tu dinero y mira cómo un extracto caótico se convierte en información útil.</p>
+        </div>
+
+        <div class="tools">
+          <!-- Utilidad 1: calculadora de autonomía -->
+          <article class="tool glass reveal" id="calculadora" aria-labelledby="calc-title" data-runway data-tier="solid">
+            <header class="tool-head">
+              <span class="tool-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14l4-4"/><circle cx="12" cy="14" r="1.5"/><path d="M4 19h16"/></svg>
+              </span>
+              <div class="tool-head-text">
+                <h3 class="tool-title" id="calc-title">Calculadora de autonomía financiera</h3>
+                <p class="tool-sub">¿Cuánto tiempo te compra tu ahorro?</p>
+              </div>
+            </header>
+
+            <div class="calc-fields">
+              <div class="field-range" data-field="savings">
+                <div class="field-range-head">
+                  <label for="savings-range">Ahorro actual</label>
+                  <span class="input-affix">
+                    <label class="sr-only" for="savings-input">Ahorro actual, importe exacto en euros</label>
+                    <input id="savings-input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="9.750" aria-describedby="savings-scale savings-error" data-runway-input="savings">
+                    <span aria-hidden="true">€</span>
+                  </span>
+                </div>
+                <input class="range" type="range" id="savings-range" min="0" max="120000" step="500" value="9750" aria-valuetext="9.750 euros" aria-describedby="savings-scale" data-runway-range="savings">
+                <p class="range-scale" id="savings-scale"><span>0 €</span><span class="sr-only"> a </span><span>120.000 €</span></p>
+                <p class="field-error" id="savings-error" data-runway-error="savings"></p>
+              </div>
+
+              <div class="field-range" data-field="expense">
+                <div class="field-range-head">
+                  <label for="expense-range">Gasto mensual medio</label>
+                  <span class="input-affix">
+                    <label class="sr-only" for="expense-input">Gasto mensual medio, importe exacto en euros</label>
+                    <input id="expense-input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="1.500" aria-describedby="expense-scale expense-error" data-runway-input="expense">
+                    <span aria-hidden="true">€</span>
+                  </span>
+                </div>
+                <input class="range" type="range" id="expense-range" min="300" max="6000" step="50" value="1500" aria-valuetext="1.500 euros al mes" aria-describedby="expense-scale" data-runway-range="expense">
+                <p class="range-scale" id="expense-scale"><span>300 €</span><span class="sr-only"> a </span><span>6.000 €</span></p>
+                <p class="field-error" id="expense-error" data-runway-error="expense"></p>
+              </div>
+            </div>
+
+            <div class="result">
+              <div class="result-top">
+                <p class="result-label">Tu autonomía</p>
+                <p class="tier-badge" data-runway-tier-label>Colchón sólido</p>
+              </div>
+              <p class="result-main">
+                <output class="result-num num" id="runway-output" for="savings-range expense-range savings-input expense-input" aria-live="off" data-runway-value>6,5</output>
+                <span class="result-unit" data-runway-unit>meses</span>
+              </p>
+              <p class="result-years num" data-runway-years hidden></p>
+
+              <div class="gauge" aria-hidden="true">
+                <div class="gauge-track"><span class="gauge-fill" data-runway-gauge></span></div>
+                <div class="gauge-marks">
+                  <span style="--at:16.667%">3 m</span>
+                  <span style="--at:33.333%">6 m</span>
+                  <span style="--at:66.667%">12 m</span>
+                </div>
+              </div>
+
+              <p class="tier-msg" data-runway-tier-msg>Tienes margen para tomar decisiones con calma, sin prisas.</p>
+              <p class="impact">Si hoy dejaras de ingresar, tu dinero duraría <strong data-runway-phrase>6,5 meses</strong>.</p>
+              <p class="sr-only" aria-live="polite" data-runway-live></p>
+            </div>
+
+            <div class="tool-foot">
+              <p class="note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+                Cálculo orientativo (ahorro ÷ gasto mensual medio). No es asesoramiento financiero.
+              </p>
+              <a class="btn btn-primary" href="https://claudioaccorinti.pythonanywhere.com/registro" data-cta="calc">Calcula el tuyo con datos reales</a>
+            </div>
+          </article>
+
+          <!-- Utilidad 2: simulador de categorización IA -->
+          <article class="tool glass reveal" data-delay="1" aria-labelledby="ai-title" data-ai-demo data-state="idle">
+            <header class="tool-head">
+              <span class="tool-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+              </span>
+              <div class="tool-head-text">
+                <h3 class="tool-title" id="ai-title">Magia IA en 3 segundos</h3>
+                <p class="tool-sub">Así se ve un extracto antes y después de FinDash.</p>
+              </div>
+              <span class="tag">Simulación ilustrativa</span>
+            </header>
+
+            <ol class="ai-list" aria-label="Movimientos del extracto de ejemplo">
+              <li class="ai-row" data-ai-row>
+                <div class="ai-raw"><code>COMPRA TARJETA MERCADONA 54,20€</code></div>
+                <div class="ai-clean" aria-hidden="true">
+                  <span class="ai-icon" data-cat="food">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H6.2"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+                  </span>
+                  <span class="ai-merchant"><strong>Mercadona</strong><span><span class="chip chip-food">Supermercado · Alimentación</span></span></span>
+                  <span class="ai-amount num">−54,20 €</span>
+                </div>
+              </li>
+              <li class="ai-row" data-ai-row>
+                <div class="ai-raw"><code>RECIBO NETFLIX 15,99€</code></div>
+                <div class="ai-clean" aria-hidden="true">
+                  <span class="ai-icon" data-cat="subs">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M10.5 8.5v5l4-2.5z"/></svg>
+                  </span>
+                  <span class="ai-merchant"><strong>Netflix</strong><span><span class="chip chip-subs">Suscripciones · Ocio</span></span></span>
+                  <span class="ai-amount num">−15,99 €</span>
+                </div>
+              </li>
+              <li class="ai-row" data-ai-row>
+                <div class="ai-raw"><code>TRANSF. RECIBIDA NOMINA EMPRESA SL 1.850,00€</code></div>
+                <div class="ai-clean" aria-hidden="true">
+                  <span class="ai-icon" data-cat="income">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M12 11v5M9.5 13.5L12 16l2.5-2.5"/></svg>
+                  </span>
+                  <span class="ai-merchant"><strong>Nómina · Empresa SL</strong><span><span class="chip chip-income">Ingresos · Nómina</span></span></span>
+                  <span class="ai-amount is-pos num">+1.850,00 €</span>
+                </div>
+              </li>
+            </ol>
+
+            <div class="ai-actions">
+              <button class="btn btn-primary" type="button" data-ai-run>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/></svg>
+                <span data-ai-label>Probar categorización IA</span>
+              </button>
+              <p class="ai-status" role="status" aria-live="polite">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+                <span data-ai-status>3 movimientos sin categorizar</span>
+              </p>
+            </div>
+
+            <p class="note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+              Demo en tu navegador con datos fijos de ejemplo: no se envía nada ni se llama a ninguna IA real.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ DINÁMICA ===== -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-wrap">
+        <div class="faq-side reveal">
+          <div class="section-head">
+            <p class="eyebrow">Preguntas frecuentes</p>
+            <h2 class="section-title" id="faq-title">Lo que necesitas saber antes de empezar.</h2>
+          </div>
+          <div class="faq-filters" role="group" aria-label="Filtrar preguntas por tema">
+            <button class="faq-filter" type="button" aria-pressed="true" data-faq-filter="all">Todas</button>
+            <button class="faq-filter" type="button" aria-pressed="false" data-faq-filter="privacy">Privacidad</button>
+            <button class="faq-filter" type="button" aria-pressed="false" data-faq-filter="product">Producto</button>
+            <button class="faq-filter" type="button" aria-pressed="false" data-faq-filter="account">Cuenta</button>
+          </div>
+          <p class="faq-count" aria-live="polite" data-faq-count>8 preguntas</p>
+          <p class="faq-help">¿No encuentras tu respuesta? <a href="#contacto">Escríbeme</a>.</p>
+        </div>
+
+        <div class="faq reveal" data-delay="1" data-faq>
+          <details data-cat="privacy">
+            <summary><span class="faq-index" aria-hidden="true">01</span><span class="faq-q">¿Tengo que dar las claves de mi banco?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>No. FinDash no te pide credenciales bancarias ni accede a tu banco mediante scraping. Tú subes el extracto o pegas los movimientos, y decides qué información entra.</p></div>
+          </details>
+          <details data-cat="product">
+            <summary><span class="faq-index" aria-hidden="true">02</span><span class="faq-q">¿Qué formatos puedo subir?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>CSV, Excel y PDF. También puedes copiar los movimientos desde la web de tu banco y pegarlos directamente.</p></div>
+          </details>
+          <details data-cat="product">
+            <summary><span class="faq-index" aria-hidden="true">03</span><span class="faq-q">¿Cómo se categorizan mis movimientos?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Un motor de IA con procesamiento del lenguaje natural (NLP) lee la descripción de cada movimiento, reconoce el comercio y le asigna una categoría en unos 3 segundos. No tienes que etiquetar nada a mano.</p></div>
+          </details>
+          <details data-cat="product">
+            <summary><span class="faq-index" aria-hidden="true">04</span><span class="faq-q">¿Qué es el Colchón Financiero?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Es el simulador de autonomía (runway): divide tu ahorro neto entre tu gasto medio mensual y te dice cuántos meses podrías cubrir si hoy dejaras de ingresar. Por ejemplo: «Tienes 6,5 meses de autonomía».</p></div>
+          </details>
+          <details data-cat="product">
+            <summary><span class="faq-index" aria-hidden="true">05</span><span class="faq-q">¿Necesito saber de Excel o de contabilidad?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>En absoluto. FinDash está pensado para sustituir a Excel: estructura los datos, hace las sumas y genera los gráficos por ti. Tú solo tomas decisiones.</p></div>
+          </details>
+          <details data-cat="privacy">
+            <summary><span class="faq-index" aria-hidden="true">06</span><span class="faq-q">¿Cómo se protegen mis datos?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Partimos de no pedirte lo que no necesitamos: ni claves bancarias ni scraping invasivo. Tus datos solo llegan cuando tú los subes, se procesan en un entorno aislado y viajan cifrados con SSL.</p></div>
+          </details>
+          <details data-cat="account">
+            <summary><span class="faq-index" aria-hidden="true">07</span><span class="faq-q">¿Es gratis usar FinDash?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Sí. Durante el acceso anticipado puedes crear tu cuenta y usar FinDash gratis mientras seguimos añadiendo funciones al panel.</p></div>
+          </details>
+          <details data-cat="account">
+            <summary><span class="faq-index" aria-hidden="true">08</span><span class="faq-q">¿FinDash me ofrece asesoramiento financiero?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>No. FinDash es una herramienta de organización financiera personal: te ayuda a ver y ordenar tus números, pero no ofrece asesoramiento financiero ni recomendaciones de inversión.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACTO ===== -->
+    <section class="section" id="contacto" aria-labelledby="contacto-title" style="padding-top:0">
+      <div class="container">
+        <div class="contact glass reveal">
           <div>
-            <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.5rem;">
-              <span style="color: var(--text-muted); font-size: 0.85rem;">Simula tu Gasto Mensual:</span>
-              <span id="gasto-val" style="color: #fff; font-weight: bold;">1.500 €</span>
-            </div>
-            <input type="range" id="gasto-slider" min="500" max="5000" step="100" value="1500">
+            <p class="eyebrow">Contacto</p>
+            <h2 class="section-title" id="contacto-title" style="margin-top:1rem">¿Dudas o sugerencias?</h2>
+            <p class="section-lead">Hablemos. Escríbeme y charlamos sobre el futuro de FinDash.</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-ghost btn-lg" href="mailto:claccolu06@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              Email
+            </a>
+            <a class="btn btn-primary btn-lg" href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.32-1.96 2.69V21h-4z"/></svg>
+              LinkedIn
+              <span class="sr-only">(se abre en una pestaña nueva)</span>
+            </a>
           </div>
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- SECCIÓN DE DEMO CON VÍDEO VERTICAL EN CLOUDINARY -->
-    <section class="demo-section" id="funcionalidades">
-      <div class="demo-text">
-        <h2>Sincronización sin dolor.<br><span>Resultados al instante.</span></h2>
-        <p>No conectamos con tu banco ni te pedimos claves. Simplemente copia tus movimientos, pégalos en la terminal, y nuestro motor estructura y dibuja tu radiografía financiera.</p>
-        
-        <div style="display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem;">
-          <div style="display: flex; align-items: center; justify-content: flex-start; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
-            <i class="ph-bold ph-terminal-window" style="color: var(--neon-green); font-size: 1.5rem;"></i> 1. Copia y Pega tus datos
-          </div>
-          <div style="display: flex; align-items: center; justify-content: flex-start; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
-            <i class="ph-bold ph-cpu" style="color: var(--neon-green); font-size: 1.5rem;"></i> 2. Categorización Automática
-          </div>
-          <div style="display: flex; align-items: center; justify-content: flex-start; gap: 1rem; font-weight: 700; font-size: 1.1rem;">
-            <i class="ph-bold ph-chart-polar" style="color: var(--neon-green); font-size: 1.5rem;"></i> 3. Toma el control visual
-          </div>
-        </div>
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <a class="brand" href="#top" aria-label="FinDash, volver arriba">
+          <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <rect x="1" y="1" width="30" height="30" rx="8" fill="#0D1117" stroke="#10B981" stroke-width="2"/>
+            <rect x="8" y="17" width="4" height="7" rx="2" fill="#10B981"/>
+            <rect x="14" y="12" width="4" height="12" rx="2" fill="#10B981"/>
+            <rect x="20" y="8" width="4" height="16" rx="2" fill="#34D399"/>
+          </svg>
+          <span>FinDash</span>
+        </a>
+        <nav class="footer-links" aria-label="Legal y redes">
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+          <a href="mailto:claccolu06@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+        </nav>
       </div>
-      
-      <div class="mobile-frame-container">
-        <div class="mobile-hologram-frame">
-          <!-- VÍDEO ALOJADO EN CLOUDINARY (INYECCIÓN DIRECTA Y LIMPIA) -->
-          <video class="app-video" autoplay loop muted playsinline>
-            <source src="https://res.cloudinary.com/gscwvnkt/video/upload/v1791452807/Editor_requesting_video_crop_20261007195031.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </section>
-
-    <!-- BENTO GRID -->
-    <section class="bento-section">
-      <div class="bento-grid">
-        <div class="glass-panel bento-item bento-large">
-          <i class="ph-duotone ph-chart-line-up bento-icon"></i>
-          <h3 class="bento-title">Proyecciones y Analítica de Datos</h3>
-          <p class="bento-desc">Cruza tus ingresos y gastos para generar gráficos visuales interactivos. Detecta tendencias, calcula tu tasa de ahorro neto mensual y deja de adivinar a dónde va tu dinero.</p>
-        </div>
-        <div class="glass-panel bento-item">
-          <i class="ph-duotone ph-traffic-signal bento-icon"></i>
-          <h3 class="bento-title">Límites Semafóricos</h3>
-          <p class="bento-desc">Establece techos de gasto por categoría. El panel te avisa en rojo antes de que te pases.</p>
-        </div>
-        <div class="glass-panel bento-item">
-          <i class="ph-duotone ph-lock-key bento-icon"></i>
-          <h3 class="bento-title">Soberanía de Datos</h3>
-          <p class="bento-desc">Base de datos SQLite local cifrada. Sin Open Banking. Tu privacidad financiera es intocable.</p>
-        </div>
-        <div class="glass-panel bento-item">
-          <i class="ph-duotone ph-file-csv bento-icon"></i>
-          <h3 class="bento-title">Auditoría Externa (CSV)</h3>
-          <p class="bento-desc">Descarga todo tu libro mayor en formato Excel con un solo clic para tu propia contabilidad.</p>
-        </div>
-        <div class="glass-panel bento-item">
-          <i class="ph-duotone ph-device-mobile bento-icon"></i>
-          <h3 class="bento-title">Experiencia Nativa Móvil</h3>
-          <p class="bento-desc">Diseño Mobile-First con menús táctiles para que registres gastos mientras te tomas un café.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ + CONTACTO -->
-    <section class="unified-bottom-section" id="faq">
-      
-      <!-- FAQ ACORDEÓN -->
-      <div class="faq-wrapper">
-        <h2 class="section-header">Preguntas Frecuentes</h2>
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            ¿Necesito conectar mi cuenta bancaria? <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="faq-answer">
-            Rotundamente no. FinDash funciona por ingesta pasiva. Tú copias y pegas tus movimientos bancarios o subes tu archivo CSV. El sistema los categoriza sin necesidad de pedirte tus claves, garantizando tu seguridad al 100%.
-          </div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            ¿Necesito saber de Excel o contabilidad? <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="faq-answer">
-            En absoluto. FinDash está diseñado precisamente para sustituir a Excel. El motor interno estructura los datos, hace las sumas y genera los gráficos automáticamente para que tú solo tengas que tomar decisiones.
-          </div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            ¿Es gratis usar FinDash? <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="faq-answer">
-            Sí. Actualmente estamos en fase de "Acceso Anticipado", por lo que puedes crear tu cuenta y empezar a controlar tu dinero de forma gratuita mientras añadimos nuevas funcionalidades al panel.
-          </div>
-        </div>
-      </div>
-
-      <!-- CONTACTO (Minimalista) -->
-      <div class="contact-wrapper">
-        <h2 class="section-header">Contacto</h2>
-        
-        <div class="glass-panel contact-card">
-          <div class="contact-info">
-            <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem;">¿Dudas o Sugerencias?</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem;">Hablemos. Escríbeme y charlamos sobre el futuro del proyecto.</p>
-            
-            <div class="contact-socials">
-              <a href="mailto:claccolu06@gmail.com" class="nav-btn"><i class="ph-bold ph-envelope-simple"></i> Email</a>
-              <a href="https://www.linkedin.com/in/claudio-accorinti-luna-8b334a395/" target="_blank" rel="noopener" class="nav-btn primary"><i class="ph-bold ph-linkedin-logo"></i> LinkedIn</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- FOOTER FINAL CON CREDENCIALES -->
-    <footer class="site-footer">
-      <p><strong>FinDash</strong> · Control y soberanía sobre tus datos financieros.</p>
-      <p>Diseñado y desarrollado por <span class="highlight">Claudio Accorinti</span>, estudiante de la Universidad de Sevilla.</p>
-      <p style="margin-top: 1rem; opacity: 0.5;">&copy; 2026 Todos los derechos reservados.</p>
-    </footer>
-
-  </div>
+      <p class="footer-disclaimer">FinDash es una herramienta de organización financiera personal y no ofrece asesoramiento financiero.</p>
+      <p class="footer-credit">Diseñado y desarrollado por <span class="highlight">Claudio Accorinti</span>, estudiante de la Universidad de Sevilla.</p>
+      <p>© <span data-year>2026</span> <strong>FinDash</strong>. Todos los derechos reservados.</p>
+    </div>
+  </footer>
 
   <script>
-    // Lógica del Simulador
-    const slider = document.getElementById('gasto-slider');
-    const gastoVal = document.getElementById('gasto-val');
-    const mesesVal = document.getElementById('meses-val');
-    const ahorros = 15000;
+  (() => {
+    'use strict';
 
-    slider.addEventListener('input', (e) => {
-      const gasto = parseFloat(e.target.value);
-      gastoVal.textContent = gasto.toLocaleString('es-ES') + ' €';
-      const meses = (ahorros / gasto).toFixed(1);
-      mesesVal.innerHTML = meses + '<span style="font-size: 1.2rem;">M</span>';
+    // Marca que JS está activo (habilita los estados iniciales de revelado)
+    document.documentElement.classList.add('js');
+
+    /* ===== CONFIG ===== */
+    const CONFIG = Object.freeze({
+      EVENTS: Object.freeze({
+        RUNWAY: 'findash:runway',
+        AI_START: 'findash:ai-start',
+        AI_DONE: 'findash:ai-done',
+        CTA_HOVER: 'findash:cta-hover'
+      }),
+      // Niveles de autonomía compartidos por las dos calculadoras y la mascota
+      TIERS: Object.freeze([
+        { id: 'alert', max: 3, label: 'Zona de alerta', msg: 'Menos de 3 meses de margen: cualquier imprevisto pesa. Tener la cifra clara es el primer paso.' },
+        { id: 'building', max: 6, label: 'Colchón en construcción', msg: 'Ya tienes una base. Cada mes que sumas es tiempo que ganas.' },
+        { id: 'solid', max: 12, label: 'Colchón sólido', msg: 'Tienes margen para tomar decisiones con calma, sin prisas.' },
+        { id: 'freedom', max: Infinity, label: 'Libertad a la vista', msg: 'Más de un año de autonomía: tu ahorro ya funciona como un colchón real.' }
+      ]),
+      RUNWAY: Object.freeze({
+        GAUGE_MAX_MONTHS: 18,
+        EMIT_DEBOUNCE: 180,
+        LIVE_DEBOUNCE: 500,
+        TWEEN_MS: 400
+      }),
+      AI: Object.freeze({ DURATION: 3000 }),
+      DEMO: Object.freeze({ STEP_MS: 3200 }),
+      MASCOT: Object.freeze({
+        VIEWBOX_W: 200,
+        LERP: 0.15,
+        HEAD_MAX_TILT: 6,
+        HEAD_MAX_SHIFT: 4,
+        PUPIL_RATIO: 0.22,
+        BLINK_MIN: 2500,
+        BLINK_MAX: 6000,
+        WANDER_MIN: 1800,
+        WANDER_MAX: 4200,
+        EPSILON: 0.02
+      })
     });
 
-    // Acordeón FAQ
-    function toggleFaq(element) {
-      const parent = element.parentElement;
-      const isActive = parent.classList.contains('active');
-      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
-      if (!isActive) parent.classList.add('active');
-    }
+    /* ===== UTILS ===== */
+    const Utils = (() => {
+      const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const mqNoHover = window.matchMedia('(hover: none)');
+
+      // Intl con agrupación forzada: es-ES no agrupa los números de 4 cifras por defecto
+      const makeNF = (opts) => {
+        try {
+          return new Intl.NumberFormat('es-ES', Object.assign({ useGrouping: 'always' }, opts));
+        } catch (err) {
+          return new Intl.NumberFormat('es-ES', opts);
+        }
+      };
+      const nf0 = makeNF({ maximumFractionDigits: 0 });
+      const nf1 = makeNF({ minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+      // Respaldo por si el motor ignora useGrouping:'always' (9750 → 9.750)
+      const withGrouping = (str, n) => {
+        const intPart = str.split(',')[0];
+        if (Math.abs(n) >= 1000 && !intPart.includes('.')) {
+          return str.replace(/\d+/, (d) => d.replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+        }
+        return str;
+      };
+
+      return {
+        clamp: (v, min, max) => Math.min(max, Math.max(min, v)),
+        lerp: (a, b, t) => a + (b - a) * t,
+        rand: (min, max) => min + Math.random() * (max - min),
+
+        debounce(fn, wait) {
+          let t = 0;
+          return (...args) => {
+            clearTimeout(t);
+            t = setTimeout(() => fn(...args), wait);
+          };
+        },
+
+        reducedMotion: () => mqReduce.matches,
+        isTouch: () => mqNoHover.matches,
+
+        formatInt: (n) => withGrouping(nf0.format(n), n),
+        formatMonths: (n) => nf1.format(n),
+        formatEuro: (n) => withGrouping(nf0.format(n), n) + ' €',
+
+        // Acepta «9.750», «9750», «9750,5» o «9.750 €»
+        parseAmount(str) {
+          if (typeof str !== 'string') return NaN;
+          const clean = str.replace(/[\s €]/g, '').replace(/\./g, '').replace(',', '.');
+          if (!/^\d+(\.\d+)?$/.test(clean)) return NaN;
+          return parseFloat(clean);
+        },
+
+        getTier: (m) => CONFIG.TIERS.find((t) => m < t.max) || CONFIG.TIERS[CONFIG.TIERS.length - 1],
+        monthsUnit: (m) => (Math.round(m * 10) / 10 === 1 ? 'mes' : 'meses'),
+
+        emit(name, detail) {
+          document.dispatchEvent(new CustomEvent(name, { detail }));
+        },
+
+        // Bucle rAF que se detiene solo cuando step() devuelve false
+        createLoop(step) {
+          let id = 0;
+          const frame = (now) => {
+            id = 0;
+            let keep = false;
+            try {
+              keep = step(now) !== false;
+            } catch (err) {
+              console.error('[FinDash] Error en el bucle de animación', err);
+            }
+            if (keep) id = requestAnimationFrame(frame);
+          };
+          return {
+            start() { if (!id) id = requestAnimationFrame(frame); },
+            stop() { if (id) cancelAnimationFrame(id); id = 0; },
+            get running() { return id !== 0; }
+          };
+        }
+      };
+    })();
+
+    /* ===== REVEAL ===== */
+    const Reveal = {
+      init() {
+        const els = document.querySelectorAll('.reveal');
+        if (!els.length) return;
+        if (!('IntersectionObserver' in window) || Utils.reducedMotion()) {
+          els.forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        els.forEach((el) => io.observe(el));
+      }
+    };
+
+    /* ===== NAV ===== */
+    const Nav = (() => {
+      let header, toggle, menu, toggleLabel;
+      const mqDesktop = window.matchMedia('(min-width: 960px)');
+
+      const isOpen = () => !!toggle && toggle.getAttribute('aria-expanded') === 'true';
+
+      function setOpen(open, { restoreFocus = false } = {}) {
+        if (!toggle || !menu) return;
+        toggle.setAttribute('aria-expanded', String(open));
+        menu.classList.toggle('is-open', open);
+        if (toggleLabel) toggleLabel.textContent = open ? 'Cerrar menú' : 'Abrir menú';
+        if (!open && restoreFocus) toggle.focus();
+      }
+
+      function init() {
+        header = document.querySelector('[data-header]');
+        toggle = document.querySelector('[data-nav-toggle]');
+        menu = document.querySelector('[data-nav-menu]');
+        toggleLabel = document.querySelector('[data-nav-toggle-label]');
+
+        // Borde del header al hacer scroll, sin listener de scroll
+        const sentinel = document.querySelector('[data-scroll-sentinel]');
+        if (header && sentinel && 'IntersectionObserver' in window) {
+          new IntersectionObserver(([entry]) => {
+            header.classList.toggle('is-scrolled', !entry.isIntersecting);
+          }).observe(sentinel);
+        }
+
+        if (!toggle || !menu) return;
+        toggle.addEventListener('click', () => setOpen(!isOpen()));
+        menu.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isOpen()) setOpen(false, { restoreFocus: true });
+        });
+        document.addEventListener('click', (e) => {
+          if (isOpen() && !menu.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+        });
+        const onMQ = () => { if (mqDesktop.matches) setOpen(false); };
+        if (mqDesktop.addEventListener) mqDesktop.addEventListener('change', onMQ);
+        else if (mqDesktop.addListener) mqDesktop.addListener(onMQ);
+      }
+
+      return { init };
+    })();
+
+    /* ===== CARD FX (foco de luz + inclinación 3D) ===== */
+    const CardFx = {
+      init() {
+        const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (!fine || Utils.reducedMotion()) return;
+        const els = document.querySelectorAll('[data-glow], [data-tilt], [data-phone]');
+        if (!els.length) return;
+
+        const rects = new WeakMap();
+        // Geometría cacheada al entrar e invalidada con scroll/resize
+        const invalidate = () => els.forEach((el) => rects.delete(el));
+        window.addEventListener('scroll', invalidate, { passive: true });
+        window.addEventListener('resize', invalidate, { passive: true });
+
+        els.forEach((el) => {
+          const tilt = el.hasAttribute('data-tilt') || el.hasAttribute('data-phone');
+          const maxTilt = el.hasAttribute('data-phone') ? 8 : 4;
+          el.addEventListener('pointerenter', () => rects.set(el, el.getBoundingClientRect()), { passive: true });
+          el.addEventListener('pointermove', (e) => {
+            let r = rects.get(el);
+            if (!r) { r = el.getBoundingClientRect(); rects.set(el, r); }
+            const x = e.clientX - r.left;
+            const y = e.clientY - r.top;
+            el.style.setProperty('--mx', x.toFixed(0) + 'px');
+            el.style.setProperty('--my', y.toFixed(0) + 'px');
+            if (tilt) {
+              const nx = (x / r.width) * 2 - 1;
+              const ny = (y / r.height) * 2 - 1;
+              el.style.setProperty('--ry', (nx * maxTilt).toFixed(2) + 'deg');
+              el.style.setProperty('--rx', (-ny * maxTilt).toFixed(2) + 'deg');
+            }
+          }, { passive: true });
+          el.addEventListener('pointerleave', () => {
+            el.style.setProperty('--rx', '0deg');
+            el.style.setProperty('--ry', '0deg');
+          }, { passive: true });
+        });
+      }
+    };
+
+    /* ===== COUNT-UP (cifras que cuentan al aparecer) ===== */
+    const CountUp = {
+      init() {
+        const els = document.querySelectorAll('[data-countup]');
+        if (!els.length || !('IntersectionObserver' in window) || Utils.reducedMotion()) return;
+        const run = (el) => {
+          const to = parseFloat(el.getAttribute('data-to')) || 0;
+          const start = performance.now();
+          const loop = Utils.createLoop((now) => {
+            const t = Utils.clamp((now - start - 200) / 1200, 0, 1);
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = Utils.formatMonths(to * eased);
+            return t < 1;
+          });
+          el.textContent = Utils.formatMonths(0);
+          loop.start();
+        };
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) { run(entry.target); io.unobserve(entry.target); }
+          });
+        }, { threshold: 0.6 });
+        els.forEach((el) => io.observe(el));
+      }
+    };
+
+    /* ===== CTA SIGNALS ===== */
+    const CtaSignals = {
+      init() {
+        document.querySelectorAll('[data-cta]').forEach((el) => {
+          const fire = () => Utils.emit(CONFIG.EVENTS.CTA_HOVER, { id: el.getAttribute('data-cta') || '' });
+          el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') fire(); }, { passive: true });
+          el.addEventListener('focus', fire);
+        });
+      }
+    };
+
+    /* ===== FIN MASCOT («Cénti», la moneda guardiana) ===== */
+    const FinMascot = (() => {
+      const M = CONFIG.MASCOT;
+      const EV = CONFIG.EVENTS;
+      const STATES = ['idle', 'amazed', 'thinking', 'worried', 'cautious', 'calm', 'celebrating', 'talk'];
+      const DEFAULT_DURATION = {
+        idle: 0, amazed: 1400, thinking: 0, worried: 2600,
+        cautious: 2600, calm: 2600, celebrating: 2600, talk: 4000
+      };
+      const TIER_STATE = { alert: 'worried', building: 'cautious', solid: 'calm', freedom: 'celebrating' };
+      const TIPS = [
+        'Soy Cénti. Mueve el gasto mensual y te digo cuánto aguanta tu colchón.',
+        'Tus claves del banco se quedan contigo. Yo solo cuento lo que tú decidas subir.',
+        '¿Domingo de Excel? Hoy no. Para eso estoy aquí.',
+        'Más abajo ordeno un extracto en 3 segundos. Pruébalo sin registrarte.'
+      ];
+
+      let ctx = null;
+
+      function build(root) {
+        const svg = root.querySelector('.fin-svg');
+        if (!svg) return null;
+        const head = svg.querySelector('#head');
+        const eyes = ['l', 'r'].map((side) => ({
+          socket: svg.querySelector('#eye-' + side + ' .eye-socket'),
+          pupil: svg.querySelector('#pupil-' + side),
+          cx: 0, cy: 0, maxR: 0, x: 0, y: 0
+        }));
+        if (!head || eyes.some((e) => !e.socket || !e.pupil)) return null;
+        return {
+          root,
+          svg,
+          head,
+          eyes,
+          btn: root.querySelector('.fin-btn'),
+          bubble: root.querySelector('.fin-bubble'),
+          headPos: { x: 0, y: 0, r: 0 },
+          headCenter: { x: 0, y: 0 },
+          scale: 1,
+          state: 'idle',
+          tip: 0,
+          visible: true,
+          dirty: true,
+          pointer: { x: window.innerWidth * 0.5, y: window.innerHeight * 0.3 },
+          lastScrollY: window.scrollY,
+          timers: { state: 0, bubble: 0, bubbleClear: 0, blink: 0, blinkEnd: 0, wander: 0 },
+          abort: new AbortController(),
+          io: null,
+          ro: null,
+          loop: null
+        };
+      }
+
+      // Lectura de geometría en bloque (solo cuando está marcada como sucia)
+      function measure() {
+        const svgRect = ctx.svg.getBoundingClientRect();
+        ctx.scale = svgRect.width / M.VIEWBOX_W || 1;
+        ctx.headCenter.x = svgRect.left + svgRect.width / 2;
+        ctx.headCenter.y = svgRect.top + svgRect.height * 0.5;
+        ctx.eyes.forEach((e) => {
+          const r = e.socket.getBoundingClientRect();
+          e.cx = r.left + r.width / 2;
+          e.cy = r.top + r.height / 2;
+          e.maxR = r.width * M.PUPIL_RATIO;
+        });
+        ctx.dirty = false;
+      }
+
+      function tick(now) {
+        if (!ctx || !ctx.visible) return false;
+        if (ctx.dirty) measure();
+
+        const rm = Utils.reducedMotion();
+        const amp = rm ? 0.5 : 1;
+        const k = rm ? 1 : M.LERP;
+        const scanning = ctx.state === 'thinking';
+        const { pointer, scale } = ctx;
+        let moving = false;
+
+        // Pupilas: vector ojo → puntero, atan2 y desplazamiento acotado a maxR
+        ctx.eyes.forEach((e) => {
+          let tx, ty;
+          if (scanning) {
+            tx = rm ? 0 : Math.sin(now / 240) * (e.maxR / scale);
+            ty = rm ? (e.maxR * 0.4) / scale : -(e.maxR * 0.15) / scale;
+          } else {
+            const dx = pointer.x - e.cx;
+            const dy = pointer.y - e.cy;
+            const angle = Math.atan2(dy, dx);
+            const dist = Math.min(Math.hypot(dx, dy), e.maxR) * amp / scale;
+            tx = Math.cos(angle) * dist;
+            ty = Math.sin(angle) * dist;
+          }
+          e.x = Utils.lerp(e.x, tx, k);
+          e.y = Utils.lerp(e.y, ty, k);
+          if (Math.abs(tx - e.x) > M.EPSILON || Math.abs(ty - e.y) > M.EPSILON) moving = true;
+          else { e.x = tx; e.y = ty; }
+        });
+
+        // Moneda: inclinación ±6° y desplazamiento ±4 px, atenuados
+        const nx = Utils.clamp((pointer.x - ctx.headCenter.x) / (window.innerWidth * 0.5), -1, 1);
+        const ny = Utils.clamp((pointer.y - ctx.headCenter.y) / (window.innerHeight * 0.5), -1, 1);
+        const target = {
+          x: (nx * M.HEAD_MAX_SHIFT * amp) / scale,
+          y: (ny * M.HEAD_MAX_SHIFT * amp) / scale,
+          r: nx * M.HEAD_MAX_TILT * amp
+        };
+        const hp = ctx.headPos;
+        ['x', 'y', 'r'].forEach((key) => {
+          hp[key] = Utils.lerp(hp[key], target[key], k * 0.8);
+          if (Math.abs(target[key] - hp[key]) > M.EPSILON) moving = true;
+          else hp[key] = target[key];
+        });
+
+        // Escritura en bloque (solo transform)
+        ctx.eyes.forEach((e) => {
+          e.pupil.style.transform = 'translate(' + e.x.toFixed(2) + 'px,' + e.y.toFixed(2) + 'px)';
+        });
+        ctx.head.style.transform = 'translate(' + hp.x.toFixed(2) + 'px,' + hp.y.toFixed(2) + 'px) rotate(' + hp.r.toFixed(2) + 'deg)';
+
+        return moving || (scanning && !rm);
+      }
+
+      function wake() {
+        if (ctx && ctx.visible && !document.hidden) ctx.loop.start();
+      }
+
+      function scheduleBlink() {
+        if (!ctx) return;
+        clearTimeout(ctx.timers.blink);
+        if (Utils.reducedMotion() || !ctx.visible) return;
+        ctx.timers.blink = setTimeout(() => {
+          if (!ctx) return;
+          ctx.svg.classList.add('is-blinking');
+          ctx.timers.blinkEnd = setTimeout(() => ctx && ctx.svg.classList.remove('is-blinking'), 150);
+          scheduleBlink();
+        }, Utils.rand(M.BLINK_MIN, M.BLINK_MAX));
+      }
+
+      // Táctil: la mirada vaga por puntos aleatorios
+      function scheduleWander() {
+        if (!ctx) return;
+        clearTimeout(ctx.timers.wander);
+        if (!Utils.isTouch() || !ctx.visible) return;
+        ctx.timers.wander = setTimeout(() => {
+          if (!ctx) return;
+          if (ctx.state !== 'thinking') {
+            ctx.pointer.x = Utils.rand(0.1, 0.9) * window.innerWidth;
+            ctx.pointer.y = Utils.rand(0.1, 0.8) * window.innerHeight;
+            wake();
+          }
+          scheduleWander();
+        }, Utils.rand(M.WANDER_MIN, M.WANDER_MAX));
+      }
+
+      function pause() {
+        if (!ctx) return;
+        ctx.loop.stop();
+        clearTimeout(ctx.timers.blink);
+        clearTimeout(ctx.timers.wander);
+        ctx.root.classList.add('is-paused');
+      }
+
+      function resume() {
+        if (!ctx) return;
+        ctx.root.classList.remove('is-paused');
+        ctx.dirty = true;
+        wake();
+        scheduleBlink();
+        scheduleWander();
+      }
+
+      const isBubbleVisible = () => !!(ctx && ctx.bubble && ctx.bubble.classList.contains('is-visible'));
+
+      function hideBubble() {
+        if (!ctx || !ctx.bubble) return;
+        clearTimeout(ctx.timers.bubble);
+        ctx.bubble.classList.remove('is-visible');
+        if (ctx.btn) ctx.btn.setAttribute('aria-expanded', 'false');
+        clearTimeout(ctx.timers.bubbleClear);
+        ctx.timers.bubbleClear = setTimeout(() => {
+          if (ctx && ctx.bubble && !isBubbleVisible()) ctx.bubble.textContent = '';
+        }, 260);
+        if (ctx.state === 'talk') setState('idle');
+      }
+
+      /* --- API pública --- */
+      function setState(name, opts = {}) {
+        if (!ctx || !STATES.includes(name)) return;
+        clearTimeout(ctx.timers.state);
+        ctx.state = name;
+        ctx.svg.setAttribute('data-state', name);
+        const duration = opts.duration != null ? opts.duration : DEFAULT_DURATION[name];
+        // Vuelta automática a idle tras cada reacción
+        if (name !== 'idle' && duration > 0) {
+          ctx.timers.state = setTimeout(() => setState('idle'), duration);
+        }
+        wake();
+      }
+
+      function say(text, opts = {}) {
+        if (!ctx || !ctx.bubble) return;
+        const duration = opts.duration != null ? opts.duration : 4000;
+        clearTimeout(ctx.timers.bubble);
+        clearTimeout(ctx.timers.bubbleClear);
+        ctx.bubble.textContent = String(text);
+        ctx.bubble.classList.add('is-visible');
+        if (ctx.btn) ctx.btn.setAttribute('aria-expanded', 'true');
+        setState(opts.state || 'talk', { duration });
+        ctx.timers.bubble = setTimeout(hideBubble, duration);
+      }
+
+      function lookAt(x, y) {
+        if (!ctx || !Number.isFinite(x) || !Number.isFinite(y)) return;
+        ctx.pointer.x = x;
+        ctx.pointer.y = y;
+        wake();
+      }
+
+      function init(root) {
+        if (ctx) destroy();
+        if (!root) return false;
+        ctx = build(root);
+        if (!ctx) {
+          console.warn('[FinDash] FinMascot: faltan elementos del SVG; la mascota no se inicia.');
+          return false;
+        }
+        ctx.loop = Utils.createLoop(tick);
+        const signal = ctx.abort.signal;
+        const passive = { passive: true, signal };
+
+        window.addEventListener('pointermove', (e) => {
+          if (e.pointerType === 'touch') return;
+          ctx.pointer.x = e.clientX;
+          ctx.pointer.y = e.clientY;
+          wake();
+        }, passive);
+
+        // Táctil: mira al punto tocado y se sorprende
+        window.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse') return;
+          ctx.pointer.x = e.clientX;
+          ctx.pointer.y = e.clientY;
+          if (!ctx.root.contains(e.target) && ctx.state !== 'thinking' && !isBubbleVisible()) {
+            setState('amazed', { duration: 1200 });
+          }
+          wake();
+        }, passive);
+
+        window.addEventListener('scroll', () => {
+          ctx.dirty = true;
+          if (Utils.isTouch() && ctx.state !== 'thinking') {
+            const dy = window.scrollY - ctx.lastScrollY;
+            if (Math.abs(dy) > 2) {
+              ctx.pointer.x = ctx.headCenter.x;
+              ctx.pointer.y = ctx.headCenter.y + Math.sign(dy) * 400;
+            }
+          }
+          ctx.lastScrollY = window.scrollY;
+          wake();
+        }, passive);
+
+        window.addEventListener('resize', () => { ctx.dirty = true; wake(); }, passive);
+
+        if ('ResizeObserver' in window) {
+          ctx.ro = new ResizeObserver(() => { if (ctx) { ctx.dirty = true; wake(); } });
+          ctx.ro.observe(ctx.root);
+        }
+
+        if ('IntersectionObserver' in window) {
+          ctx.io = new IntersectionObserver(([entry]) => {
+            if (!ctx) return;
+            ctx.visible = entry.isIntersecting;
+            if (ctx.visible) resume(); else pause();
+          });
+          ctx.io.observe(ctx.root);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) pause();
+          else if (ctx.visible) resume();
+        }, { signal });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isBubbleVisible()) hideBubble();
+        }, { signal });
+
+        if (ctx.btn) {
+          ctx.btn.addEventListener('click', () => {
+            say(TIPS[ctx.tip % TIPS.length], { duration: 4000 });
+            ctx.tip += 1;
+          }, { signal });
+        }
+
+        /* --- Comunicación con las utilidades (solo CustomEvent) --- */
+        document.addEventListener(EV.CTA_HOVER, () => {
+          if (ctx.state !== 'thinking' && !isBubbleVisible()) setState('amazed');
+        }, { signal });
+
+        document.addEventListener(EV.RUNWAY, (e) => {
+          const detail = e.detail || {};
+          if (detail.tier) ctx.svg.setAttribute('data-tier', detail.tier);
+          if (detail.initial || ctx.state === 'thinking' || !TIER_STATE[detail.tier]) return;
+          if (isBubbleVisible()) hideBubble();
+          setState(TIER_STATE[detail.tier]);
+        }, { signal });
+
+        document.addEventListener(EV.AI_START, () => {
+          hideBubble();
+          setState('thinking', { duration: 0 });
+        }, { signal });
+
+        document.addEventListener(EV.AI_DONE, () => {
+          say('¡Hecho! 3 movimientos, cada uno en su sitio.', { duration: 3200, state: 'celebrating' });
+        }, { signal });
+
+        scheduleBlink();
+        scheduleWander();
+        wake();
+        return true;
+      }
+
+      function destroy() {
+        if (!ctx) return;
+        ctx.abort.abort();
+        if (ctx.io) ctx.io.disconnect();
+        if (ctx.ro) ctx.ro.disconnect();
+        ctx.loop.stop();
+        Object.values(ctx.timers).forEach(clearTimeout);
+        ctx.eyes.forEach((e) => { e.pupil.style.transform = ''; });
+        ctx.head.style.transform = '';
+        ctx.svg.setAttribute('data-state', 'idle');
+        ctx.svg.classList.remove('is-blinking');
+        ctx.root.classList.remove('is-paused');
+        if (ctx.bubble) {
+          ctx.bubble.classList.remove('is-visible');
+          ctx.bubble.textContent = '';
+        }
+        if (ctx.btn) ctx.btn.setAttribute('aria-expanded', 'false');
+        ctx = null;
+      }
+
+      return Object.freeze({ init, setState, say, lookAt, destroy });
+    })();
+
+    /* ===== HERO SIM (Cálculo de supervivencia) ===== */
+    const HeroSim = {
+      init() {
+        const root = document.querySelector('[data-hero-sim]');
+        if (!root) return;
+        const range = root.querySelector('[data-sim-range]');
+        const monthsEl = root.querySelector('[data-sim-months]');
+        const expenseEl = root.querySelector('[data-sim-expense]');
+        const meter = root.querySelector('[data-sim-meter]');
+        const tierEl = root.querySelector('[data-sim-tier]');
+        const live = root.querySelector('[data-sim-live]');
+        if (!range || !monthsEl || !expenseEl || !meter || !tierEl) {
+          console.warn('[FinDash] HeroSim: faltan elementos; el simulador del Hero no se inicia.');
+          return;
+        }
+        const savings = Number(root.getAttribute('data-savings')) || 15000;
+        const min = Number(range.min);
+        const max = Number(range.max);
+
+        const emitRunway = Utils.debounce((months, tier) => {
+          Utils.emit(CONFIG.EVENTS.RUNWAY, { months, tier, source: 'hero' });
+        }, CONFIG.RUNWAY.EMIT_DEBOUNCE);
+        const announce = Utils.debounce((text) => { if (live) live.textContent = text; }, CONFIG.RUNWAY.LIVE_DEBOUNCE);
+
+        const update = (initial) => {
+          const g = Number(range.value);
+          const months = g > 0 ? savings / g : 0;
+          const tier = Utils.getTier(months);
+          const fm = Utils.formatMonths(months);
+          monthsEl.textContent = fm;
+          expenseEl.textContent = Utils.formatEuro(g);
+          range.setAttribute('aria-valuetext', Utils.formatInt(g) + ' euros al mes');
+          range.style.setProperty('--pct', (((g - min) / (max - min)) * 100).toFixed(2) + '%');
+          root.setAttribute('data-tier', tier.id);
+          tierEl.textContent = tier.label;
+          meter.style.transform = 'scaleX(' + Utils.clamp(months / CONFIG.RUNWAY.GAUGE_MAX_MONTHS, 0.02, 1).toFixed(4) + ')';
+          const rounded = Math.round(months * 10) / 10;
+          if (initial) {
+            Utils.emit(CONFIG.EVENTS.RUNWAY, { months: rounded, tier: tier.id, initial: true, source: 'hero' });
+          } else {
+            announce('Autonomía real: ' + fm + ' ' + Utils.monthsUnit(months) + '. ' + tier.label + '.');
+            emitRunway(rounded, tier.id);
+          }
+        };
+
+        range.addEventListener('input', () => update(false));
+        update(true);
+      }
+    };
+
+    /* ===== DEMO SYNC (pasos que se iluminan + vídeo en el móvil) ===== */
+    const DemoSync = {
+      init() {
+        this.initSteps();
+        this.initVideo();
+      },
+
+      initSteps() {
+        const list = document.querySelector('[data-demo-steps]');
+        if (!list) return;
+        const steps = Array.from(list.querySelectorAll('[data-step]'));
+        if (steps.length < 2) return;
+        let active = 0;
+        let timer = 0;
+        let inView = false;
+        let hovering = false;
+
+        const setActive = (i) => {
+          active = i;
+          steps.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
+        };
+        const stop = () => { clearInterval(timer); timer = 0; list.classList.remove('is-cycling'); };
+        const start = () => {
+          if (timer || Utils.reducedMotion() || !inView || hovering) return;
+          list.classList.add('is-cycling');
+          timer = setInterval(() => setActive((active + 1) % steps.length), CONFIG.DEMO.STEP_MS);
+        };
+
+        steps.forEach((step, i) => {
+          step.addEventListener('pointerenter', () => { hovering = true; stop(); setActive(i); }, { passive: true });
+          step.addEventListener('pointerleave', () => { hovering = false; start(); }, { passive: true });
+        });
+
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(([entry]) => {
+            inView = entry.isIntersecting;
+            if (inView) start(); else stop();
+          }, { threshold: 0.3 }).observe(list);
+        }
+      },
+
+      initVideo() {
+        const video = document.querySelector('[data-demo-video]');
+        if (!video) return;
+        const phone = video.closest('[data-phone]');
+        const status = phone && phone.querySelector('[data-video-status]');
+        const rm = Utils.reducedMotion();
+        let loaded = false;
+
+        const fail = () => {
+          if (!phone) return;
+          phone.classList.remove('is-playing', 'is-ready');
+          phone.classList.add('is-failed');
+          if (status) status.textContent = 'No se ha podido cargar la demo. Inténtalo más tarde.';
+        };
+        const load = () => {
+          if (loaded) return;
+          loaded = true;
+          const src = video.getAttribute('data-src');
+          if (!src) { fail(); return; }
+          // Con movimiento reducido no hay reproducción automática: el usuario decide
+          if (rm) { video.controls = true; video.preload = 'metadata'; }
+          video.src = src;
+        };
+
+        video.addEventListener('error', fail);
+        video.addEventListener('playing', () => phone && phone.classList.add('is-playing'));
+        video.addEventListener('loadeddata', () => { if (rm && phone) phone.classList.add('is-ready'); });
+
+        if (!('IntersectionObserver' in window)) { load(); return; }
+        new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) {
+            load();
+            if (!rm) {
+              const p = video.play();
+              // Si el navegador bloquea la reproducción automática, se queda el aviso visible
+              if (p && typeof p.catch === 'function') p.catch(() => {});
+            }
+          } else if (!video.paused) {
+            video.pause();
+          }
+        }, { rootMargin: '200px 0px', threshold: 0.01 }).observe(video);
+      }
+    };
+
+    /* ===== RUNWAY CALC ===== */
+    const RunwayCalc = (() => {
+      const R = CONFIG.RUNWAY;
+      let root = null;
+      let el = {};
+      let fields = [];
+      const values = { savings: 9750, expense: 1500 };
+      let displayed = 0;
+      let tweenFrom = 0;
+      let tweenTo = 0;
+      let tweenStart = 0;
+      let tween = null;
+      let emitRunway = null;
+      let announce = null;
+
+      function yearsText(m) {
+        let y = Math.floor(m / 12);
+        let r = Math.round(m - y * 12);
+        if (r === 12) { y += 1; r = 0; }
+        const ys = y === 1 ? '1 año' : Utils.formatInt(y) + ' años';
+        if (!r) return '≈ ' + ys;
+        return '≈ ' + ys + ' y ' + r + (r === 1 ? ' mes' : ' meses');
+      }
+
+      function setError(field, msg) {
+        field.error.textContent = msg;
+        field.input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+        field.wrap.classList.toggle('is-invalid', !!msg);
+      }
+
+      // Sincroniza slider, campo y textos accesibles
+      function paintField(field, value, { syncInput = false } = {}) {
+        field.range.value = String(value);
+        const pct = ((Utils.clamp(value, field.min, field.max) - field.min) / (field.max - field.min)) * 100;
+        field.range.style.setProperty('--pct', pct.toFixed(2) + '%');
+        field.range.setAttribute('aria-valuetext', Utils.formatInt(value) + ' euros' + (field.key === 'expense' ? ' al mes' : ''));
+        if (syncInput) field.input.value = Utils.formatInt(value);
+      }
+
+      function update({ initial = false } = {}) {
+        const s = values.savings;
+        const g = values.expense;
+        const raw = g > 0 ? s / g : 0;
+        const months = Number.isFinite(raw) && raw > 0 ? raw : 0;
+        const rounded = Math.round(months * 10) / 10;
+        const tier = Utils.getTier(months);
+        const unit = Utils.monthsUnit(months);
+        const fm = Utils.formatMonths(months);
+
+        // Cifra animada (inmediata con movimiento reducido)
+        if (initial || Utils.reducedMotion()) {
+          tween.stop();
+          displayed = months;
+          el.value.textContent = fm;
+        } else {
+          tweenFrom = displayed;
+          tweenTo = months;
+          tweenStart = performance.now();
+          tween.start();
+        }
+
+        el.unit.textContent = unit;
+        if (months >= 12) {
+          el.years.textContent = yearsText(months);
+          el.years.hidden = false;
+        } else {
+          el.years.hidden = true;
+          el.years.textContent = '';
+        }
+
+        root.setAttribute('data-tier', tier.id);
+        el.tierLabel.textContent = tier.label;
+        el.tierMsg.textContent = tier.msg;
+        el.gauge.style.transform = 'scaleX(' + Utils.clamp(months / R.GAUGE_MAX_MONTHS, 0, 1).toFixed(4) + ')';
+        el.phrase.textContent = fm + ' ' + unit;
+
+        if (initial) {
+          Utils.emit(CONFIG.EVENTS.RUNWAY, { months: rounded, tier: tier.id, initial: true, source: 'calc' });
+        } else {
+          announce(fm + ' ' + unit + ' de autonomía. ' + tier.label + '.');
+          emitRunway(rounded, tier.id);
+        }
+      }
+
+      function onRange(field) {
+        const v = Number(field.range.value);
+        values[field.key] = v;
+        setError(field, '');
+        paintField(field, v, { syncInput: true });
+        update();
+      }
+
+      function validate(field, v) {
+        if (!Number.isFinite(v)) return 'Introduce una cantidad en euros, solo con números.';
+        if (v < field.min) return 'El mínimo es ' + Utils.formatEuro(field.min) + '.';
+        if (v > field.max) return 'El máximo es ' + Utils.formatEuro(field.max) + '.';
+        return '';
+      }
+
+      function onInput(field) {
+        const v = Utils.parseAmount(field.input.value);
+        const msg = field.input.value.trim() === '' ? 'Escribe una cantidad para calcular.' : validate(field, v);
+        if (msg) { setError(field, msg); return; }
+        setError(field, '');
+        values[field.key] = v;
+        paintField(field, v);
+        update();
+      }
+
+      // Al salir del campo: normaliza, acota y recupera el último valor válido
+      function onCommit(field) {
+        let v = Utils.parseAmount(field.input.value);
+        if (!Number.isFinite(v)) v = values[field.key];
+        v = Utils.clamp(v, field.min, field.max);
+        const changed = v !== values[field.key];
+        values[field.key] = v;
+        setError(field, '');
+        paintField(field, v, { syncInput: true });
+        if (changed) update();
+      }
+
+      function init() {
+        root = document.querySelector('[data-runway]');
+        if (!root) return;
+        el = {
+          value: root.querySelector('[data-runway-value]'),
+          unit: root.querySelector('[data-runway-unit]'),
+          years: root.querySelector('[data-runway-years]'),
+          tierLabel: root.querySelector('[data-runway-tier-label]'),
+          tierMsg: root.querySelector('[data-runway-tier-msg]'),
+          gauge: root.querySelector('[data-runway-gauge]'),
+          phrase: root.querySelector('[data-runway-phrase]'),
+          live: root.querySelector('[data-runway-live]')
+        };
+        if (Object.values(el).some((node) => !node)) {
+          console.warn('[FinDash] RunwayCalc: faltan elementos; la calculadora no se inicia.');
+          return;
+        }
+
+        fields = ['savings', 'expense'].map((key) => {
+          const range = root.querySelector('[data-runway-range="' + key + '"]');
+          const input = root.querySelector('[data-runway-input="' + key + '"]');
+          const error = root.querySelector('[data-runway-error="' + key + '"]');
+          if (!range || !input || !error) return null;
+          return {
+            key, range, input, error,
+            wrap: range.closest('.field-range') || root,
+            min: Number(range.min),
+            max: Number(range.max)
+          };
+        }).filter(Boolean);
+        if (fields.length !== 2) return;
+
+        tween = Utils.createLoop((now) => {
+          const t = Utils.clamp((now - tweenStart) / R.TWEEN_MS, 0, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          displayed = tweenFrom + (tweenTo - tweenFrom) * eased;
+          el.value.textContent = Utils.formatMonths(displayed);
+          return t < 1;
+        });
+        emitRunway = Utils.debounce((months, tier) => {
+          Utils.emit(CONFIG.EVENTS.RUNWAY, { months, tier, source: 'calc' });
+        }, R.EMIT_DEBOUNCE);
+        announce = Utils.debounce((text) => { el.live.textContent = text; }, R.LIVE_DEBOUNCE);
+
+        fields.forEach((field) => {
+          // El valor inicial sale del campo numérico: 9.750 no es múltiplo del paso (500) y el slider lo redondearía
+          const initialValue = Utils.parseAmount(field.input.value);
+          values[field.key] = Number.isFinite(initialValue)
+            ? Utils.clamp(initialValue, field.min, field.max)
+            : Number(field.range.value);
+          paintField(field, values[field.key], { syncInput: true });
+          field.range.addEventListener('input', () => onRange(field));
+          field.input.addEventListener('input', () => onInput(field));
+          field.input.addEventListener('change', () => onCommit(field));
+          field.input.addEventListener('blur', () => onCommit(field));
+          field.input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); onCommit(field); }
+          });
+        });
+
+        update({ initial: true });
+      }
+
+      return { init };
+    })();
+
+    /* ===== AI DEMO ===== */
+    const AiDemo = (() => {
+      let root, btn, label, status, rows = [];
+      let timers = [];
+      let running = false;
+
+      const later = (fn, ms) => { timers.push(setTimeout(fn, ms)); };
+
+      function setRowDone(row, isDone) {
+        row.classList.toggle('is-done', isDone);
+        const raw = row.querySelector('.ai-raw');
+        const clean = row.querySelector('.ai-clean');
+        if (raw) raw.setAttribute('aria-hidden', isDone ? 'true' : 'false');
+        if (clean) clean.setAttribute('aria-hidden', isDone ? 'false' : 'true');
+      }
+
+      function reset() {
+        timers.forEach(clearTimeout);
+        timers = [];
+        rows.forEach((row) => {
+          row.classList.remove('is-scanning');
+          setRowDone(row, false);
+        });
+      }
+
+      function finish() {
+        running = false;
+        root.setAttribute('data-state', 'done');
+        btn.removeAttribute('aria-disabled');
+        btn.removeAttribute('aria-busy');
+        label.textContent = 'Repetir';
+        status.textContent = rows.length + ' movimientos categorizados';
+        Utils.emit(CONFIG.EVENTS.AI_DONE, { count: rows.length });
+      }
+
+      function run() {
+        if (running) return;
+        reset();
+        running = true;
+        root.setAttribute('data-state', 'running');
+        // aria-disabled en lugar de disabled para no perder el foco del teclado
+        btn.setAttribute('aria-disabled', 'true');
+        btn.setAttribute('aria-busy', 'true');
+        label.textContent = 'Categorizando…';
+        status.textContent = 'Analizando ' + rows.length + ' movimientos…';
+        Utils.emit(CONFIG.EVENTS.AI_START, { count: rows.length });
+
+        const rm = Utils.reducedMotion();
+        const total = CONFIG.AI.DURATION;
+        const step = (total - 700) / rows.length;
+        rows.forEach((row, i) => {
+          const t0 = 250 + i * step;
+          later(() => row.classList.add('is-scanning'), t0);
+          later(() => {
+            row.classList.remove('is-scanning');
+            setRowDone(row, true);
+          }, t0 + (rm ? 150 : 600));
+        });
+        later(finish, total);
+      }
+
+      function init() {
+        root = document.querySelector('[data-ai-demo]');
+        if (!root) return;
+        btn = root.querySelector('[data-ai-run]');
+        label = root.querySelector('[data-ai-label]');
+        status = root.querySelector('[data-ai-status]');
+        rows = Array.from(root.querySelectorAll('[data-ai-row]'));
+        if (!btn || !label || !status || !rows.length) {
+          console.warn('[FinDash] AiDemo: faltan elementos; el simulador no se inicia.');
+          return;
+        }
+        btn.addEventListener('click', () => {
+          if (btn.getAttribute('aria-disabled') === 'true') return;
+          run();
+        });
+      }
+
+      return { init };
+    })();
+
+    /* ===== FAQ (acordeón animado, exclusivo y con filtros) ===== */
+    const Faq = (() => {
+      const LABELS = { all: '', privacy: 'de privacidad', product: 'de producto', account: 'de cuenta' };
+      const anims = new WeakMap();
+      let items = [];
+      let filters = [];
+      let countEl = null;
+
+      const isOpen = (d) => d.hasAttribute('open') && !d.classList.contains('is-closing');
+
+      function animateBody(d, opening) {
+        const body = d.querySelector('.faq-answer');
+        const prev = anims.get(d);
+        if (prev) prev.cancel();
+        if (!body || Utils.reducedMotion() || typeof body.animate !== 'function') {
+          d.classList.remove('is-closing');
+          d.open = opening;
+          return;
+        }
+        if (opening) {
+          d.classList.remove('is-closing');
+          d.open = true;
+          const h = body.scrollHeight;
+          const anim = body.animate(
+            [{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }],
+            { duration: 280, easing: 'cubic-bezier(.2,.8,.2,1)' }
+          );
+          anims.set(d, anim);
+          anim.onfinish = () => anims.delete(d);
+        } else {
+          const h = body.offsetHeight;
+          d.classList.add('is-closing');
+          const anim = body.animate(
+            [{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }],
+            { duration: 220, easing: 'cubic-bezier(.2,.8,.2,1)' }
+          );
+          anims.set(d, anim);
+          anim.onfinish = () => {
+            d.open = false;
+            d.classList.remove('is-closing');
+            anims.delete(d);
+          };
+        }
+      }
+
+      function toggle(d) {
+        const opening = !isOpen(d);
+        // Solo una respuesta abierta a la vez para que la lectura sea ágil
+        if (opening) items.forEach((other) => { if (other !== d && isOpen(other)) animateBody(other, false); });
+        animateBody(d, opening);
+      }
+
+      function applyFilter(cat) {
+        let shown = 0;
+        filters.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.getAttribute('data-faq-filter') === cat)));
+        items.forEach((d) => {
+          const match = cat === 'all' || d.getAttribute('data-cat') === cat;
+          if (!match && d.open) {
+            const prev = anims.get(d);
+            if (prev) prev.cancel();
+            d.open = false;
+            d.classList.remove('is-closing');
+          }
+          d.hidden = !match;
+          d.classList.remove('is-entering');
+          if (match) {
+            shown += 1;
+            if (!Utils.reducedMotion()) {
+              d.style.animationDelay = (shown - 1) * 50 + 'ms';
+              requestAnimationFrame(() => d.classList.add('is-entering'));
+            }
+          }
+        });
+        if (countEl) {
+          const extra = LABELS[cat] ? ' ' + LABELS[cat] : '';
+          countEl.textContent = shown + (shown === 1 ? ' pregunta' : ' preguntas') + extra;
+        }
+      }
+
+      function init() {
+        const list = document.querySelector('[data-faq]');
+        if (!list) return;
+        items = Array.from(list.querySelectorAll('details'));
+        filters = Array.from(document.querySelectorAll('[data-faq-filter]'));
+        countEl = document.querySelector('[data-faq-count]');
+
+        items.forEach((d) => {
+          const summary = d.querySelector('summary');
+          if (!summary) return;
+          summary.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggle(d);
+          });
+          d.addEventListener('animationend', (e) => {
+            if (e.target === d) d.classList.remove('is-entering');
+          });
+        });
+
+        filters.forEach((btn) => {
+          btn.addEventListener('click', () => applyFilter(btn.getAttribute('data-faq-filter') || 'all'));
+        });
+
+        // Primera pregunta abierta por defecto: enseña la interacción sin pedir nada
+        if (items[0]) items[0].open = true;
+      }
+
+      return { init };
+    })();
+
+    /* ===== APP ===== */
+    const App = {
+      init() {
+        // La mascota se inicia antes que las calculadoras para recibir el evento inicial de runway
+        const steps = [
+          ['Reveal', () => Reveal.init()],
+          ['Nav', () => Nav.init()],
+          ['CardFx', () => CardFx.init()],
+          ['CountUp', () => CountUp.init()],
+          ['FinMascot', () => FinMascot.init(document.querySelector('[data-fin]'))],
+          ['CtaSignals', () => CtaSignals.init()],
+          ['HeroSim', () => HeroSim.init()],
+          ['DemoSync', () => DemoSync.init()],
+          ['RunwayCalc', () => RunwayCalc.init()],
+          ['AiDemo', () => AiDemo.init()],
+          ['Faq', () => Faq.init()],
+          ['Year', () => {
+            const year = String(new Date().getFullYear());
+            document.querySelectorAll('[data-year]').forEach((node) => { node.textContent = year; });
+          }]
+        ];
+        steps.forEach(([name, fn]) => {
+          try { fn(); } catch (err) { console.error('[FinDash] Error al iniciar ' + name, err); }
+        });
+      }
+    };
+
+    // API pública de la mascota, para ampliarla sin reescribir
+    window.FinMascot = FinMascot;
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => App.init());
+    else App.init();
+  })();
   </script>
 </body>
 </html>
