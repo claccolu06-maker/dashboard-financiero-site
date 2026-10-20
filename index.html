@@ -350,7 +350,7 @@
 
     .section {
       position: relative;
-      padding-block: clamp(4rem, 3rem + 4vw, 7rem);
+      padding-block: clamp(5rem, 3.5rem + 5vw, 9rem);
     }
     .section-head {
       max-width: 44rem;
@@ -1722,7 +1722,6 @@
         </button>
         <ul class="nav-menu" id="nav-menu" data-nav-menu>
           <li><a href="#como-funciona">Cómo funciona</a></li>
-          <li><a href="#funciones">Funciones</a></li>
           <li><a href="#pruebalo">Pruébalo</a></li>
           <li><a href="#faq">Preguntas</a></li>
           <li><a href="#contacto">Contacto</a></li>
@@ -1756,20 +1755,6 @@
           </div>
           <p class="hero-login">¿Ya tienes cuenta? <a href="https://claudioaccorinti.pythonanywhere.com/login">Iniciar sesión</a></p>
 
-          <ul class="trust" aria-label="Compromisos de privacidad">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-              Sin claves bancarias
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>
-              Sin scraping
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
-              Cifrado SSL
-            </li>
-          </ul>
         </div>
 
         <div class="hero-visual">
@@ -1966,113 +1951,6 @@
             </div>
             <span class="phone-glow" aria-hidden="true"></span>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== BENTO GRID: FUNCIONES ===== -->
-    <section class="section" id="funciones" aria-labelledby="funciones-title">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="eyebrow">Lo que hace por ti</p>
-          <h2 class="section-title" id="funciones-title">Todo tu dinero, en un solo centro de mando.</h2>
-          <p class="section-lead">Cuatro piezas pensadas para quitarte trabajo y darte certezas: menos horas con hojas de cálculo, más claridad sobre lo que tienes.</p>
-        </div>
-
-        <div class="bento">
-          <!-- 1. Ingesta universal -->
-          <article class="card glass bento-ingest reveal" data-glow data-tilt>
-            <p class="card-kicker">Ingesta universal</p>
-            <h3 class="card-title">Tu extracto, ordenado en 3 segundos</h3>
-            <p class="card-desc">Sube un CSV, un Excel o un PDF, o pega los movimientos directamente desde tu banco. La IA reconoce cada comercio y lo categoriza al instante. Se acabó picar datos a mano el domingo por la tarde.</p>
-            <div class="viz viz-ingest" aria-hidden="true">
-              <div class="ingest-sources">
-                <span class="file-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>CSV</span>
-                <span class="file-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>Excel</span>
-                <span class="file-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M9 13h6M9 17h4"/></svg>PDF</span>
-                <span class="file-chip file-chip-paste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 11h6M9 15h4"/></svg>Pegar del banco</span>
-              </div>
-              <div class="ingest-flow"><span class="flow-line"></span><span class="flow-badge">IA · 3 s</span></div>
-              <ul class="ingest-out">
-                <li>Mercadona <span class="chip chip-food">Alimentación</span></li>
-                <li>Netflix <span class="chip chip-subs">Ocio</span></li>
-                <li>Nómina <span class="chip chip-income">Ingresos</span></li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- 2. Colchón financiero -->
-          <article class="card glass bento-runway reveal" data-delay="1" data-glow data-tilt>
-            <p class="card-kicker">Colchón financiero</p>
-            <h3 class="card-title">Cuánto dura tu dinero, en meses</h3>
-            <p class="card-desc">Cruza tu ahorro neto con tu gasto medio y lo traduce en tiempo: los meses que podrías cubrir si hoy dejaras de ingresar. Una cifra clara en lugar de una intuición.</p>
-            <div class="viz viz-gauge" aria-hidden="true">
-              <svg viewBox="0 0 200 118">
-                <path class="g-track" d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke-width="14" stroke-linecap="round"/>
-                <path class="g-value" d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke-width="14" stroke-linecap="round" pathLength="100" stroke-dasharray="36 100"/>
-                <g class="g-needle"><line x1="100" y1="100" x2="40" y2="100" stroke="#E5E7EB" stroke-width="2.5" stroke-linecap="round" opacity=".7"/></g>
-                <circle cx="100" cy="100" r="5" fill="#E5E7EB"/>
-                <text x="12" y="50" text-anchor="middle">3</text>
-                <text x="50" y="14" text-anchor="middle">6</text>
-                <text x="150" y="14" text-anchor="middle">12</text>
-                <text class="g-num" x="100" y="78" text-anchor="middle" data-countup data-to="6.5">6,5</text>
-                <text class="g-unit" x="100" y="117" text-anchor="middle">meses</text>
-              </svg>
-              <p>Ejemplo: 9.750 € de ahorro ÷ 1.500 € de gasto al mes</p>
-            </div>
-          </article>
-
-          <!-- 3. Privacidad -->
-          <article class="card glass bento-privacy reveal" data-glow data-tilt>
-            <p class="card-kicker">Soberanía y privacidad</p>
-            <h3 class="card-title">Tus claves del banco se quedan contigo</h3>
-            <p class="card-desc">No te pedimos credenciales bancarias ni hacemos scraping invasivo. Tú decides qué datos subes, y se procesan en un entorno aislado con conexión cifrada SSL.</p>
-            <div class="viz viz-privacy" aria-hidden="true">
-              <svg class="shield" viewBox="0 0 76 88" fill="none">
-                <path class="shield-ring" d="M38 4l30 11v22c0 21-13 38-30 47C21 75 8 58 8 37V15z" stroke="#34D399" stroke-width="2"/>
-                <path d="M38 4l30 11v22c0 21-13 38-30 47C21 75 8 58 8 37V15z" fill="rgba(16,185,129,.1)" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round"/>
-                <path class="shackle" d="M30 40v-5a8 8 0 0 1 16 0v5" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
-                <rect x="26" y="40" width="24" height="20" rx="4" fill="#10B981"/>
-                <circle cx="38" cy="50" r="3" fill="#04130D"/>
-              </svg>
-              <ul class="privacy-list">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Sin claves bancarias</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Sin scraping invasivo</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>Entorno aislado · SSL</li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- 4. Centro de mando gamificado -->
-          <article class="card glass bento-command reveal" data-delay="1" data-glow data-tilt>
-            <p class="card-kicker">Centro de mando</p>
-            <h3 class="card-title">Un panel que te avisa antes de que te pases</h3>
-            <p class="card-desc">Alertas semafóricas en cada presupuesto (aviso al 80 %, peligro al 100 %), metas de ahorro con progreso visible y piloto automático para tus gastos recurrentes.</p>
-            <div class="viz viz-command" aria-hidden="true">
-              <div class="traffic"><i></i><i></i><i></i></div>
-              <div class="mini-goals">
-                <div class="budget" data-level="ok">
-                  <div class="budget-head"><span>Meta: viaje</span><span class="num">45 %</span></div>
-                  <div class="bar"><span style="--v:.45"></span></div>
-                </div>
-                <div class="budget" data-level="warn">
-                  <div class="budget-head"><span>Ocio</span><span class="num">84 %</span></div>
-                  <div class="bar"><span style="--v:.84"></span></div>
-                </div>
-                <div class="budget" data-level="danger">
-                  <div class="budget-head"><span>Restaurantes</span><span class="num">100 %</span></div>
-                  <div class="bar"><span style="--v:1"></span></div>
-                </div>
-              </div>
-              <div class="autopilot">
-                <p class="autopilot-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>Piloto automático</p>
-                <ul>
-                  <li>Alquiler <span class="switch"></span></li>
-                  <li>Gimnasio <span class="switch"></span></li>
-                </ul>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </section>
